@@ -88,8 +88,8 @@ export async function getSaleProducts(): Promise<Product[]> {
 }
 
 export async function getProductBySlug(slug: string): Promise<Product> {
-  return client.fetch(
-    groq`*[_type == "product" && slug.current == "${slug}"][0] {
+  return sanityFetch({
+    query: `*[_type == "product" && slug.current == "${slug}"][0] {
       _id,
       _createdAt,
       name,
@@ -106,8 +106,29 @@ export async function getProductBySlug(slug: string): Promise<Product> {
       productCategory->{"slug": slug.current, title, _id},
       productSubcategory->{"slug": slug.current, title, _id},
       productCollection->{"slug": slug.current, title, _id},
-    }`
-  );
+    }`,
+    tags: ["product"],
+  });
+  // return client.fetch(
+  //   groq`*[_type == "product" && slug.current == "${slug}"][0] {
+  //     _id,
+  //     _createdAt,
+  //     name,
+  //     "slug": slug.current,
+  //     title,
+  //     description,
+  //     "images": images[],
+  //     regularPrice,
+  //     sale,
+  //     salePrice,
+  //     new,
+  //     amount,
+  //     productType->{"slug": slug.current, title, _id},
+  //     productCategory->{"slug": slug.current, title, _id},
+  //     productSubcategory->{"slug": slug.current, title, _id},
+  //     productCollection->{"slug": slug.current, title, _id},
+  //   }`
+  // );
 }
 
 export async function getProductsByReference(
@@ -135,29 +156,6 @@ export async function getProductsByReference(
       }`,
     tags: ["product"],
   });
-  // return client.fetch(
-  //   groq`*[_type == "product" && references("${referenceId}")]{
-  //     _id,
-  //     _createdAt,
-  //     name,
-  //     "slug": slug.current,
-  //     title,
-  //     description,
-  //     "images": images[],
-  //     regularPrice,
-  //     sale,
-  //     salePrice,
-  //     new,
-  //     amount,
-  //     productType->{"slug": slug.current, title, _id},
-  //     productCategory->{"slug": slug.current, title, _id},
-  //     productSubcategory->{"slug": slug.current, title, _id},
-  //     productCollection->{"slug": slug.current, title, _id},
-  //   }`,
-  //   {
-  //     next: { revalidate: 0 },
-  //   }
-  // );
 }
 
 export async function getProducts(): Promise<Product[]> {
