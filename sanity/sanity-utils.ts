@@ -1,3 +1,6 @@
+import "server-only";
+
+import type { QueryParams } from "@sanity/client";
 import { createClient, groq } from "next-sanity";
 import { ProductCategory } from "./types/ProductCategory";
 import { ProductType } from "./types/ProductType";
@@ -8,6 +11,27 @@ import { Product } from "./types/Product";
 import { CompanyInfo } from "./types/CompanyInfo";
 
 export const client = createClient(clientConfig);
+
+const DEFAULT_PARAMS = {} as QueryParams;
+const DEFAULT_TAGS = [] as string[];
+
+export async function sanityFetch<QueryResponse>({
+  query,
+  params = DEFAULT_PARAMS,
+  tags = DEFAULT_TAGS,
+}: {
+  query: string;
+  params?: QueryParams;
+  tags: string[];
+}): Promise<QueryResponse> {
+  return client.fetch<QueryResponse>(query, params, {
+    cache: "force-cache",
+    next: {
+      //revalidate: 30, // for simple, time-based revalidation
+      tags, // for tag-based revalidation
+    },
+  });
+}
 
 export async function getNewProductsCount(): Promise<number> {
   return client.fetch(groq`count(*[_type == "product" && new == true])`);
@@ -87,28 +111,53 @@ export async function getProductBySlug(slug: string): Promise<Product> {
 }
 
 export async function getProductsByReference(
-  subcategoryId: string
+  referenceId: string
 ): Promise<Product[]> {
-  return client.fetch(
-    groq`*[_type == "product" && references("${subcategoryId}")]{
-      _id,
-      _createdAt,
-      name,
-      "slug": slug.current,
-      title,
-      description,
-      "images": images[],
-      regularPrice,
-      sale,
-      salePrice,
-      new,
-      amount,
-      productType->{"slug": slug.current, title, _id},
-      productCategory->{"slug": slug.current, title, _id},
-      productSubcategory->{"slug": slug.current, title, _id},
-      productCollection->{"slug": slug.current, title, _id},
-    }`
-  );
+  // revalidate if there are changes to either the product document
+  return await sanityFetch({
+    query: `*[_type == "product" && references("${referenceId}")]{
+        _id,
+        _createdAt,
+        name,
+        "slug": slug.current,
+        title,
+        description,
+        "images": images[],
+        regularPrice,
+        sale,
+        salePrice,
+        new,
+        amount,
+        productType->{"slug": slug.current, title, _id},
+        productCategory->{"slug": slug.current, title, _id},
+        productSubcategory->{"slug": slug.current, title, _id},
+        productCollection->{"slug": slug.current, title, _id},
+      }`,
+    tags: ["product"],
+  });
+  // return client.fetch(
+  //   groq`*[_type == "product" && references("${referenceId}")]{
+  //     _id,
+  //     _createdAt,
+  //     name,
+  //     "slug": slug.current,
+  //     title,
+  //     description,
+  //     "images": images[],
+  //     regularPrice,
+  //     sale,
+  //     salePrice,
+  //     new,
+  //     amount,
+  //     productType->{"slug": slug.current, title, _id},
+  //     productCategory->{"slug": slug.current, title, _id},
+  //     productSubcategory->{"slug": slug.current, title, _id},
+  //     productCollection->{"slug": slug.current, title, _id},
+  //   }`,
+  //   {
+  //     next: { revalidate: 0 },
+  //   }
+  // );
 }
 
 export async function getProducts(): Promise<Product[]> {
