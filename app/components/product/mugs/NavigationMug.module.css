@@ -1,0 +1,11 @@
+.image_wrapper {
+}
+
+.mug {
+}
+.title_wrapper {
+}
+.title {
+  text-transform: uppercase;
+  font-weight: var(--font-light);
+}

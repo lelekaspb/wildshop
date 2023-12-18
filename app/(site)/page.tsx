@@ -1,12 +1,8 @@
-import {
-  getCategoriesForOneType,
-  getCollections,
-  getProducts,
-  getSubcategories,
-  getTypes,
-} from "@/sanity/sanity-utils";
+import { getTypes, client } from "@/sanity/sanity-utils";
 import imageUrlBuilder from "@sanity/image-url";
 import Link from "next/link";
+import styles from "./page.module.css";
+import NavigationMug from "./../components/product/mugs/NavigationMug";
 
 export default async function Home() {
   const productTypes = await getTypes();
@@ -20,29 +16,42 @@ export default async function Home() {
   // const products = await getProducts();
   // console.log(products);
 
-  // const builder = imageUrlBuilder(client);
-  // const urlFor = (source: string) => {
-  //   return builder.image(source);
-  // };
+  const builder = imageUrlBuilder(client);
+  const urlFor = (source: string) => {
+    return builder.image(source);
+  };
 
   return (
-    <main>
-      <div>
-        <h2>Product Types</h2>
+    <main className={styles.type_page}>
+      <section className={styles.heading}>
+        <h1 className={styles.heading_text}>Produkter</h1>
+      </section>
+      <section className={styles.list}>
         {productTypes.map((type) => (
-          <div key={type._id}>
+          <article key={type._id} className={styles.product_type}>
             <Link href={`/products/${type.slug}`}>
-              {type.title} ({type.slug})
+              <NavigationMug
+                image={
+                  type.image
+                    ? urlFor(type.image).width(300).height(300).url()
+                    : null
+                }
+                title={type.title}
+              />
             </Link>
-          </div>
+          </article>
         ))}
-        <div>
-          <Link href={`/products/sale`}>Tilbud</Link>
-        </div>
-        <div>
-          <Link href={`/products/new`}>Ny kollektion</Link>
-        </div>
-      </div>
+        <article className={styles.product_type}>
+          <Link href={`/products/sale`}>
+            <NavigationMug image={null} title="Tilbud" />
+          </Link>
+        </article>
+        <article className={styles.product_type}>
+          <Link href={`/products/new`}>
+            <NavigationMug image={null} title="Ny kollektion" />
+          </Link>
+        </article>
+      </section>
 
       {/* <div>
         <h2>Product Subcategories</h2>
