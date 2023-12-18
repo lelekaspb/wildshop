@@ -6,5 +6,6 @@ export type ProductCollection = {
   name: string;
   slug: string;
   title: string;
+  image: string;
   productSubcategory: ProductSubcategory;
 };

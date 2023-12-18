@@ -6,7 +6,7 @@ export default async function NewCollection() {
 
   return (
     <main>
-      <h2>Sale</h2>
+      <h2>New</h2>
 
       {products.length > 0 && (
         <section>

@@ -20,11 +20,31 @@ const productCategory = {
       options: { source: "name" },
     },
     {
+      name: "image",
+      title: "Image",
+      type: "image",
+      options: { hotspot: true },
+      description: "Upload product category image here.",
+    },
+    {
       title: "Product Type",
       name: "productType",
       type: "reference",
       to: [{ type: "productType" }],
       options: { disableNew: true },
+    },
+    {
+      title: "Related Subcategories",
+      name: "productSubcategories",
+      description: "Leave empty if there is none",
+      type: "array",
+      of: [
+        {
+          type: "reference",
+          to: [{ type: "productSubcategory" }],
+          options: { disableNew: true },
+        },
+      ],
     },
   ],
 };

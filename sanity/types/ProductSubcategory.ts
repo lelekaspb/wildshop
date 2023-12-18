@@ -1,4 +1,5 @@
 import { ProductCategory } from "./ProductCategory";
+import { ProductCollection } from "./ProductCollection";
 
 export type ProductSubcategory = {
   _id: string;
@@ -7,4 +8,5 @@ export type ProductSubcategory = {
   slug: string;
   title: string;
   productCategory: ProductCategory;
+  productCollections: ProductCollection[] | null;
 };

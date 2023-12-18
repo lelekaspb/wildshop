@@ -1,3 +1,4 @@
+import { ProductSubcategory } from "./ProductSubcategory";
 import { ProductType } from "./ProductType";
 
 export type ProductCategory = {
@@ -6,5 +7,7 @@ export type ProductCategory = {
   name: string;
   slug: string;
   title: string;
+  image: string;
   productType: ProductType;
+  productSubcategories: ProductSubcategory[] | null;
 };

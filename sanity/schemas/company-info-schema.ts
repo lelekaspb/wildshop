@@ -30,7 +30,8 @@ const companyInfo = {
     {
       name: "address",
       title: "Address",
-      type: "string",
+      type: "array",
+      of: [{ type: "block" }],
       description: "Company's address",
     },
     {

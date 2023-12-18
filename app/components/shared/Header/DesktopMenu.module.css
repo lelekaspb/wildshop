@@ -1,0 +1,41 @@
+.desktop_nav {
+  height: 100%;
+}
+
+.menulist {
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+  height: 100%;
+}
+
+.menu_item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.menu_item_ancor {
+  padding-bottom: 5px;
+  background: linear-gradient(
+      var(--primary-font-color),
+      var(--primary-font-color)
+    )
+    center bottom;
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  transition: all 0.4s;
+}
+
+.menu_item_ancor:hover,
+.menu_item_ancor:active {
+  background-size: 100% 1px;
+}
+
+@media screen and (max-width: 768px) {
+  .desktop_nav {
+    display: none;
+  }
+}

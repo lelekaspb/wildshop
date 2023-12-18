@@ -20,6 +20,13 @@ const productCollection = {
       options: { source: "name" },
     },
     {
+      name: "image",
+      title: "Image",
+      type: "image",
+      options: { hotspot: true },
+      description: "Upload product collection image here.",
+    },
+    {
       title: "Product Subcategory",
       name: "productSubcategory",
       type: "reference",

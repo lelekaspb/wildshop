@@ -6,7 +6,7 @@ export type CompanyInfo = {
   instagram: string;
   phone: string;
   email: string;
-  address: string;
+  address: [PortableTextBlock];
   workingHours: [PortableTextBlock];
   deliveryInfo: [PortableTextBlock];
   returnInfo: [PortableTextBlock];

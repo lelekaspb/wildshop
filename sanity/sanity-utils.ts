@@ -109,26 +109,6 @@ export async function getProductBySlug(slug: string): Promise<Product> {
     }`,
     tags: ["product"],
   });
-  // return client.fetch(
-  //   groq`*[_type == "product" && slug.current == "${slug}"][0] {
-  //     _id,
-  //     _createdAt,
-  //     name,
-  //     "slug": slug.current,
-  //     title,
-  //     description,
-  //     "images": images[],
-  //     regularPrice,
-  //     sale,
-  //     salePrice,
-  //     new,
-  //     amount,
-  //     productType->{"slug": slug.current, title, _id},
-  //     productCategory->{"slug": slug.current, title, _id},
-  //     productSubcategory->{"slug": slug.current, title, _id},
-  //     productCollection->{"slug": slug.current, title, _id},
-  //   }`
-  // );
 }
 
 export async function getProductsByReference(
@@ -291,7 +271,37 @@ export async function getTypes(): Promise<ProductType[]> {
         _createdAt,
         name,
         "slug": slug.current,
-        title
+        title,
+        image
+      }`
+  );
+}
+
+export async function getNavigationItems(): Promise<ProductType[]> {
+  return client.fetch(
+    groq`*[_type == "productType"]{
+        _id,
+        name,
+        "slug": slug.current,
+        title,
+        productCategories[]->{
+          _id,
+          name,
+          "slug": slug.current,
+          title,
+          productSubcategories[]->{
+            _id,
+            name,
+            "slug": slug.current,
+            title,
+            productCollections[]->{
+              _id,
+              name,
+              "slug": slug.current,
+              title,
+            }
+          }
+        }
       }`
   );
 }

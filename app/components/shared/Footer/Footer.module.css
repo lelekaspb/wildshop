@@ -1,0 +1,30 @@
+.footer {
+  min-height: var(--footer-min-height);
+  background-color: var(--pinkish-bg-color);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  color: var(--primary-font-color);
+  padding: 20px 0 20px 50px;
+  font-size: var(--footer-font-size);
+}
+
+.details {
+  display: flex;
+  gap: 100px;
+}
+
+@media only screen and (max-width: 600px) {
+  .footer {
+    padding: 20px;
+  }
+  .details {
+    gap: 20px;
+  }
+}
+
+@media only screen and (max-width: 380px) {
+  .footer {
+    font-size: var(--footer-font-size-smallest);
+  }
+}

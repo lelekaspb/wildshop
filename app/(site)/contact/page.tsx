@@ -9,7 +9,9 @@ export default async function Contact() {
       <p>Phone: {companyInfo.phone}</p>
       <p>Email: {companyInfo.email}</p>
       <p>Instagram: {companyInfo.instagram}</p>
-      <p>Address: {companyInfo.address}</p>
+      <div>
+        Address: <PortableText value={companyInfo.address} />
+      </div>
       <div>
         Working hours: <PortableText value={companyInfo.workingHours} />
       </div>

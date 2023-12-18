@@ -4,7 +4,7 @@ import {
   getCategoriesForOneType,
   getTypeBySlug,
 } from "@/sanity/sanity-utils";
-import NotFound from "@/app/components/NotFound";
+import NotFound from "@/app/components/shared/NotFound/NotFound";
 import Link from "next/link";
 
 export async function generateStaticParams() {
