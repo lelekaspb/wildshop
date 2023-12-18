@@ -32,7 +32,7 @@
   min-height: 140px;
   /* border-top: 1px solid var(--pinkish-border-color); */
   width: 100%;
-  padding: 1rem 2rem;
+  padding: 1rem 10rem;
   background-color: var(--pinkish-bg-color);
   z-index: 5;
 }

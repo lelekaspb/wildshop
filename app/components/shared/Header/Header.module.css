@@ -1,5 +1,5 @@
 .header {
-  padding: 1rem 2rem;
+  padding: 1rem 10rem;
   z-index: 10;
   background-color: var(--pinkish-bg-color);
 
@@ -64,6 +64,7 @@
     grid-template-rows: 1fr;
     grid-template-columns: 0.2fr 1fr 0.2fr;
     padding-bottom: 0;
+    padding: 1rem 3rem;
   }
   .hamburger {
     display: flex;

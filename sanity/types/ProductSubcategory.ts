@@ -7,6 +7,7 @@ export type ProductSubcategory = {
   name: string;
   slug: string;
   title: string;
+  image: string;
   productCategory: ProductCategory;
   productCollections: ProductCollection[] | null;
 };

@@ -1,5 +1,7 @@
 import { getSaleProducts } from "@/sanity/sanity-utils";
 import Link from "next/link";
+import styles from "./Breadcrumbs.module.css";
+import Breadcrumbs from "./Breadcrumbs";
 
 export default async function Sale() {
   const products = await getSaleProducts();
@@ -10,6 +12,7 @@ export default async function Sale() {
 
       {products.length > 0 && (
         <section>
+          <Breadcrumbs />
           <p>Product on sale are listed here</p>
           <div>
             {products.map((product) => (

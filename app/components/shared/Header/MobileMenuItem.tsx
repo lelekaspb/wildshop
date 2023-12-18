@@ -63,6 +63,7 @@ export default function MobileMenuItem(props: {
         >
           {type.productCategories.map((category) => (
             <MobileCategoryMenuItem
+              key={category._id}
               category={category}
               typeSlug={type.slug}
               burgerOpen={burgerOpen}

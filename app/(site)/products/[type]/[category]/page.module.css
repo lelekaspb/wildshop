@@ -1,4 +1,8 @@
-.home_page {
+.category_page {
+}
+
+.breadcrumbs {
+  margin-bottom: 3rem;
 }
 
 .heading {
@@ -16,11 +20,11 @@
   gap: 4rem;
 }
 
-.product_type {
+.product_subcategory {
 }
 
 @media screen and (max-width: 768px) {
-  .home_page {
+  .type_page {
     padding: 3rem;
   }
 

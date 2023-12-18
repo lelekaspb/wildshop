@@ -7,22 +7,13 @@ import NavigationMug from "./../components/product/mugs/NavigationMug";
 export default async function Home() {
   const productTypes = await getTypes();
 
-  // const productCategories = await getCategoriesForOneType();
-
-  // const productSubcategories = await getSubcategories();
-
-  // const productCollections = await getCollections();
-
-  // const products = await getProducts();
-  // console.log(products);
-
   const builder = imageUrlBuilder(client);
   const urlFor = (source: string) => {
     return builder.image(source);
   };
 
   return (
-    <main className={styles.type_page}>
+    <div className={styles.home_page}>
       <section className={styles.heading}>
         <h1 className={styles.heading_text}>Produkter</h1>
       </section>
@@ -96,6 +87,6 @@ export default async function Home() {
           </div>
         ))}
       </div> */}
-    </main>
+    </div>
   );
 }

@@ -216,7 +216,8 @@ export async function getSubcategoriesForOneCategory(
         name,
         "slug": slug.current,
         title,
-        productCategory->
+        productCategory->,
+        image
       }`
   );
 }
@@ -252,7 +253,7 @@ export async function getCategoriesForOneType(
       name,
       "slug": slug.current,
       title,
-      productType->{"slug": slug.current, title, _id}
+      productType->{"slug": slug.current, title, _id}, image
     }`
   );
 }

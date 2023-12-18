@@ -23,6 +23,7 @@ export default function MobileNav(props: {
       <ul className={styles.menulist}>
         {types.map((type) => (
           <MobileMenuItem
+            key={type._id}
             type={type}
             burgerOpen={burgerOpen}
             setBurgerOpen={setBurgerOpen}

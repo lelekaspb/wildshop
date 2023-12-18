@@ -24,6 +24,7 @@
   --footer-font-size-smallest: calc(0.7rem + 0.3vw);
   --desktop-dropdown-upper-font-size: calc(0.8rem + 0.3vw);
   --desktop-dropdown--lower-size: calc(0.7rem + 0.3vw);
+  --breadcrumbs-font-size-desktop: calc(0.8rem + 0.3vw);
 
   --footer-min-height: 100px;
 }
@@ -39,6 +40,7 @@ body {
 
 main {
   min-height: 350px;
+  padding: 3rem 10rem 5rem 10rem;
 }
 
 *,
@@ -47,13 +49,13 @@ main {
   box-sizing: border-box;
 }
 
-@media screen and (min-width: 415px) {
-  body {
-    font-size: 15px;
+@media screen and (max-width: 768px) {
+  main {
+    padding: 3rem 3rem 5rem 3rem;
   }
 }
 
-@media screen and (min-width: 520px) {
+@media screen and (max-width: 520px) {
   body {
     font-size: var(--body-font-size);
   }

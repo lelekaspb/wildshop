@@ -1,15 +1,17 @@
 import { getNewProducts } from "@/sanity/sanity-utils";
 import Link from "next/link";
+import Breadcrumbs from "./Breadcrumbs";
 
 export default async function NewCollection() {
   const products = await getNewProducts();
 
   return (
-    <main>
+    <div>
       <h2>New</h2>
 
       {products.length > 0 && (
         <section>
+          <Breadcrumbs />
           <p>New products are listed here</p>
           <div>
             {products.map((product) => (
@@ -24,6 +26,6 @@ export default async function NewCollection() {
       )}
 
       {products.length == 0 && <p>There are currently no new products</p>}
-    </main>
+    </div>
   );
 }
