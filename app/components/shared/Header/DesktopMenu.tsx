@@ -26,8 +26,8 @@ export default async function DesktopMenu(props: { types: ProductType[] }) {
   return (
     <nav className={styles.desktop_nav}>
       <ul className={styles.menulist}>
-        {types.map((type) => (
-          <DesktopMenuItem key={`pt-d-${type._id}`} type={type} />
+        {types.map((type, index) => (
+          <DesktopMenuItem key={`pt-d-${index}-${type._id}`} type={type} />
         ))}
         <li key="pt-s-1" className={styles.menu_item}>
           <Link href="/products/new" className={styles.menu_item_ancor}>

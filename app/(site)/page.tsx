@@ -18,8 +18,8 @@ export default async function Home() {
         <h1 className={styles.heading_text}>Produkter</h1>
       </section>
       <section className={styles.list}>
-        {productTypes.map((type) => (
-          <article key={type._id} className={styles.product_type}>
+        {productTypes.map((type, index) => (
+          <article key={`${index}-${type._id}`} className={styles.product_type}>
             <Link href={`/products/${type.slug}`}>
               <NavigationMug
                 image={

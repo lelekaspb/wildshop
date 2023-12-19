@@ -21,9 +21,9 @@ export default function MobileNav(props: {
       }`}
     >
       <ul className={styles.menulist}>
-        {types.map((type) => (
+        {types.map((type, index) => (
           <MobileMenuItem
-            key={type._id}
+            key={`nav-${index}-${type._id}`}
             type={type}
             burgerOpen={burgerOpen}
             setBurgerOpen={setBurgerOpen}

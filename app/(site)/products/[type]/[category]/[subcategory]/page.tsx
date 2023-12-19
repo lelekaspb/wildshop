@@ -13,6 +13,7 @@ import styles from "./page.module.css";
 import NavigationMug from "@/app//components/product/mugs/NavigationMug";
 import imageUrlBuilder from "@sanity/image-url";
 import Breadcrumbs from "./Breadcrumbs";
+import ProductMug from "@/app/components/product/mugs/ProductMug";
 
 export default async function Subcategory({
   params,
@@ -54,9 +55,9 @@ export default async function Subcategory({
           <section className={styles.list}>
             {collections.length > 0 && (
               <>
-                {collections.map((collection) => (
+                {collections.map((collection, index) => (
                   <article
-                    key={collection._id}
+                    key={`${index}-${collection._id}`}
                     className={styles.product_collection}
                   >
                     <Link
@@ -80,26 +81,21 @@ export default async function Subcategory({
             )}
 
             {collections.length == 0 && products.length > 0 && (
-              <div>
-                <h3>Products</h3>
-                {products.map((product) => (
-                  <div key={product._id}>
-                    <Link
-                      href={`/products/${params.type}/${params.category}/${params.subcategory}/product/${product.slug}`}
-                    >
-                      {product.title} ({product.slug}) - {product.amount} pieces
-                    </Link>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {collections.length == 0 && products.length == 0 && (
               <>
-                {`Products: ${products.length} OR no products, no collections`}
+                {products.map((product, index) => (
+                  <ProductMug
+                    key={`${index}-${product._id}`}
+                    product={product}
+                    path={`/products/${params.type}/${params.category}/${params.subcategory}/product`}
+                  />
+                ))}
               </>
             )}
           </section>
+
+          {collections.length == 0 && products.length == 0 && (
+            <p>Ingen produkter her</p>
+          )}
         </div>
       )}
 

@@ -62,8 +62,11 @@ export default function MobileCategoryMenuItem(props: {
             subcategoryListOpen ? styles.list_open : styles.list_closed
           }`}
         >
-          {category.productSubcategories.map((subcategory) => (
-            <li key={category._id} className={styles.subcategory_list_item}>
+          {category.productSubcategories.map((subcategory, index) => (
+            <li
+              key={`nav-${index}-${category._id}`}
+              className={styles.subcategory_list_item}
+            >
               <Link
                 href={`/products/${typeSlug}/${category.slug}/${subcategory.slug}`}
                 onClick={() => {

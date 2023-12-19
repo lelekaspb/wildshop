@@ -1,0 +1,21 @@
+.primary_button {
+  border: none;
+  background-color: var(--primary-font-color);
+  color: var(--button-text-color);
+  border-radius: 15px;
+  padding: 1rem 0;
+  width: 100%;
+  cursor: pointer;
+  font-size: var(--body-font-size);
+  font-family: var(--primary-font);
+  font-weight: var(--font-light);
+  letter-spacing: 1px;
+  opacity: 1;
+  transition: all 0.1s;
+}
+
+.primary_button:hover,
+.primary_button:active {
+  opacity: 0.9;
+  transition: all 0.1s;
+}

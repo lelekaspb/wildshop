@@ -13,6 +13,7 @@ import imageUrlBuilder from "@sanity/image-url";
 import styles from "./page.module.css";
 import NotFound from "@/app/components/shared/NotFound/NotFound";
 import Breadcrumbs from "./Breadcrumbs";
+import ProductMug from "@/app/components/product/mugs/ProductMug";
 
 // export async function generateStaticParams() {
 //   const productCategories = await getCategoriesForOneType("nails");
@@ -61,9 +62,9 @@ export default async function Category({
           <section className={styles.list}>
             {subcategories.length > 0 && (
               <>
-                {subcategories.map((subcategory) => (
+                {subcategories.map((subcategory, index) => (
                   <article
-                    key={subcategory._id}
+                    key={`${index}-${subcategory._id}`}
                     className={styles.product_subcategory}
                   >
                     <Link
@@ -88,24 +89,20 @@ export default async function Category({
 
             {subcategories.length == 0 && products.length > 0 && (
               <>
-                {products.map((product) => (
-                  <div key={product._id}>
-                    <Link
-                      href={`/products/${params.type}/${params.category}/product/${product.slug}`}
-                    >
-                      {product.title} ({product.slug}) - {product.amount} pieces
-                    </Link>
-                  </div>
+                {products.map((product, index) => (
+                  <ProductMug
+                    key={`${index}-${product._id}`}
+                    product={product}
+                    path={`/products/${params.type}/${params.category}/product`}
+                  />
                 ))}
               </>
             )}
-
-            {subcategories.length == 0 && products.length == 0 && (
-              <>
-                {`Products: ${products.length} OR no products, no subcategories`}
-              </>
-            )}
           </section>
+
+          {subcategories.length == 0 && products.length == 0 && (
+            <p>Ingen produkter her</p>
+          )}
         </div>
       )}
 

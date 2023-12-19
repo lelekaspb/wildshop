@@ -6,8 +6,8 @@ import {
   getTypeBySlug,
 } from "@/sanity/sanity-utils";
 import styles from "./page.module.css";
-import Link from "next/link";
 import Breadcrumbs from "./Breadcrumbs";
+import ProductMug from "@/app/components/product/mugs/ProductMug";
 
 export default async function Collection({
   params,
@@ -40,20 +40,23 @@ export default async function Collection({
           collectionTitle={collection.title}
         />
       </section>
-      <h2>Collection {collection.title}</h2>
-      <div>
-        <h3>Products</h3>
-        {products.map((product) => (
-          <div key={product._id}>
-            <Link
-              href={`/products/${params.type}/${params.category}/${params.subcategory}/${params.collection}/${product.slug}`}
-            >
-              {product.title} - ({product.amount} pieces)
-            </Link>
-          </div>
-        ))}
-        <p>products {products.length}</p>
-      </div>
+      <section className={styles.heading}>
+        <h1 className={styles.heading_text}>{category.title}</h1>
+      </section>
+
+      {products.length > 0 && (
+        <section className={styles.list}>
+          {products.map((product, index) => (
+            <ProductMug
+              key={`${index}-${product._id}`}
+              product={product}
+              path={`/products/${params.type}/${params.category}/${params.subcategory}/${params.collection}`}
+            />
+          ))}
+        </section>
+      )}
+
+      {products.length == 0 && <p>Ingen produkter her</p>}
     </div>
   );
 }

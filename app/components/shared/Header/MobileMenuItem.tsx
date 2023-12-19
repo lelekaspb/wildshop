@@ -61,9 +61,9 @@ export default function MobileMenuItem(props: {
             categoryListOpen ? styles.list_open : styles.list_closed
           }`}
         >
-          {type.productCategories.map((category) => (
+          {type.productCategories.map((category, index) => (
             <MobileCategoryMenuItem
-              key={category._id}
+              key={`nav-${index}-${category._id}`}
               category={category}
               typeSlug={type.slug}
               burgerOpen={burgerOpen}

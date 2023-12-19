@@ -44,8 +44,11 @@ export default async function Type({ params }: { params: { type: string } }) {
             <h1 className={styles.heading_text}>{type.title}</h1>
           </section>
           <section className={styles.list}>
-            {categories.map((category) => (
-              <article key={category._id} className={styles.product_category}>
+            {categories.map((category, index) => (
+              <article
+                key={`${index}-${category._id}`}
+                className={styles.product_category}
+              >
                 <Link href={`/products/${params.type}/${category.slug}`}>
                   <NavigationMug
                     image={

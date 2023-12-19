@@ -1,31 +1,35 @@
 import { getNewProducts } from "@/sanity/sanity-utils";
 import Link from "next/link";
 import Breadcrumbs from "./Breadcrumbs";
+import styles from "./page.module.css";
+import ProductMug from "@/app/components/product/mugs/ProductMug";
 
 export default async function NewCollection() {
   const products = await getNewProducts();
 
   return (
-    <div>
-      <h2>New</h2>
-
+    <>
       {products.length > 0 && (
-        <section>
-          <Breadcrumbs />
-          <p>New products are listed here</p>
-          <div>
-            {products.map((product) => (
-              <div key={product._id}>
-                <Link href={`/products/new/product/${product.slug}`}>
-                  {product.title} - {product.amount} pieces
-                </Link>
-              </div>
+        <div>
+          <section className={styles.bredcrumbs}>
+            <Breadcrumbs />
+          </section>
+          <section className={styles.heading}>
+            <h1 className={styles.heading_text}>Ny Kollektion</h1>
+          </section>
+          <section className={styles.list}>
+            {products.map((product, index) => (
+              <ProductMug
+                key={`${index}-${product._id}`}
+                product={product}
+                path="/products/new/product"
+              />
             ))}
-          </div>
-        </section>
+          </section>
+        </div>
       )}
 
       {products.length == 0 && <p>There are currently no new products</p>}
-    </div>
+    </>
   );
 }

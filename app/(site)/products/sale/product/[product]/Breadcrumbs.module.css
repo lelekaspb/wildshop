@@ -1,0 +1,17 @@
+.breadcrumbs {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.link {
+  font-size: var(--breadcrumbs-font-size-desktop);
+}
+
+.active_link {
+  cursor: default;
+  font-weight: var(--font-light);
+  font-size: var(--breadcrumbs-font-size-desktop);
+}

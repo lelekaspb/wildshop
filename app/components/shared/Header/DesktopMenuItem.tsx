@@ -44,8 +44,11 @@ export default function DesktopMenuItem(props: { type: ProductType }) {
         isFocused && (
           <div className={styles.dropdown_grid} onMouseLeave={handleMouseLeave}>
             <ul className={styles.category_list}>
-              {type.productCategories.map((category) => (
-                <li key={category._id} className={styles.category_item}>
+              {type.productCategories.map((category, index) => (
+                <li
+                  key={`nav-${index}-${category._id}`}
+                  className={styles.category_item}
+                >
                   <Link
                     href={`/products/${type.slug}/${category.slug}`}
                     onClick={handleMouseLeave}
@@ -56,7 +59,7 @@ export default function DesktopMenuItem(props: { type: ProductType }) {
                     <ul className={styles.subcategory_list}>
                       {category.productSubcategories.map((subcategory) => (
                         <li
-                          key={subcategory._id}
+                          key={`nav-${index}-${subcategory._id}`}
                           className={styles.subcategory_item}
                         >
                           <Link
@@ -82,9 +85,9 @@ export default function DesktopMenuItem(props: { type: ProductType }) {
         isFocused && (
           <div className={styles.dropdown_grid} onMouseLeave={handleMouseLeave}>
             <ul className={styles.category_list_no_subcategories}>
-              {type.productCategories.map((category) => (
+              {type.productCategories.map((category, index) => (
                 <li
-                  key={category._id}
+                  key={`nav-${index}-${category._id}`}
                   className={styles.category_item_no_subcategories}
                 >
                   <Link
