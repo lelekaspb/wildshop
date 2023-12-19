@@ -20,6 +20,7 @@
 
   --body-font-size: calc(1rem + 0.3vw);
   --title-font-size: calc(1.8rem + 0.5vw);
+  --sub-title-font-size: calc(1.3rem + 0.5vw);
   --footer-font-size: calc(0.8rem + 0.3vw);
   --footer-font-size-smallest: calc(0.7rem + 0.3vw);
   --desktop-dropdown-upper-font-size: calc(0.8rem + 0.3vw);

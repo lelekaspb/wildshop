@@ -1,0 +1,25 @@
+.heading {
+  margin: 1rem 0;
+}
+
+.heading_text {
+  font-weight: var(--font-regular);
+  font-size: var(--title-font-size);
+}
+
+.contact_page {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.section_heading {
+  font-weight: var(--font-medium);
+  font-size: var(--sub-title-font-size);
+  margin: 0.5rem 0;
+}
+
+.section_text {
+  font-weight: var(--font-light);
+  font-size: var(--body-font-size);
+}
