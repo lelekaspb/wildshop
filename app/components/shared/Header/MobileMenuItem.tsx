@@ -7,6 +7,7 @@ import styles from "./MobileMenuItem.module.css";
 import Image from "next/image";
 import MobileCategoryMenuItem from "./MobileCategoryMenuItem";
 import { Dispatch, SetStateAction } from "react";
+import chevronup from "@/public/icons/chevron-up.svg";
 
 export default function MobileMenuItem(props: {
   type: ProductType;
@@ -38,7 +39,7 @@ export default function MobileMenuItem(props: {
         {type.productCategories && (
           <Image
             alt="chevron"
-            src="./../../../../icons/chevron-up.svg"
+            src={chevronup}
             width={10}
             height={10}
             style={{

@@ -1,3 +1,13 @@
 .breadcrumbs {
   margin-bottom: 3rem;
 }
+
+.sale_product_page {
+  margin-bottom: 3rem;
+}
+
+@media screen and (max-width: 550px) {
+  .sale_product_page {
+    margin-bottom: 0;
+  }
+}

@@ -6,7 +6,7 @@ import {
   getTypeBySlug,
 } from "@/sanity/sanity-utils";
 import styles from "./page.module.css";
-import Link from "next/link";
+import ProductPage from "@/app/components/product/pages/ProductPage";
 import Breadcrumbs from "./Breadcrumbs";
 
 export default async function CollectionProduct({
@@ -28,7 +28,7 @@ export default async function CollectionProduct({
   const product = await getProductBySlug(params.product);
 
   return (
-    <div>
+    <div className={styles.collection_product_page}>
       <section className={styles.bredcrumbs}>
         <Breadcrumbs
           typeSlug={params.type}
@@ -43,11 +43,7 @@ export default async function CollectionProduct({
           productTitle={product.title}
         />
       </section>
-      <h2>Product</h2>
-      <p>
-        {product.title} of collection {params.collection} - {product.amount}{" "}
-        pieces
-      </p>
+      <ProductPage product={product} />
     </div>
   );
 }

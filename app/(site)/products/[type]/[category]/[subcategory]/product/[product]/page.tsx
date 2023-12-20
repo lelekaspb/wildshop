@@ -5,8 +5,8 @@ import {
   getTypeBySlug,
 } from "@/sanity/sanity-utils";
 import styles from "./page.module.css";
-import Link from "next/link";
 import Breadcrumbs from "./Breadcrumbs";
+import ProductPage from "@/app/components/product/pages/ProductPage";
 
 export default async function SubcategoryProduct({
   params,
@@ -25,7 +25,7 @@ export default async function SubcategoryProduct({
   const product = await getProductBySlug(params.product);
 
   return (
-    <div>
+    <div className={styles.subcategory_product_page}>
       <section className={styles.bredcrumbs}>
         <Breadcrumbs
           typeSlug={params.type}
@@ -38,11 +38,7 @@ export default async function SubcategoryProduct({
           productTitle={product.title}
         />
       </section>
-      <h2>Product</h2>
-      <p>
-        {product.title} of subcategory {params.subcategory} - {product.amount}{" "}
-        pieces
-      </p>
+      <ProductPage product={product} />
     </div>
   );
 }

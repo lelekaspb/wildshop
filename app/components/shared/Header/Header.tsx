@@ -4,6 +4,9 @@ import DesktopMenu from "./DesktopMenu";
 import Link from "next/link";
 import Image from "next/image";
 import { getNavigationItems } from "@/sanity/sanity-utils";
+import search from "@/public/icons/search.svg";
+import cart from "@/public/icons/cart.svg";
+import logo from "@/public/logo/logo.svg";
 
 export default async function Header() {
   const types = await getNavigationItems();
@@ -17,7 +20,7 @@ export default async function Header() {
         <Link href="/">
           <Image
             alt="Wild Orchid Professional logo"
-            src="./../../../../logo/logo.svg"
+            src={logo}
             width={125}
             height={76}
             style={{
@@ -36,7 +39,7 @@ export default async function Header() {
         <button className={styles.search_button}>
           <Image
             alt="Search icon"
-            src="./../../../../icons/search.svg"
+            src={search}
             width={25}
             height={18}
             style={{
@@ -48,7 +51,7 @@ export default async function Header() {
         <button className={styles.cart_button}>
           <Image
             alt="Cart icon"
-            src="./../../../../icons/cart.svg"
+            src={cart}
             width={18}
             height={20}
             style={{

@@ -12,7 +12,7 @@
   justify-content: flex-start;
   align-items: flex-start;
   transition: transform 0.3s ease-in-out;
-  padding-top: 90px;
+  padding: 90px 2rem 0 2rem;
 }
 
 .open {

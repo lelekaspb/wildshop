@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { Dispatch, SetStateAction } from "react";
+import chevronroundeddown from "@/public/icons/chevron-rounded-down.svg";
 
 export default function MobileCategoryMenuItem(props: {
   category: ProductCategory;
@@ -40,7 +41,7 @@ export default function MobileCategoryMenuItem(props: {
         {category.productSubcategories && (
           <Image
             alt="chevron"
-            src="./../../../../icons/chevron-rounded-down.svg"
+            src={chevronroundeddown}
             width={14}
             height={14}
             style={{

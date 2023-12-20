@@ -1,6 +1,7 @@
 import { getProductBySlug } from "@/sanity/sanity-utils";
 import Breadcrumbs from "./Breadcrumbs";
 import styles from "./page.module.css";
+import ProductPage from "@/app/components/product/pages/ProductPage";
 
 export default async function NewProduct({
   params,
@@ -12,14 +13,11 @@ export default async function NewProduct({
   const product = await getProductBySlug(params.product);
 
   return (
-    <div>
+    <div className={styles.new_product_page}>
       <section className={styles.bredcrumbs}>
         <Breadcrumbs productSlug={product.slug} productTitle={product.title} />
       </section>
-      <h2>Product</h2>
-      <p>
-        {product.title} - {product.amount} pieces
-      </p>
+      <ProductPage product={product} />
     </div>
   );
 }

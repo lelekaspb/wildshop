@@ -2,31 +2,12 @@
   margin-bottom: 3rem;
 }
 
-/* .heading {
-  margin: 2rem 0;
+.collection_product_page {
+  margin-bottom: 3rem;
 }
 
-.heading_text {
-  font-weight: var(--font-regular);
-  font-size: var(--title-font-size);
-}
-
-.list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 4rem;
-}
-
-@media screen and (max-width: 768px) {
-  .list {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 2rem;
+@media screen and (max-width: 550px) {
+  .collection_product_page {
+    margin-bottom: 0;
   }
 }
-
-@media screen and (max-width: 500px) {
-  .list {
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-    gap: 2rem;
-  }
-} */
