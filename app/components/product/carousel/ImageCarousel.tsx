@@ -17,8 +17,8 @@ export default function ImageCarousel(props: {
     <>
       {images && images.length > 1 && (
         <Carousel showStatus={false} showThumbs={false}>
-          {images.map((image) => (
-            <div>
+          {images.map((image, index) => (
+            <div key={index}>
               <Image
                 alt={product_title}
                 src={image}

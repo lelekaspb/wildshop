@@ -4,7 +4,7 @@ import {
   getTypeBySlug,
 } from "@/sanity/sanity-utils";
 import styles from "./page.module.css";
-import NotFound from "@/app/components/shared/NotFound/NotFound";
+// import NotFound from "@/app/components/shared/NotFound/NotFound";
 import Breadcrumbs from "./Breadcrumbs";
 import ProductPage from "@/app/components/product/pages/ProductPage";
 

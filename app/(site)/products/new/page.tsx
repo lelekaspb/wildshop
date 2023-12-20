@@ -1,5 +1,4 @@
 import { getNewProducts } from "@/sanity/sanity-utils";
-import Link from "next/link";
 import Breadcrumbs from "./Breadcrumbs";
 import styles from "./page.module.css";
 import ProductMug from "@/app/components/product/mugs/ProductMug";
