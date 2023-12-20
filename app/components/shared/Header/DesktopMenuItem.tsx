@@ -14,9 +14,7 @@ export default function DesktopMenuItem(props: { type: ProductType }) {
   };
 
   const handleMouseLeave = (e: any) => {
-    console.log(e.target);
     const dropdown = e.target.closest("div.dropdown_grid");
-    console.log(dropdown);
     if (!dropdown) {
       setIsFocused(false);
     }
