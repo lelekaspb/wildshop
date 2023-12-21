@@ -1,7 +1,7 @@
 .product_mug {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 7px;
   width: fit-content;
 }
 
@@ -33,10 +33,10 @@
   position: absolute;
   content: url("./../../../../public/icons/coming-soon.svg");
   display: inline-block;
-  width: 112px;
-  height: 78px;
-  top: calc(50% - 50px);
-  left: calc(50% - 56px);
+  width: 100px;
+  height: 60px;
+  top: calc(50% - 30px);
+  left: calc(50% - 50px);
   pointer-events: inherit;
 }
 
@@ -78,5 +78,22 @@
 }
 
 .product_cta_wrapper {
-  margin-top: 1rem;
+  margin-top: 0.5rem;
+}
+
+@media screen and (max-width: 500px) {
+  .product_mug {
+    gap: 5px;
+  }
+
+  .product_cta_wrapper {
+    margin-top: 0.4rem;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .new_product .image_wrapper::after {
+    top: 0;
+    left: 0;
+  }
 }

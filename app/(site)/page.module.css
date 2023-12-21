@@ -20,10 +20,6 @@
 }
 
 @media screen and (max-width: 768px) {
-  .home_page {
-    padding: 3rem;
-  }
-
   .list {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 2rem;
