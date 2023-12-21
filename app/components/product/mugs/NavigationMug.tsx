@@ -1,5 +1,6 @@
 import styles from "./NavigationMug.module.css";
 import Image from "next/image";
+import placeholder from "@/public/placeholder/photo-on-the-way.svg";
 
 export default function NavigationMug(props: {
   image: string | null;
@@ -17,7 +18,7 @@ export default function NavigationMug(props: {
       <div className={styles.image_wrapper}>
         <Image
           alt={title}
-          src={image ? image : "./../../../placeholder/photo-on-the-way.svg"}
+          src={image ? image : placeholder}
           width={300}
           height={300}
           style={{
