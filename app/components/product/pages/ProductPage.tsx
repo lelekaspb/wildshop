@@ -1,9 +1,9 @@
-import PrimaryButton from "@/app/components/product/buttons/PrimaryButton";
+import PrimaryButton from "@/app/components/product/buttons/SubscribeButton";
 import ImageCarousel from "@/app/components/product/carousel/ImageCarousel";
 import { ButtonAction } from "@/app/components/product/utils/utils";
 import { Product } from "@/sanity/types/Product";
 import { PortableText } from "@portabletext/react";
-import { client } from "@/sanity/sanity-utils";
+import { client, createNotification } from "@/sanity/sanity-utils";
 import imageUrlBuilder from "@sanity/image-url";
 import styles from "./ProductPage.module.css";
 
@@ -45,9 +45,11 @@ export default function ProductPage(props: { product: Product }) {
                 </span>
                 <span className={styles.percent}>
                   Spar{" "}
-                  {((product.regularPrice - product.salePrice) /
-                    product.regularPrice) *
-                    100}{" "}
+                  {Math.round(
+                    ((product.regularPrice - product.salePrice) /
+                      product.regularPrice) *
+                      100
+                  )}{" "}
                   %
                 </span>
               </>
@@ -67,11 +69,13 @@ export default function ProductPage(props: { product: Product }) {
         <div className={styles.action_section}>
           <PrimaryButton
             text={product_amount > 0 ? "Tiføj til kurven" : "Skriv mig op"}
+            product={product}
             onClickAction={
               product_amount > 0
                 ? ButtonAction.addtocart
                 : ButtonAction.signuserup
             }
+            gibberer={createNotification}
           />
         </div>
 

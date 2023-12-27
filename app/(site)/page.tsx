@@ -3,10 +3,20 @@ import imageUrlBuilder from "@sanity/image-url";
 import Link from "next/link";
 import styles from "./page.module.css";
 import NavigationMug from "./../components/product/mugs/NavigationMug";
+// import { notFound } from "next/navigation";
 
-export default async function Home() {
+export default async function Home({
+  params,
+}: {
+  params: {
+    slug: string;
+  };
+}) {
+  // console.log(params.slug);
+  // const slugs = ["cart", "contact", "products"];
+  // if (!slugs.includes(params.slug)) notFound();
+
   const productTypes = await getTypes();
-
   const builder = imageUrlBuilder(client);
   const urlFor = (source: string) => {
     return builder.image(source);

@@ -1,7 +1,12 @@
 import "server-only";
 
 import type { QueryParams } from "@sanity/client";
-import { createClient, groq } from "next-sanity";
+import {
+  SanityDocument,
+  SanityDocumentStub,
+  createClient,
+  groq,
+} from "next-sanity";
 import { ProductCategory } from "./types/ProductCategory";
 import { ProductType } from "./types/ProductType";
 import clientConfig from "./config/client-config";
@@ -9,6 +14,7 @@ import { ProductSubcategory } from "./types/ProductSubcategory";
 import { ProductCollection } from "./types/ProductCollection";
 import { Product } from "./types/Product";
 import { CompanyInfo } from "./types/CompanyInfo";
+import { CreateNotification } from "./types/CreateNotification";
 
 export const client = createClient(clientConfig);
 
@@ -309,4 +315,33 @@ export async function getNavigationItems(): Promise<ProductType[]> {
 
 export async function getCompanyGeneralInformation(): Promise<CompanyInfo> {
   return client.fetch(groq`*[_type == "companyInfo"][0]`);
+}
+
+export async function createNotification(
+  data: CreateNotification
+): Promise<any> {
+  "use server";
+
+  const doc: SanityDocumentStub = {
+    _type: "notification",
+    customerEmail: data.customerEmail,
+    product: {
+      _type: "reference",
+      _ref: data.productId,
+    },
+  };
+
+  try {
+    const createResponse = await client.create(doc);
+
+    return {
+      ...createResponse,
+      success: true,
+    };
+  } catch (err: any) {
+    return {
+      success: false,
+      error: err.message,
+    };
+  }
 }

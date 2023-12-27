@@ -11,9 +11,9 @@ import { ProductSubcategory } from "@/sanity/types/ProductSubcategory";
 import NavigationMug from "./../../../../components/product/mugs/NavigationMug";
 import imageUrlBuilder from "@sanity/image-url";
 import styles from "./page.module.css";
-import NotFound from "@/app/components/shared/NotFound/NotFound";
 import Breadcrumbs from "./Breadcrumbs";
 import ProductMug from "@/app/components/product/mugs/ProductMug";
+import { notFound } from "next/navigation";
 
 // export async function generateStaticParams() {
 //   const productCategories = await getCategoriesForOneType("nails");
@@ -30,6 +30,8 @@ export default async function Category({
 }) {
   const type = await getTypeBySlug(params.type);
   const category = await getCategoryBySlug(params.category);
+  if (!type || !category) notFound();
+
   let subcategories: ProductSubcategory[] = [];
   let products: Product[] = [];
   if (category) {
@@ -105,8 +107,6 @@ export default async function Category({
           )}
         </div>
       )}
-
-      {!category && <NotFound slug={params.category} />}
     </>
   );
 }

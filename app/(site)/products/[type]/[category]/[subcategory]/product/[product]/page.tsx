@@ -7,6 +7,7 @@ import {
 import styles from "./page.module.css";
 import Breadcrumbs from "./Breadcrumbs";
 import ProductPage from "@/app/components/product/pages/ProductPage";
+import { notFound } from "next/navigation";
 
 export default async function SubcategoryProduct({
   params,
@@ -21,8 +22,8 @@ export default async function SubcategoryProduct({
   const subcategory = await getSubcategoryBySlug(params.subcategory);
   const category = await getCategoryBySlug(params.category);
   const type = await getTypeBySlug(params.type);
-
   const product = await getProductBySlug(params.product);
+  if (!type || !category || !subcategory || !product) notFound();
 
   return (
     <div className={styles.subcategory_product_page}>

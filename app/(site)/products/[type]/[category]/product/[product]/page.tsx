@@ -4,9 +4,9 @@ import {
   getTypeBySlug,
 } from "@/sanity/sanity-utils";
 import styles from "./page.module.css";
-// import NotFound from "@/app/components/shared/NotFound/NotFound";
 import Breadcrumbs from "./Breadcrumbs";
 import ProductPage from "@/app/components/product/pages/ProductPage";
+import { notFound } from "next/navigation";
 
 export default async function CategoryProduct({
   params,
@@ -20,6 +20,7 @@ export default async function CategoryProduct({
   const type = await getTypeBySlug(params.type);
   const category = await getCategoryBySlug(params.category);
   const product = await getProductBySlug(params.product);
+  if (!type || !category || !product) notFound();
 
   return (
     <div className={styles.category_product_page}>

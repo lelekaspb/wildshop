@@ -8,6 +8,7 @@ import {
 import styles from "./page.module.css";
 import Breadcrumbs from "./Breadcrumbs";
 import ProductMug from "@/app/components/product/mugs/ProductMug";
+import { notFound } from "next/navigation";
 
 export default async function Collection({
   params,
@@ -23,6 +24,7 @@ export default async function Collection({
   const subcategory = await getSubcategoryBySlug(params.subcategory);
   const category = await getCategoryBySlug(params.category);
   const type = await getTypeBySlug(params.type);
+  if (!type || !category || !subcategory || !collection) notFound();
 
   const products = await getProductsByReference(collection._id);
 

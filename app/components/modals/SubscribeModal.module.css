@@ -1,0 +1,45 @@
+.modal_body {
+}
+
+.modal_product_title {
+  font-weight: var(--font-light);
+  margin: 2rem 0;
+}
+
+.modal_product_title strong {
+  font-weight: var(--font-regular);
+}
+
+.modal_form_intro {
+  font-weight: var(--font-light);
+}
+
+.form {
+  margin: 2rem 0;
+}
+
+.success_message {
+  margin-top: 2rem;
+  font-weight: var(--font-regular);
+  font-size: var(--sub-title-font-size);
+}
+
+.message_shown {
+  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
+  transition: all 0.15s;
+}
+
+.message_hidden {
+  transform: translateX(100px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.15s;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  pointer-events: none;
+  cursor: default;
+}

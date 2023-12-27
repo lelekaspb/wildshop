@@ -4,6 +4,7 @@ import product from "./product-schema";
 import productSubcategory from "./product-subcategory-schema";
 import productType from "./product-type-schema";
 import companyInfo from "./company-info-schema";
+import notification from "./notification-schema";
 
 const schemas = [
   productType,
@@ -12,6 +13,7 @@ const schemas = [
   productCollection,
   product,
   companyInfo,
+  notification,
 ];
 
 export default schemas;

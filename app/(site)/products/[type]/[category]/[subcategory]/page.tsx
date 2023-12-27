@@ -8,12 +8,12 @@ import {
 } from "@/sanity/sanity-utils";
 import { Product } from "@/sanity/types/Product";
 import Link from "next/link";
-import NotFound from "@/app/components/shared/NotFound/NotFound";
 import styles from "./page.module.css";
 import NavigationMug from "@/app//components/product/mugs/NavigationMug";
 import imageUrlBuilder from "@sanity/image-url";
 import Breadcrumbs from "./Breadcrumbs";
 import ProductMug from "@/app/components/product/mugs/ProductMug";
+import { notFound } from "next/navigation";
 
 export default async function Subcategory({
   params,
@@ -23,6 +23,7 @@ export default async function Subcategory({
   const subcategory = await getSubcategoryBySlug(params.subcategory);
   const category = await getCategoryBySlug(params.category);
   const type = await getTypeBySlug(params.type);
+  if (!type || !category || !subcategory) notFound();
 
   const collections = await getCollectionsForOneSubcategory(subcategory._id);
   let products: Product[] = [];
@@ -98,8 +99,6 @@ export default async function Subcategory({
           )}
         </div>
       )}
-
-      {!subcategory && <NotFound slug={params.subcategory} />}
     </>
   );
 }

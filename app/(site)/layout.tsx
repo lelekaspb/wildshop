@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "../globals.css";
 import Header from "@/app/components/shared/Header/Header";
 import Footer from "@/app/components/shared/Footer/Footer";
+import { ContextProvider } from "@/app/context/context-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +21,9 @@ export default async function RootLayout({
     <html lang="dk">
       <body suppressHydrationWarning={true} className={inter.className}>
         <Header />
-        <main>{children}</main>
+        <main>
+          <ContextProvider>{children}</ContextProvider>
+        </main>
         <Footer />
       </body>
     </html>

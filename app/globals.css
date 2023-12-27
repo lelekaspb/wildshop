@@ -8,6 +8,7 @@
   --placeholder-color: #d6a38a;
   --sale-color: #b73a52;
   --success-color: #139b70;
+  --error-color: #af0000;
 
   --primary-font: "Roboto", sans-serif;
   --logo-font: "Merienda", cursive;
@@ -81,4 +82,127 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+.page_not_found {
+}
+
+.heading {
+  margin: 2rem 0;
+}
+
+.heading_text {
+  font-weight: var(--font-regular);
+  font-size: var(--title-font-size);
+}
+
+.subheading_text {
+  font-weight: var(--font-regular);
+  font-size: var(--sub-title-font-size);
+}
+
+/* --- modal styles --- */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 10;
+  background-color: rgba(156, 118, 100, 0.35);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.content {
+  width: 25vw;
+  background-color: var(--button-text-color);
+  height: 100%;
+  padding: 2rem;
+}
+
+.modal_heading {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--pinkish-border-color);
+}
+
+.modal_heading_text {
+  font-weight: var(--font-regular);
+  font-size: var(--sub-title-font-size);
+}
+
+.modal_close_button {
+  cursor: pointer;
+}
+
+/* --- forms --- */
+.form_field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 1.5rem;
+}
+
+.form_input {
+  padding: 0.5rem;
+  font-family: var(--primary-font);
+  width: 100%;
+  border: 1px solid var(--pinkish-border-color);
+  border-radius: 10px;
+  font-size: var(--body-font-size);
+  color: var(--primary-font-color);
+}
+
+.form_input:focus,
+.form_input:active {
+  outline: 1px solid var(--primary-font-color);
+}
+
+.required_star {
+  color: var(--error-color);
+}
+
+.error_placeholder {
+  color: var(--error-color);
+  font-size: var(--footer-font-size-smallest);
+  font-weight: var(--font-light);
+}
+
+.shown {
+  opacity: 1;
+  visibility: visible;
+  transition: all 0.15s;
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.15s;
+}
+
+/* --- buttons --- */
+.primary_button {
+  border: none;
+  background-color: var(--primary-font-color);
+  color: var(--button-text-color);
+  border-radius: 15px;
+  padding: 1rem 0;
+  width: 100%;
+  cursor: pointer;
+  font-size: var(--body-font-size);
+  font-family: var(--primary-font);
+  font-weight: var(--font-light);
+  letter-spacing: 1px;
+  opacity: 1;
+  transition: all 0.1s;
+}
+
+.primary_button:hover,
+.primary_button:active {
+  opacity: 0.9;
+  transition: all 0.1s;
 }

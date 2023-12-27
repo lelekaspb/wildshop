@@ -1,12 +1,13 @@
 import { Product } from "@/sanity/types/Product";
-import { client } from "@/sanity/sanity-utils";
+import { client, createNotification } from "@/sanity/sanity-utils";
 import imageUrlBuilder from "@sanity/image-url";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./ProductMug.module.css";
-import PrimaryButton from "./../buttons/PrimaryButton";
+import SubscribeButton from "../buttons/SubscribeButton";
 import { ButtonAction } from "./../utils/utils";
 import placeholder from "@/public/placeholder/photo-on-the-way.svg";
+import AddToCartButton from "../buttons/AddToCartButton";
 
 export default function ProductMug(props: { product: Product; path: string }) {
   const builder = imageUrlBuilder(client);
@@ -64,9 +65,11 @@ export default function ProductMug(props: { product: Product; path: string }) {
             <p className={styles.percents}>
               {" "}
               Spar{" "}
-              {((product.regularPrice - product.salePrice) /
-                product.regularPrice) *
-                100}
+              {Math.round(
+                ((product.regularPrice - product.salePrice) /
+                  product.regularPrice) *
+                  100
+              )}
               %
             </p>
           </>
@@ -76,14 +79,10 @@ export default function ProductMug(props: { product: Product; path: string }) {
         )}
       </div>
       <div className={styles.product_cta_wrapper}>
-        <PrimaryButton
-          text={product_amount > 0 ? "Tiføj til kurven" : "Skriv mig op"}
-          onClickAction={
-            product_amount > 0
-              ? ButtonAction.addtocart
-              : ButtonAction.signuserup
-          }
-        />
+        {product_amount > 0 && <AddToCartButton product={product} />}
+        {product_amount == 0 && (
+          <SubscribeButton product={product} gibberer={createNotification} />
+        )}
       </div>
     </article>
   );

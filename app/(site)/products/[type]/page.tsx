@@ -5,12 +5,12 @@ import {
   getTypeBySlug,
   client,
 } from "@/sanity/sanity-utils";
-import NotFound from "@/app/components/shared/NotFound/NotFound";
 import Link from "next/link";
 import styles from "./page.module.css";
 import NavigationMug from "./../../../components/product/mugs/NavigationMug";
 import imageUrlBuilder from "@sanity/image-url";
 import Breadcrumbs from "./Breadcrumbs";
+import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
   const productTypes = await getTypes();
@@ -22,6 +22,7 @@ export async function generateStaticParams() {
 
 export default async function Type({ params }: { params: { type: string } }) {
   const type = await getTypeBySlug(params.type);
+  if (!type) notFound();
 
   let categories: ProductCategory[] = [];
   if (type) {
@@ -64,8 +65,6 @@ export default async function Type({ params }: { params: { type: string } }) {
           </section>
         </div>
       )}
-
-      {!type && <NotFound slug={params.type} />}
     </>
   );
 }

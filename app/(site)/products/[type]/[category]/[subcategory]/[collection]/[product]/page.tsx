@@ -8,6 +8,7 @@ import {
 import styles from "./page.module.css";
 import ProductPage from "@/app/components/product/pages/ProductPage";
 import Breadcrumbs from "./Breadcrumbs";
+import { notFound } from "next/navigation";
 
 export default async function CollectionProduct({
   params,
@@ -24,8 +25,8 @@ export default async function CollectionProduct({
   const subcategory = await getSubcategoryBySlug(params.subcategory);
   const category = await getCategoryBySlug(params.category);
   const type = await getTypeBySlug(params.type);
-
   const product = await getProductBySlug(params.product);
+  if (!type || !category || !subcategory || !collection || !product) notFound();
 
   return (
     <div className={styles.collection_product_page}>

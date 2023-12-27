@@ -2,6 +2,7 @@ import { getProductBySlug } from "@/sanity/sanity-utils";
 import Breadcrumbs from "./Breadcrumbs";
 import styles from "./page.module.css";
 import ProductPage from "@/app/components/product/pages/ProductPage";
+import { notFound } from "next/navigation";
 
 export default async function NewProduct({
   params,
@@ -11,6 +12,7 @@ export default async function NewProduct({
   };
 }) {
   const product = await getProductBySlug(params.product);
+  if (!product) notFound();
 
   return (
     <div className={styles.new_product_page}>
