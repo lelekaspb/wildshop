@@ -53,50 +53,6 @@ export default async function Home({
           </Link>
         </article>
       </section>
-
-      {/* <div>
-        <h2>Product Subcategories</h2>
-        {productSubcategories.map((subcategory) => (
-          <div key={subcategory._id}>
-            {subcategory.title} ({subcategory.name}) belongs to category{" "}
-            {subcategory.productCategory.title} (
-            {subcategory.productCategory.name})
-          </div>
-        ))}
-      </div>
-
-      <div>
-        <h2>Product Collections</h2>
-        {productCollections.map((collection) => (
-          <div key={collection._id}>
-            {collection.title} ({collection.name}) belongs to subcategory{" "}
-            {collection.productSubcategory.title} (
-            {collection.productSubcategory.name})
-          </div>
-        ))}
-      </div>
-
-      <div>
-        <h2>Products</h2>
-        {products.map((product) => (
-          <div key={product._id} style={{ marginBottom: "10px" }}>
-            {product.images
-              ? product.images.map((image) => (
-                  <img srcSet={urlFor(image).width(200).height(200).url()} />
-                ))
-              : "ni "}
-            {product.title} ({product.slug}) belongs to{" "}
-            {product.productCollection
-              ? `${product.productCollection.title} -> `
-              : ""}
-            {product.productSubcategory
-              ? `${product.productSubcategory.title} -> `
-              : ""}
-            {product.productCategory.title} {" -> "}
-            {product.productType.title}.
-          </div>
-        ))}
-      </div> */}
     </div>
   );
 }

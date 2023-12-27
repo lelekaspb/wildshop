@@ -1,11 +1,11 @@
-import PrimaryButton from "@/app/components/product/buttons/SubscribeButton";
 import ImageCarousel from "@/app/components/product/carousel/ImageCarousel";
-import { ButtonAction } from "@/app/components/product/utils/utils";
 import { Product } from "@/sanity/types/Product";
 import { PortableText } from "@portabletext/react";
 import { client, createNotification } from "@/sanity/sanity-utils";
 import imageUrlBuilder from "@sanity/image-url";
 import styles from "./ProductPage.module.css";
+import AddToCartButton from "@/app/components/product/buttons/AddToCartButton";
+import SubscribeButton from "@/app/components/product/buttons/SubscribeButton";
 
 export default function ProductPage(props: { product: Product }) {
   const product = props.product;
@@ -67,16 +67,10 @@ export default function ProductPage(props: { product: Product }) {
         </div>
 
         <div className={styles.action_section}>
-          <PrimaryButton
-            text={product_amount > 0 ? "Tiføj til kurven" : "Skriv mig op"}
-            product={product}
-            onClickAction={
-              product_amount > 0
-                ? ButtonAction.addtocart
-                : ButtonAction.signuserup
-            }
-            gibberer={createNotification}
-          />
+          {product_amount > 0 && <AddToCartButton product={product} />}
+          {product_amount == 0 && (
+            <SubscribeButton product={product} gibberer={createNotification} />
+          )}
         </div>
 
         <div className={styles.description_section}>

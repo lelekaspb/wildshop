@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "./ProductMug.module.css";
 import SubscribeButton from "../buttons/SubscribeButton";
-import { ButtonAction } from "./../utils/utils";
 import placeholder from "@/public/placeholder/photo-on-the-way.svg";
 import AddToCartButton from "../buttons/AddToCartButton";
 
