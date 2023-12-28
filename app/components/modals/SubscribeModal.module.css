@@ -18,6 +18,11 @@
   margin: 2rem 0;
 }
 
+.warning {
+  font-weight: var(--font-light);
+  font-size: var(--footer-font-size);
+}
+
 .success_message {
   margin-top: 2rem;
   font-weight: var(--font-regular);

@@ -123,6 +123,14 @@ export default function SubscribeModal(props: {
           </div>
         </form>
 
+        <div className={styles.warning}>
+          <p>
+            * &nbsp; Bemærk at nogle varer disværre ikke kommer på lager igen.
+            Din forespørgsel gemmes i 3 måneder, hvorefter den automatisk
+            slettes.
+          </p>
+        </div>
+
         <div
           className={`${styles.success_message} ${
             success ? styles.message_shown : styles.message_hidden
