@@ -16,6 +16,20 @@ const notification = {
       options: { disableNew: true },
     },
   ],
+  preview: {
+    select: {
+      title: "customerEmail",
+      product: "product.title",
+      createdAt: "_createdAt",
+    },
+    prepare(selection: any) {
+      const { product, createdAt } = selection;
+      const createdDate = createdAt.split("T")[0];
+      return Object.assign({}, selection, {
+        subtitle: `${product} | ${createdDate} `,
+      });
+    },
+  },
 };
 
 export default notification;

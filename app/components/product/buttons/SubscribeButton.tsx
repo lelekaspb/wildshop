@@ -25,14 +25,15 @@ export default function SubscribeButton(props: {
       <button className="primary_button" onClick={() => action()}>
         Skriv mig op
       </button>
-      {subscribeModalOpen && (
-        <SubscribeModal
-          product={props.product}
-          isOpen={subscribeModalOpen}
-          setIsOpen={setSubscribeModalOpen}
-          gibberer={props.gibberer}
-        />
-      )}
+      <SubscribeModal
+        product={props.product}
+        isOpen={subscribeModalOpen}
+        setIsOpen={setSubscribeModalOpen}
+        gibberer={props.gibberer}
+      />
+      {/* {subscribeModalOpen && (
+
+      )} */}
     </>
   );
 }

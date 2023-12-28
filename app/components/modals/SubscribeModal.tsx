@@ -8,7 +8,7 @@ import close from "@/public/icons/close.svg";
 import { CreateNotification } from "@/sanity/types/CreateNotification";
 import { SanityDocumentStub } from "next-sanity";
 import { useProductsContext } from "@/app/context/context-provider";
-import { ValidateEmail } from "@/app/client-utils/utils";
+import { validateEmail } from "@/app/client-utils/utils";
 
 export default function SubscribeModal(props: {
   product: Product;
@@ -16,7 +16,8 @@ export default function SubscribeModal(props: {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   gibberer: (data: SanityDocumentStub<CreateNotification>) => Promise<any>;
 }) {
-  const { setSubscribeModalOpen, subscribeProduct } = useProductsContext();
+  const { subscribeModalOpen, setSubscribeModalOpen, subscribeProduct } =
+    useProductsContext();
 
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
@@ -24,7 +25,7 @@ export default function SubscribeModal(props: {
 
   const handleClick = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (ValidateEmail(email)) {
+    if (validateEmail(email)) {
       const result = await props.gibberer({
         _type: "notification",
         customerEmail: email,
@@ -42,8 +43,17 @@ export default function SubscribeModal(props: {
     setEmail(e.currentTarget.value);
   };
 
+  const handleInputBlur = (e: React.FormEvent<HTMLInputElement>) => {
+    setError(!validateEmail(email));
+  };
+
   const modal: JSX.Element = (
-    <div className="modal" onClick={() => setSubscribeModalOpen(false)}>
+    <div
+      className={`${"modal"} ${
+        subscribeModalOpen ? "modal_open" : "modal_closed"
+      }`}
+      onClick={() => setSubscribeModalOpen(false)}
+    >
       <div
         className="content"
         onClick={(e) => {
@@ -92,6 +102,7 @@ export default function SubscribeModal(props: {
               id="user_email"
               className="form_input"
               onChange={handleInputChange}
+              onBlur={handleInputBlur}
               value={email}
             />
             <span
@@ -105,7 +116,7 @@ export default function SubscribeModal(props: {
               type="button"
               className={`${"primary_button"} ${styles.button}`}
               onClick={handleClick}
-              disabled={error || success}
+              disabled={error || success || email.length == 0}
             >
               Sende
             </button>
