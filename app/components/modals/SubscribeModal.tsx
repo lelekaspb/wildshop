@@ -2,7 +2,7 @@
 
 import styles from "./SubscribeModal.module.css";
 import { Product } from "@/sanity/types/Product";
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import Image from "next/image";
 import close from "@/public/icons/close.svg";
 import { CreateNotification } from "@/sanity/types/CreateNotification";

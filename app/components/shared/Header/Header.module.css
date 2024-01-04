@@ -59,6 +59,21 @@
   outline: none;
 }
 
+.cart_with_items {
+  position: relative;
+}
+
+.cart_with_items::after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  right: -3px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--cart-with-items-color);
+}
+
 @media screen and (max-width: 768px) {
   .header {
     grid-template-rows: 1fr;

@@ -7,7 +7,9 @@ import {
   useContext,
   Dispatch,
   SetStateAction,
+  useEffect,
 } from "react";
+import { CartItem } from "@/app/client-utils/utils";
 
 type subscribeProductStateType = {
   id: string;
@@ -21,7 +23,17 @@ type contextType = {
   setSubscribeProduct: Dispatch<SetStateAction<subscribeProductStateType>>;
   addToCartModalOpen: boolean;
   setAddToCartModalOpen: Dispatch<SetStateAction<boolean>>;
+  shoppingCart: CartItem[];
+  setShoppingCart: Dispatch<SetStateAction<CartItem[]>>;
 };
+
+let cartFromLocalStorage: CartItem[] = [];
+const ffff = localStorage.getItem("wopcart");
+if (ffff) {
+  cartFromLocalStorage = JSON.parse(ffff);
+} else {
+  cartFromLocalStorage = [];
+}
 
 const Context = createContext<contextType>({
   subscribeModalOpen: false,
@@ -33,6 +45,8 @@ const Context = createContext<contextType>({
   setSubscribeProduct: () => {},
   addToCartModalOpen: false,
   setAddToCartModalOpen: () => {},
+  shoppingCart: cartFromLocalStorage,
+  setShoppingCart: () => {},
 });
 
 export function ContextProvider({ children }: { children: React.ReactNode }) {
@@ -42,6 +56,13 @@ export function ContextProvider({ children }: { children: React.ReactNode }) {
     productTitle: "",
   });
   const [addToCartModalOpen, setAddToCartModalOpen] = useState(false);
+  const [shoppingCart, setShoppingCart] =
+    useState<CartItem[]>(cartFromLocalStorage);
+
+  useEffect(() => {
+    localStorage.setItem("wopcart", JSON.stringify(shoppingCart));
+  }, [shoppingCart]);
+
   return (
     <Context.Provider
       value={{
@@ -51,6 +72,8 @@ export function ContextProvider({ children }: { children: React.ReactNode }) {
         setSubscribeProduct,
         addToCartModalOpen,
         setAddToCartModalOpen,
+        shoppingCart,
+        setShoppingCart,
       }}
     >
       {children}

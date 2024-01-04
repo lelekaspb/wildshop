@@ -43,13 +43,13 @@ export default async function Home({
           </article>
         ))}
         <article className={styles.product_type}>
-          <Link href={`/products/sale`}>
-            <NavigationMug image={null} title="Tilbud" />
+          <Link href={`/products/new`}>
+            <NavigationMug image={null} title="Ny kollektion" />
           </Link>
         </article>
         <article className={styles.product_type}>
-          <Link href={`/products/new`}>
-            <NavigationMug image={null} title="Ny kollektion" />
+          <Link href={`/products/sale`}>
+            <NavigationMug image={null} title="Tilbud" />
           </Link>
         </article>
       </section>

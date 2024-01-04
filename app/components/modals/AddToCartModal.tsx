@@ -1,10 +1,52 @@
-import { Product } from "@/sanity/types/Product";
-import { Dispatch, SetStateAction } from "react";
+"use client";
 
-export default function AddToCartModal(props: {
-  product: Product;
-  isOpen: boolean;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
-}) {
-  return <div>Add to cart modal</div>;
+import styles from "./AddToCartModal.module.css";
+import { useProductsContext } from "@/app/context/context-provider";
+import Image from "next/image";
+import close from "@/public/icons/close.svg";
+import Cart from "./../cart/Cart";
+
+export default function AddToCartModal() {
+  const { addToCartModalOpen, setAddToCartModalOpen } = useProductsContext();
+  return (
+    <div
+      className={`${styles.modal} ${
+        addToCartModalOpen ? styles.modal_open : styles.modal_closed
+      }`}
+      onClick={() => setAddToCartModalOpen(false)}
+    >
+      <div className={styles.modal_overlay}></div>
+      <div
+        className={styles.content}
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+      >
+        <div className="modal_heading">
+          <h3 className="modal_heading_text">Kurv</h3>
+          <div
+            className="modal_close_button"
+            onClick={() => {
+              setAddToCartModalOpen(false);
+            }}
+          >
+            <Image
+              alt="close icon"
+              src={close}
+              width={15}
+              height={15}
+              style={{
+                maxWidth: "30px",
+                height: "auto",
+              }}
+            />
+          </div>
+        </div>
+
+        <div className={styles.modal_body}>
+          <Cart />
+        </div>
+      </div>
+    </div>
+  );
 }

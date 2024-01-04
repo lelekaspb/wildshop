@@ -55,10 +55,10 @@ export default function ProductMug(props: { product: Product; path: string }) {
           <>
             <p className={styles.sale_product_price}>
               <span className={styles.product_price_crossed}>
-                {product.regularPrice} kr
+                {product.regularPrice.toFixed(2)} kr
               </span>
               <span className={styles.product_price}>
-                {product.salePrice} kr
+                {product.salePrice.toFixed(2)} kr
               </span>
             </p>
             <p className={styles.percents}>
@@ -78,7 +78,9 @@ export default function ProductMug(props: { product: Product; path: string }) {
         )}
       </div>
       <div className={styles.product_cta_wrapper}>
-        {product_amount > 0 && <AddToCartButton product={product} />}
+        {product_amount > 0 && (
+          <AddToCartButton product={product} imageUrl={image} />
+        )}
         {product_amount == 0 && (
           <SubscribeButton product={product} gibberer={createNotification} />
         )}

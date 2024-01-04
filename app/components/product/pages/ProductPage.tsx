@@ -38,10 +38,10 @@ export default function ProductPage(props: { product: Product }) {
             {product.sale && product.regularPrice > product.salePrice && (
               <>
                 <span className={styles.price_crossed}>
-                  {product.regularPrice} kr
+                  {product.regularPrice.toFixed(2)} kr
                 </span>
                 <span className={styles.price_current}>
-                  {product.salePrice} kr
+                  {product.salePrice.toFixed(2)} kr
                 </span>
                 <span className={styles.percent}>
                   Spar{" "}
@@ -57,7 +57,7 @@ export default function ProductPage(props: { product: Product }) {
 
             {!product.sale && (
               <span className={styles.price_current}>
-                {product.regularPrice} kr
+                {product.regularPrice.toFixed(2)} kr
               </span>
             )}
           </div>
@@ -67,7 +67,12 @@ export default function ProductPage(props: { product: Product }) {
         </div>
 
         <div className={styles.action_section}>
-          {product_amount > 0 && <AddToCartButton product={product} />}
+          {product_amount > 0 && (
+            <AddToCartButton
+              product={product}
+              imageUrl={images && images.length > 0 ? images[0] : null}
+            />
+          )}
           {product_amount == 0 && (
             <SubscribeButton product={product} gibberer={createNotification} />
           )}

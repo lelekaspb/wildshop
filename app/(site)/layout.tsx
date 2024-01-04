@@ -20,10 +20,10 @@ export default async function RootLayout({
   return (
     <html lang="dk">
       <body suppressHydrationWarning={true} className={inter.className}>
-        <Header />
-        <main>
-          <ContextProvider>{children}</ContextProvider>
-        </main>
+        <ContextProvider>
+          <Header />
+          <main>{children}</main>
+        </ContextProvider>
         <Footer />
       </body>
     </html>

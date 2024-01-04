@@ -31,9 +31,6 @@ export default function SubscribeButton(props: {
         setIsOpen={setSubscribeModalOpen}
         gibberer={props.gibberer}
       />
-      {/* {subscribeModalOpen && (
-
-      )} */}
     </>
   );
 }

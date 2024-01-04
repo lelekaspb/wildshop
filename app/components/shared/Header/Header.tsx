@@ -5,11 +5,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { getNavigationItems } from "@/sanity/sanity-utils";
 import search from "@/public/icons/search.svg";
-import cart from "@/public/icons/cart.svg";
+
 import logo from "@/public/logo/logo-merienda.svg";
+import CartButton from "./CartButton";
 
 export default async function Header() {
   const types = await getNavigationItems();
+
   return (
     <header className={styles.header}>
       <div className={styles.hamburger}>
@@ -48,18 +50,21 @@ export default async function Header() {
             }}
           />
         </button>
-        <button className={styles.cart_button}>
-          <Image
-            alt="Cart icon"
-            src={cart}
-            width={18}
-            height={20}
-            style={{
-              maxHeight: "100%",
-              width: "auto",
-            }}
-          />
-        </button>
+        <CartButton />
+        {/* <button className={`${styles.cart_button} ${shoppingCart.length > 0 ? styles.cart_with_items : styles.cart_empty} `}>
+          <Link href="/cart">
+            <Image
+              alt="Cart icon"
+              src={cart}
+              width={18}
+              height={20}
+              style={{
+                maxHeight: "100%",
+                width: "auto",
+              }}
+            />
+          </Link>
+        </button> */}
       </div>
     </header>
   );
