@@ -43,7 +43,7 @@ export default function SubscribeModal(props: {
     setEmail(e.currentTarget.value);
   };
 
-  const handleInputBlur = (e: React.FormEvent<HTMLInputElement>) => {
+  const handleInputBlur = () => {
     setError(!validateEmail(email));
   };
 

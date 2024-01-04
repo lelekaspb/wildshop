@@ -9,12 +9,8 @@ export default function AddToCartButton(props: {
   product: Product;
   imageUrl: string | null;
 }) {
-  const {
-    addToCartModalOpen,
-    setAddToCartModalOpen,
-    shoppingCart,
-    setShoppingCart,
-  } = useProductsContext();
+  const { setAddToCartModalOpen, shoppingCart, setShoppingCart } =
+    useProductsContext();
 
   const addCartItem = (quantity: number) => {
     // see if the item is already in the cart
@@ -46,7 +42,7 @@ export default function AddToCartButton(props: {
       if (quantity > 0) {
         updatedItem.amountInCart += quantity;
 
-        setShoppingCart((prevState) => {
+        setShoppingCart(() => {
           return [updatedItem];
         });
       }

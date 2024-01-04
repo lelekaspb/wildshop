@@ -1,6 +1,5 @@
 "use client";
 
-import { Product } from "@/sanity/types/Product";
 import {
   createContext,
   useState,
@@ -28,12 +27,7 @@ type contextType = {
 };
 
 let cartFromLocalStorage: CartItem[] = [];
-const ffff = localStorage.getItem("wopcart");
-if (ffff) {
-  cartFromLocalStorage = JSON.parse(ffff);
-} else {
-  cartFromLocalStorage = [];
-}
+let storageString: string | null = null;
 
 const Context = createContext<contextType>({
   subscribeModalOpen: false,
@@ -56,6 +50,18 @@ export function ContextProvider({ children }: { children: React.ReactNode }) {
     productTitle: "",
   });
   const [addToCartModalOpen, setAddToCartModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (localStorage) {
+      storageString = localStorage.getItem("wopcart");
+      if (storageString) {
+        cartFromLocalStorage = JSON.parse(storageString);
+      } else {
+        cartFromLocalStorage = [];
+      }
+    }
+  }, []);
+
   const [shoppingCart, setShoppingCart] =
     useState<CartItem[]>(cartFromLocalStorage);
 

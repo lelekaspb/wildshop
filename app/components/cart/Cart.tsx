@@ -6,7 +6,7 @@ import CartItemComponent from "./CartItemComponent";
 import Link from "next/link";
 
 export default function Cart() {
-  const { shoppingCart, setShoppingCart } = useProductsContext();
+  const { shoppingCart } = useProductsContext();
 
   const totalPrice: number = shoppingCart.reduce(
     (total, item) => item.price * item.amountInCart + total,

@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Wild Orchid Professional",
-  description: "Online shop for beauticians",
+  description: "Beauty supplies online shop",
 };
 
 export default async function RootLayout({
