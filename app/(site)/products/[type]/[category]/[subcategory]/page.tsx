@@ -15,6 +15,17 @@ import Breadcrumbs from "./Breadcrumbs";
 import ProductMug from "@/app/components/product/mugs/ProductMug";
 import { notFound } from "next/navigation";
 
+export async function generateMetadata({
+  params,
+}: {
+  params: { type: string; category: string; subcategory: string };
+}) {
+  const subcategory = await getSubcategoryBySlug(params.subcategory);
+  return {
+    title: `Wild Orchid Professional | ${subcategory.title}`,
+  };
+}
+
 export default async function Subcategory({
   params,
 }: {

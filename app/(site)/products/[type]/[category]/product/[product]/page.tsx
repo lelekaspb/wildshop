@@ -8,6 +8,21 @@ import Breadcrumbs from "./Breadcrumbs";
 import ProductPage from "@/app/components/product/pages/ProductPage";
 import { notFound } from "next/navigation";
 
+export async function generateMetadata({
+  params,
+}: {
+  params: {
+    type: string;
+    category: string;
+    product: string;
+  };
+}) {
+  const product = await getProductBySlug(params.product);
+  return {
+    title: `Wild Orchid Professional | ${product.title}`,
+  };
+}
+
 export default async function CategoryProduct({
   params,
 }: {

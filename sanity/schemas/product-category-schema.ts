@@ -2,6 +2,7 @@ const productCategory = {
   name: "productCategory",
   title: "Product Category",
   type: "document",
+  liveEdit: true,
   fields: [
     {
       name: "name",

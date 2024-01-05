@@ -37,7 +37,6 @@ export default function AddToCartButton(props: {
         setShoppingCart(updatedShoppingCart);
       }
     } else if (itemInCartIndex == 0) {
-      console.log("index in shopping cart is equal 0");
       const updatedItem: CartItem = shoppingCart[0];
       if (quantity > 0) {
         updatedItem.amountInCart += quantity;
@@ -58,7 +57,7 @@ export default function AddToCartButton(props: {
           : props.product.regularPrice,
         id: props.product._id,
       };
-      console.log(cartItem);
+
       setShoppingCart((prevState) => {
         return [...prevState, cartItem];
       });

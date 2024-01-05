@@ -10,6 +10,22 @@ import Breadcrumbs from "./Breadcrumbs";
 import ProductMug from "@/app/components/product/mugs/ProductMug";
 import { notFound } from "next/navigation";
 
+export async function generateMetadata({
+  params,
+}: {
+  params: {
+    type: string;
+    category: string;
+    subcategory: string;
+    collection: string;
+  };
+}) {
+  const collection = await getCollectionBySlug(params.collection);
+  return {
+    title: `Wild Orchid Professional | ${collection.title}`,
+  };
+}
+
 export default async function Collection({
   params,
 }: {

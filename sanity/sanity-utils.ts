@@ -206,7 +206,6 @@ export async function getCollections(): Promise<ProductCollection[]> {
 export async function getSubcategoryBySlug(
   slug: string
 ): Promise<ProductSubcategory> {
-  console.log(slug);
   return client.fetch(
     groq`*[_type == "productSubcategory" && slug.current == "${slug}"][0]`
   );
@@ -265,7 +264,6 @@ export async function getCategoriesForOneType(
 }
 
 export async function getTypeBySlug(slug: string): Promise<ProductType> {
-  console.log(slug);
   return client.fetch(
     groq`*[_type == "productType" && slug.current == "${slug}"][0]`
   );

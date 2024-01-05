@@ -1,6 +1,11 @@
 import { getCompanyGeneralInformation } from "@/sanity/sanity-utils";
 import { PortableText } from "@portabletext/react";
 import styles from "./page.module.css";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Wild Orchid Professional | Kontakt",
+};
 
 export default async function Contact() {
   const companyInfo = await getCompanyGeneralInformation();

@@ -2,6 +2,7 @@ const product = {
   name: "product",
   title: "Product",
   type: "document",
+  liveEdit: true,
   fields: [
     {
       name: "name",

@@ -1,6 +1,11 @@
 import Link from "next/link";
 import styles from "./page.module.css";
 import Cart from "@/app/components/cart/Cart";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Wild Orchid Professional | Kurv",
+};
 
 export default async function CartPage() {
   return (

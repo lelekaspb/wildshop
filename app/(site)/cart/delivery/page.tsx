@@ -1,3 +1,9 @@
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Wild Orchid Professional | Kurv - Levering",
+};
+
 export default async function CartDelivery() {
   return (
     <main>

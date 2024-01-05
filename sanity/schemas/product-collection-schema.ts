@@ -2,6 +2,7 @@ const productCollection = {
   name: "productCollection",
   title: "Product Collection",
   type: "document",
+  liveEdit: true,
   fields: [
     {
       name: "name",

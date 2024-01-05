@@ -12,6 +12,17 @@ import imageUrlBuilder from "@sanity/image-url";
 import Breadcrumbs from "./Breadcrumbs";
 import { notFound } from "next/navigation";
 
+export async function generateMetadata({
+  params,
+}: {
+  params: { type: string };
+}) {
+  const type = await getTypeBySlug(params.type);
+  return {
+    title: `Wild Orchid Professional | ${type.title} produkter`,
+  };
+}
+
 export async function generateStaticParams() {
   const productTypes = await getTypes();
 

@@ -2,6 +2,7 @@ const notification = {
   name: "notification",
   title: "Notification",
   type: "document",
+  liveEdit: true,
   fields: [
     {
       name: "customerEmail",

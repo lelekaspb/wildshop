@@ -2,6 +2,7 @@ const productType = {
   name: "productType",
   title: "Product Type",
   type: "document",
+  liveEdit: true,
   fields: [
     {
       name: "name",

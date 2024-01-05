@@ -15,6 +15,17 @@ import Breadcrumbs from "./Breadcrumbs";
 import ProductMug from "@/app/components/product/mugs/ProductMug";
 import { notFound } from "next/navigation";
 
+export async function generateMetadata({
+  params,
+}: {
+  params: { type: string; category: string };
+}) {
+  const category = await getCategoryBySlug(params.category);
+  return {
+    title: `Wild Orchid Professional | ${category.title}`,
+  };
+}
+
 // export async function generateStaticParams() {
 //   const productCategories = await getCategoriesForOneType("nails");
 
