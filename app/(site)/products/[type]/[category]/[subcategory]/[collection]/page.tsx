@@ -59,7 +59,7 @@ export default async function Collection({
         />
       </section>
       <section className={styles.heading}>
-        <h1 className={styles.heading_text}>{category.title}</h1>
+        <h1 className={styles.heading_text}>{collection.title}</h1>
       </section>
 
       {products.length > 0 && (
