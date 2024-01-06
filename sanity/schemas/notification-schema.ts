@@ -7,6 +7,8 @@ const notification = {
       name: "customerEmail",
       title: "Customer Email",
       type: "string",
+      description:
+        "The email address where the customer would like to receive the notification.",
     },
     {
       title: "Related Product",
@@ -14,6 +16,8 @@ const notification = {
       type: "reference",
       to: [{ type: "product" }],
       options: { disableNew: true },
+      description:
+        "The product that the user would like to be notified about when this product is back in stock.",
     },
   ],
   preview: {

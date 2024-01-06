@@ -98,7 +98,8 @@ const product = {
       to: [{ type: "productSubcategory" }],
       weak: true,
       options: { disableNew: true },
-      description: "Choose the product's subcategory. Optional field.",
+      description:
+        "Choose the product's subcategory. Optional field, so leave empty if the product is not related to any subcategory.",
     },
     {
       title: "Product Collection",
@@ -107,7 +108,8 @@ const product = {
       to: [{ type: "productCollection" }],
       weak: true,
       options: { disableNew: true },
-      description: "Choose the product's collection. Optional field.",
+      description:
+        "Choose the product's collection. Optional field, so leave empty if the product is not related to any collection.",
     },
   ],
 };
