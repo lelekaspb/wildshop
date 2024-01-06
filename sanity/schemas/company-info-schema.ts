@@ -2,7 +2,6 @@ const companyInfo = {
   name: "companyInfo",
   title: "Company Info",
   type: "document",
-  liveEdit: true,
   fields: [
     {
       name: "title",

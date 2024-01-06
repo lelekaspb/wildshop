@@ -2,7 +2,6 @@ const productSubcategory = {
   name: "productSubcategory",
   title: "Product Subcategory",
   type: "document",
-  liveEdit: true,
   fields: [
     {
       name: "name",

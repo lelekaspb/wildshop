@@ -1,12 +1,7 @@
 import "server-only";
 
 import type { QueryParams } from "@sanity/client";
-import {
-  SanityDocument,
-  SanityDocumentStub,
-  createClient,
-  groq,
-} from "next-sanity";
+import { SanityDocumentStub, createClient, groq } from "next-sanity";
 import { ProductCategory } from "./types/ProductCategory";
 import { ProductType } from "./types/ProductType";
 import clientConfig from "./config/client-config";
@@ -40,12 +35,14 @@ export async function sanityFetch<QueryResponse>({
 }
 
 export async function getNewProductsCount(): Promise<number> {
-  return client.fetch(groq`count(*[_type == "product" && new == true])`);
+  return client.fetch(
+    groq`count(*[_type == "product" && new == true && !(_id in path('drafts.**'))])`
+  );
 }
 
 export async function getNewProducts(): Promise<Product[]> {
   return client.fetch(
-    groq`*[_type == "product" && new == true]{
+    groq`*[_type == "product" && new == true && !(_id in path('drafts.**'))]{
       _id,
       _createdAt,
       name,
@@ -67,12 +64,14 @@ export async function getNewProducts(): Promise<Product[]> {
 }
 
 export async function getSaleProductsCount(): Promise<number> {
-  return client.fetch(groq`count(*[_type == "product" && sale == true])`);
+  return client.fetch(
+    groq`count(*[_type == "product" && sale == true && !(_id in path('drafts.**'))])`
+  );
 }
 
 export async function getSaleProducts(): Promise<Product[]> {
   return client.fetch(
-    groq`*[_type == "product" && sale == true]{
+    groq`*[_type == "product" && sale == true && !(_id in path('drafts.**'))]{
       _id,
       _createdAt,
       name,
@@ -95,7 +94,7 @@ export async function getSaleProducts(): Promise<Product[]> {
 
 export async function getProductBySlug(slug: string): Promise<Product> {
   return sanityFetch({
-    query: `*[_type == "product" && slug.current == "${slug}"][0] {
+    query: `*[_type == "product" && slug.current == "${slug}" && !(_id in path('drafts.**'))][0] {
       _id,
       _createdAt,
       name,
@@ -122,7 +121,7 @@ export async function getProductsByReference(
 ): Promise<Product[]> {
   // revalidate if there are changes to either the product document
   return await sanityFetch({
-    query: `*[_type == "product" && references("${referenceId}")]{
+    query: `*[_type == "product" && references("${referenceId}") && !(_id in path('drafts.**'))]{
         _id,
         _createdAt,
         name,
@@ -146,7 +145,7 @@ export async function getProductsByReference(
 
 export async function getProducts(): Promise<Product[]> {
   return client.fetch(
-    groq`*[_type == "product"]{
+    groq`*[_type == "product" && !(_id in path('drafts.**'))]{
           _id,
           _createdAt,
           name,
@@ -171,7 +170,7 @@ export async function getCollectionBySlug(
   slug: string
 ): Promise<ProductSubcategory> {
   return client.fetch(
-    groq`*[_type == "productCollection" && slug.current == "${slug}"][0]`
+    groq`*[_type == "productCollection" && slug.current == "${slug}" && !(_id in path('drafts.**'))][0]`
   );
 }
 
@@ -179,7 +178,7 @@ export async function getCollectionsForOneSubcategory(
   subcategoryId: string
 ): Promise<ProductCollection[]> {
   return client.fetch(
-    groq`*[_type == "productCollection" && references("${subcategoryId}")]{
+    groq`*[_type == "productCollection" && references("${subcategoryId}") && !(_id in path('drafts.**'))]{
     _id,
     _createdAt,
     name,
@@ -192,7 +191,7 @@ export async function getCollectionsForOneSubcategory(
 
 export async function getCollections(): Promise<ProductCollection[]> {
   return client.fetch(
-    groq`*[_type == "productCollection"]{
+    groq`*[_type == "productCollection" && !(_id in path('drafts.**'))]{
           _id,
           _createdAt,
           name,
@@ -207,7 +206,7 @@ export async function getSubcategoryBySlug(
   slug: string
 ): Promise<ProductSubcategory> {
   return client.fetch(
-    groq`*[_type == "productSubcategory" && slug.current == "${slug}"][0]`
+    groq`*[_type == "productSubcategory" && slug.current == "${slug}" && !(_id in path('drafts.**'))][0]`
   );
 }
 
@@ -215,7 +214,7 @@ export async function getSubcategoriesForOneCategory(
   categoryId: string
 ): Promise<ProductSubcategory[]> {
   return client.fetch(
-    groq`*[_type == "productSubcategory" && references("${categoryId}")]{
+    groq`*[_type == "productSubcategory" && references("${categoryId}") && !(_id in path('drafts.**'))]{
         _id,
         _createdAt,
         name,
@@ -229,7 +228,7 @@ export async function getSubcategoriesForOneCategory(
 
 export async function getSubcategories(): Promise<ProductSubcategory[]> {
   return client.fetch(
-    groq`*[_type == "productSubcategory"]{
+    groq`*[_type == "productSubcategory" && !(_id in path('drafts.**'))]{
         _id,
         _createdAt,
         name,
@@ -244,7 +243,7 @@ export async function getCategoryBySlug(
   slug: string
 ): Promise<ProductCategory> {
   return client.fetch(
-    groq`*[_type == "productCategory" && slug.current == "${slug}"][0]`
+    groq`*[_type == "productCategory" && slug.current == "${slug}" && !(_id in path('drafts.**'))][0]`
   );
 }
 
@@ -252,7 +251,7 @@ export async function getCategoriesForOneType(
   typeId: string
 ): Promise<ProductCategory[]> {
   return client.fetch(
-    groq`*[_type == "productCategory" && references("${typeId}")]{
+    groq`*[_type == "productCategory" && references("${typeId}") && !(_id in path('drafts.**'))]{
       _id,
       _createdAt,
       name,
@@ -265,13 +264,13 @@ export async function getCategoriesForOneType(
 
 export async function getTypeBySlug(slug: string): Promise<ProductType> {
   return client.fetch(
-    groq`*[_type == "productType" && slug.current == "${slug}"][0]`
+    groq`*[_type == "productType" && slug.current == "${slug}" && !(_id in path('drafts.**'))][0]`
   );
 }
 
 export async function getTypes(): Promise<ProductType[]> {
   return client.fetch(
-    groq`*[_type == "productType"]{
+    groq`*[_type == "productType"  && !(_id in path('drafts.**'))]{
         _id,
         _createdAt,
         name,
@@ -284,7 +283,7 @@ export async function getTypes(): Promise<ProductType[]> {
 
 export async function getNavigationItems(): Promise<ProductType[]> {
   return client.fetch(
-    groq`*[_type == "productType"]{
+    groq`*[_type == "productType" && !(_id in path('drafts.**'))]{
         _id,
         name,
         "slug": slug.current,
@@ -312,7 +311,9 @@ export async function getNavigationItems(): Promise<ProductType[]> {
 }
 
 export async function getCompanyGeneralInformation(): Promise<CompanyInfo> {
-  return client.fetch(groq`*[_type == "companyInfo"][0]`);
+  return client.fetch(
+    groq`*[_type == "companyInfo" && !(_id in path('drafts.**'))][0]`
+  );
 }
 
 export async function createNotification(

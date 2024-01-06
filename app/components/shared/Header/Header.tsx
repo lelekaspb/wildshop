@@ -51,20 +51,6 @@ export default async function Header() {
           />
         </button>
         <CartButton />
-        {/* <button className={`${styles.cart_button} ${shoppingCart.length > 0 ? styles.cart_with_items : styles.cart_empty} `}>
-          <Link href="/cart">
-            <Image
-              alt="Cart icon"
-              src={cart}
-              width={18}
-              height={20}
-              style={{
-                maxHeight: "100%",
-                width: "auto",
-              }}
-            />
-          </Link>
-        </button> */}
       </div>
     </header>
   );

@@ -7,6 +7,7 @@ import { ProductType } from "@/sanity/types/ProductType";
 
 export default function MobileMenu(props: { types: ProductType[] }) {
   const types = props.types;
+
   const [burgerOpen, setBurgerOpen] = useState(false);
   return (
     <>

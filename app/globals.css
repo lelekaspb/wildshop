@@ -40,11 +40,14 @@ body {
   font-family: var(--primary-font);
   color: var(--primary-font-color);
   font-size: var(--body-font-size);
+  display: flex;
+  flex-direction: column;
 }
 
 main {
   min-height: 350px;
   padding: 3rem 10rem 5rem 10rem;
+  flex-grow: 1;
 }
 
 *,
