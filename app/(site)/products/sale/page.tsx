@@ -3,6 +3,12 @@ import styles from "./page.module.css";
 import Breadcrumbs from "./Breadcrumbs";
 import ProductMug from "@/app/components/product/mugs/ProductMug";
 
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Wild Orchid Professional | Tilbud",
+};
+
 export default async function Sale() {
   const products = await getSaleProducts();
 
