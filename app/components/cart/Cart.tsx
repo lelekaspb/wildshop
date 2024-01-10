@@ -3,6 +3,7 @@
 import styles from "./Cart.module.css";
 import { useProductsContext } from "@/app/context/context-provider";
 import CartItemComponent from "./CartItemComponent";
+import EmptyCart from "./EmptyCart";
 import Link from "next/link";
 
 export default function Cart() {
@@ -39,7 +40,7 @@ export default function Cart() {
         </div>
       </div>
     ) : (
-      <div>cart is empty</div>
+      <EmptyCart />
     );
   return cart;
 }

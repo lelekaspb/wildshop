@@ -25,7 +25,6 @@ export default function MobileCategoryMenuItem(props: {
   } = props;
 
   const [subcategoryListOpen, setSubcategoryListOpen] = useState(false);
-  console.log(category);
 
   return (
     <li className={styles.category_list_item}>

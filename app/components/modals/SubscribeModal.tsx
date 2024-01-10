@@ -49,21 +49,22 @@ export default function SubscribeModal(props: {
 
   const modal: JSX.Element = (
     <div
-      className={`${"modal"} ${
-        subscribeModalOpen ? "modal_open" : "modal_closed"
+      className={`${styles.modal} ${
+        subscribeModalOpen ? styles.modal_open : styles.modal_closed
       }`}
       onClick={() => setSubscribeModalOpen(false)}
     >
+      <div className={styles.modal_overlay}></div>
       <div
-        className="content"
+        className={styles.content}
         onClick={(e) => {
           e.stopPropagation();
         }}
       >
-        <div className="modal_heading">
-          <h3 className="modal_heading_text">Skriv mig op</h3>
+        <div className={styles.modal_heading}>
+          <h3 className={styles.modal_heading_text}>Skriv mig op</h3>
           <div
-            className="modal_close_button"
+            className={styles.modal_close_button}
             onClick={() => {
               props.setIsOpen(false);
             }}

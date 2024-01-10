@@ -38,7 +38,13 @@
 }
 
 .modal_closed {
-  /* opacity: 0; */
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.25s;
+}
+
+.modal_closed .modal_overlay {
+  opacity: 0;
   visibility: hidden;
   transition: all 0.25s;
 }
@@ -51,7 +57,13 @@
 }
 
 .modal_open {
-  /* opacity: 1; */
+  opacity: 1;
+  visibility: visible;
+  transition: all 0.25s;
+}
+
+.modal_open .modal_overlay {
+  opacity: 0.2;
   visibility: visible;
   transition: all 0.25s;
 }

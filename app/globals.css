@@ -10,7 +10,7 @@
   --success-color: #139b70;
   --error-color: #af0000;
   --cart-with-items-color: #f4a3a3;
-  --modal-overlay-color: rgba(156, 118, 100, 0.4);
+  --modal-overlay-color: #9c7664;
 
   --primary-font: "Roboto", sans-serif;
   --logo-font: "Merienda", cursive;
@@ -119,28 +119,6 @@ a {
   font-size: var(--sub-title-font-size);
 }
 
-/* --- modal styles --- */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100vh;
-  z-index: 10;
-  background-color: var(--modal-overlay-color);
-  display: flex;
-  justify-content: flex-end;
-}
-
-.content {
-  width: calc(200px + 15vw);
-  background-color: var(--button-text-color);
-  height: 100%;
-  padding: 2rem;
-}
-
 .modal_heading {
   display: flex;
   justify-content: space-between;
@@ -161,26 +139,6 @@ a {
   opacity: 0;
   visibility: hidden;
   transition: all 0.25s;
-}
-
-.modal_closed .content {
-  opacity: 0;
-  visibility: hidden;
-  transform: translateX(300px);
-  transition: all 0.15s;
-}
-
-.modal_open {
-  opacity: 1;
-  visibility: visible;
-  transition: all 0.25s;
-}
-
-.modal_open .content {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(0);
-  transition: all 0.15s;
 }
 
 @media screen and (max-width: 768px) {

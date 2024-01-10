@@ -11,7 +11,7 @@ export async function generateMetadata({
 }) {
   const product = await getProductBySlug(params.product);
   return {
-    title: `Wild Orchid Professional | ${product.title} produkter`,
+    title: `Wild Orchid Professional | ${product.title}`,
   };
 }
 

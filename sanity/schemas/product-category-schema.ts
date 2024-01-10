@@ -39,7 +39,7 @@ const productCategory = {
       to: [{ type: "productType" }],
       options: { disableNew: true },
       description:
-        "Choose what product type the collection belongs to. Required field.",
+        "Choose what product type the category belongs to. Required field.",
     },
     {
       title: "Related Subcategories",

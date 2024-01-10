@@ -26,22 +26,7 @@ type contextType = {
   setShoppingCart: Dispatch<SetStateAction<CartItem[]>>;
 };
 
-let cartFromLocalStorage: CartItem[] = [];
-let storageString: string | null = null;
-
-const Context = createContext<contextType>({
-  subscribeModalOpen: false,
-  setSubscribeModalOpen: () => {},
-  subscribeProduct: {
-    id: "",
-    productTitle: "",
-  },
-  setSubscribeProduct: () => {},
-  addToCartModalOpen: false,
-  setAddToCartModalOpen: () => {},
-  shoppingCart: cartFromLocalStorage,
-  setShoppingCart: () => {},
-});
+const Context = createContext<contextType | null>(null);
 
 export function ContextProvider({ children }: { children: React.ReactNode }) {
   const [subscribeModalOpen, setSubscribeModalOpen] = useState(false);
@@ -51,22 +36,17 @@ export function ContextProvider({ children }: { children: React.ReactNode }) {
   });
   const [addToCartModalOpen, setAddToCartModalOpen] = useState(false);
 
+  const getInitialState = () => {
+    const cart = localStorage.getItem("wopcart");
+    return cart ? JSON.parse(cart) : [];
+  };
+
+  const [shoppingCart, setShoppingCart] = useState<CartItem[]>(getInitialState);
+
   useEffect(() => {
-    if (localStorage) {
-      storageString = localStorage.getItem("wopcart");
-      if (storageString) {
-        cartFromLocalStorage = JSON.parse(storageString);
-      } else {
-        cartFromLocalStorage = [];
-      }
+    if (typeof window !== "undefined" && window.localStorage) {
+      localStorage.setItem("wopcart", JSON.stringify(shoppingCart));
     }
-  }, []);
-
-  const [shoppingCart, setShoppingCart] =
-    useState<CartItem[]>(cartFromLocalStorage);
-
-  useEffect(() => {
-    localStorage.setItem("wopcart", JSON.stringify(shoppingCart));
   }, [shoppingCart]);
 
   return (
@@ -88,5 +68,9 @@ export function ContextProvider({ children }: { children: React.ReactNode }) {
 }
 
 export function useProductsContext() {
-  return useContext(Context);
+  const context = useContext(Context);
+  if (!context) {
+    throw new Error("useProductContext must be used within a ContextProvider");
+  }
+  return context;
 }
