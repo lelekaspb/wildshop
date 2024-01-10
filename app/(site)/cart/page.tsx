@@ -1,7 +1,11 @@
 import Link from "next/link";
 import styles from "./page.module.css";
-import Cart from "@/app/components/cart/Cart";
 import { Metadata } from "next";
+import dynamic from "next/dynamic";
+
+const Cart = dynamic(() => import("@/app/components/cart/Cart"), {
+  ssr: false,
+});
 
 export const metadata: Metadata = {
   title: "Wild Orchid Professional | Kurv",

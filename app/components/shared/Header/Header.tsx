@@ -7,7 +7,9 @@ import { getNavigationItems } from "@/sanity/sanity-utils";
 import search from "@/public/icons/search.svg";
 
 import logo from "@/public/logo/logo-merienda.svg";
-import CartButton from "./CartButton";
+import dynamic from "next/dynamic";
+
+const CartButton = dynamic(() => import("./CartButton"), { ssr: false });
 
 export default async function Header() {
   const types = await getNavigationItems();

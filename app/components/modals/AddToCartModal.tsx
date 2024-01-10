@@ -4,7 +4,9 @@ import styles from "./AddToCartModal.module.css";
 import { useProductsContext } from "@/app/context/context-provider";
 import Image from "next/image";
 import close from "@/public/icons/close.svg";
-import Cart from "./../cart/Cart";
+import dynamic from "next/dynamic";
+
+const Cart = dynamic(() => import("./../cart/Cart"), { ssr: false });
 
 export default function AddToCartModal() {
   const { addToCartModalOpen, setAddToCartModalOpen } = useProductsContext();
