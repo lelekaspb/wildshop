@@ -37,8 +37,10 @@ export function ContextProvider({ children }: { children: React.ReactNode }) {
   const [addToCartModalOpen, setAddToCartModalOpen] = useState(false);
 
   const getInitialState = () => {
-    const cart = localStorage.getItem("wopcart");
-    return cart ? JSON.parse(cart) : [];
+    if (typeof window !== "undefined" && window.localStorage) {
+      const cart = localStorage.getItem("wopcart");
+      return cart ? JSON.parse(cart) : [];
+    }
   };
 
   const [shoppingCart, setShoppingCart] = useState<CartItem[]>(getInitialState);
