@@ -1,9 +1,9 @@
 .wrapper {
-  margin: 0 auto;
+  margin: 2rem auto;
 }
 
 .text {
   text-align: center;
-  font-size: var(--sub-title-font-size);
+  font-size: var(--body-font-size);
   font-weight: var(--font-light);
 }

@@ -1,18 +1,18 @@
-"use client";
-
-import styles from "./CartItemComponent.module.css";
 import { CartItem } from "@/app/client-utils/utils";
+import styles from "./CartItemComponentForModal.module.css";
+import { useProductsContext } from "@/app/context/context-provider";
+import { useState } from "react";
 import Image from "next/image";
 import placeholder from "@/public/placeholder/photo-on-the-way.svg";
-import { useState } from "react";
-import { useProductsContext } from "@/app/context/context-provider";
 import {
   changeAmountOfItem,
   incrementItem,
   decrementItem,
 } from "@/app/client-utils/cart-utils";
 
-export default function CartItemComponent(props: { cartItem: CartItem }) {
+export default function CartItemComponentForModal(props: {
+  cartItem: CartItem;
+}) {
   const {
     cartItem,
   }: {
@@ -53,15 +53,15 @@ export default function CartItemComponent(props: { cartItem: CartItem }) {
   };
 
   return (
-    <article key={`cart-${cartItem.id}`} className={styles.cart_item}>
+    <article key={`cart-modal-${cartItem.id}`} className={styles.cart_item}>
       <div className={styles.image_wrapper}>
         <Image
           alt={cartItem.title}
           src={cartItem.image ? cartItem.image : placeholder}
-          width={200}
-          height={200}
+          width={100}
+          height={100}
           style={{
-            maxWidth: "100%",
+            maxWidth: "150px",
             height: "auto",
           }}
         />
@@ -105,16 +105,16 @@ export default function CartItemComponent(props: { cartItem: CartItem }) {
                 +
               </button>
             </div>
-            <div
-              className={`${styles.amount_in_storage} ${
-                warningShown ? styles.warning_shown : styles.warning_hidden
-              }`}
-            >
-              <span>Kun {cartItem.amountInStorage} stk. på lager</span>
-            </div>
           </div>
           <div className={styles.subtotal}>
             {(cartItem.amountInCart * cartItem.price).toFixed(2)} kr
+          </div>
+          <div
+            className={`${styles.amount_in_storage} ${
+              warningShown ? styles.warning_shown : styles.warning_hidden
+            }`}
+          >
+            <span>Kun {cartItem.amountInStorage} stk. på lager</span>
           </div>
         </div>
       </div>

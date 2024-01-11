@@ -1,0 +1,9 @@
+.total_price {
+  display: flex;
+  justify-content: space-between;
+  font-weight: var(--font-light);
+}
+
+.price_text {
+  text-transform: uppercase;
+}

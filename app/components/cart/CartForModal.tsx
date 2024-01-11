@@ -1,8 +1,8 @@
 "use client";
 
-import styles from "./Cart.module.css";
+import styles from "./CartForModal.module.css";
 import { useProductsContext } from "@/app/context/context-provider";
-import CartItemComponent from "./CartItemComponent";
+import CartItemComponentForModal from "./CartItemComponentForModal";
 import EmptyCart from "./EmptyCart";
 import Link from "next/link";
 
@@ -12,7 +12,7 @@ const TotalPrice = dynamic(() => import("@/app/components/cart/TotalPrice"), {
   ssr: false,
 });
 
-export default function Cart() {
+export default function CartForModal() {
   const { shoppingCart } = useProductsContext();
 
   const cart: JSX.Element =
@@ -20,8 +20,8 @@ export default function Cart() {
       <div className={styles.cart_wrapper}>
         <div className={styles.cart_list}>
           {shoppingCart.map((cartItem) => (
-            <CartItemComponent
-              key={`cart-${cartItem.id}`}
+            <CartItemComponentForModal
+              key={`cart-modal-${cartItem.id}`}
               cartItem={cartItem}
             />
           ))}

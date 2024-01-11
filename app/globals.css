@@ -27,8 +27,9 @@
   --footer-font-size: calc(0.8rem + 0.3vw);
   --footer-font-size-smallest: calc(0.7rem + 0.3vw);
   --desktop-dropdown-upper-font-size: calc(0.8rem + 0.3vw);
-  --desktop-dropdown--lower-size: calc(0.7rem + 0.3vw);
+  --desktop-dropdown-lower-size: calc(0.7rem + 0.3vw);
   --breadcrumbs-font-size-desktop: calc(0.8rem + 0.3vw);
+  --cart-modal-font-size: calc(0.8rem + 0.4vw);
 
   --footer-min-height: 100px;
 }

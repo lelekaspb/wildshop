@@ -3,7 +3,7 @@
 import { Product } from "@/sanity/types/Product";
 import { useProductsContext } from "@/app/context/context-provider";
 import AddToCartModal from "./../../modals/AddToCartModal";
-import { CartItem } from "@/app/client-utils/utils";
+import { addItem } from "@/app/client-utils/cart-utils";
 
 export default function AddToCartButton(props: {
   product: Product;
@@ -13,48 +13,13 @@ export default function AddToCartButton(props: {
     useProductsContext();
 
   const addCartItem = (quantity: number) => {
-    // see if the item is already in the cart
-    const itemInCartIndex = shoppingCart.findIndex(
-      (elem: CartItem) => elem.id === props.product._id
+    const updatedShoppingCart = addItem(
+      quantity,
+      shoppingCart,
+      props.product,
+      props.imageUrl
     );
-
-    // if the item is already in the cart, update amountInCart
-    if (itemInCartIndex >= 0) {
-      const updatedItem: CartItem = shoppingCart[itemInCartIndex];
-      const firstPart = shoppingCart.slice(0, itemInCartIndex);
-      const lastPart = shoppingCart.slice(
-        itemInCartIndex + 1,
-        shoppingCart.length
-      );
-
-      // if current amount in cart plus the quantity is not higher than the amount in storage
-      const proposedQuantityInCart = updatedItem.amountInCart + quantity;
-      if (updatedItem.amountInStorage >= proposedQuantityInCart) {
-        updatedItem.amountInCart = proposedQuantityInCart;
-        const updatedShoppingCart: CartItem[] = [
-          ...firstPart,
-          updatedItem,
-          ...lastPart,
-        ];
-        setShoppingCart(updatedShoppingCart);
-      }
-    } else {
-      // add new item
-      const cartItem: CartItem = {
-        title: props.product.title,
-        image: props.imageUrl,
-        amountInStorage: props.product.amount,
-        amountInCart: quantity,
-        price: props.product.sale
-          ? props.product.salePrice
-          : props.product.regularPrice,
-        id: props.product._id,
-      };
-
-      setShoppingCart((prevState) => {
-        return [...prevState, cartItem];
-      });
-    }
+    setShoppingCart(updatedShoppingCart);
     setAddToCartModalOpen(true);
   };
 
