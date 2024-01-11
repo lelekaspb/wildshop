@@ -19,7 +19,7 @@ export default function AddToCartButton(props: {
     );
 
     // if the item is already in the cart, update amountInCart
-    if (itemInCartIndex > 0) {
+    if (itemInCartIndex >= 0) {
       const updatedItem: CartItem = shoppingCart[itemInCartIndex];
       const firstPart = shoppingCart.slice(0, itemInCartIndex);
       const lastPart = shoppingCart.slice(
@@ -27,23 +27,16 @@ export default function AddToCartButton(props: {
         shoppingCart.length
       );
 
-      if (quantity > 0) {
-        updatedItem.amountInCart += quantity;
+      // if current amount in cart plus the quantity is not higher than the amount in storage
+      const proposedQuantityInCart = updatedItem.amountInCart + quantity;
+      if (updatedItem.amountInStorage >= proposedQuantityInCart) {
+        updatedItem.amountInCart = proposedQuantityInCart;
         const updatedShoppingCart: CartItem[] = [
           ...firstPart,
           updatedItem,
           ...lastPart,
         ];
         setShoppingCart(updatedShoppingCart);
-      }
-    } else if (itemInCartIndex == 0) {
-      const updatedItem: CartItem = shoppingCart[0];
-      if (quantity > 0) {
-        updatedItem.amountInCart += quantity;
-
-        setShoppingCart(() => {
-          return [updatedItem];
-        });
       }
     } else {
       // add new item

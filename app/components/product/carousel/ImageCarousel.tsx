@@ -25,7 +25,7 @@ export default function ImageCarousel(props: {
                 width={500}
                 height={500}
                 style={{
-                  maxWidth: "100%",
+                  maxWidth: "400px",
                   height: "auto",
                 }}
               />
