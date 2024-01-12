@@ -40,6 +40,7 @@ export default async function CartInfo() {
             forwardPath="/cart/delivery"
             deliveryInfo={companyInfo.deliveryInfo}
             returnInfo={companyInfo.returnInfo}
+            tradeConditionsInfo={companyInfo.tradeConditions}
           />
         </section>
       </div>

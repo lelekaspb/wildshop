@@ -6,14 +6,20 @@ import { useCheckoutContext } from "@/app/context/checkout-context-provider";
 import DeliveryInfoModal from "@/app/components/modals/DeliveryInfoModal";
 import { PortableTextBlock } from "sanity";
 import ReturnInfoModal from "@/app/components/modals/ReturnInfoModal";
+import TradeConditionsInfoModal from "../../modals/TradeConditionsInfoModal";
 
 export default function CartFooter(props: {
   backPath: string;
   forwardPath: string;
   deliveryInfo: [PortableTextBlock];
   returnInfo: [PortableTextBlock];
+  tradeConditionsInfo: [PortableTextBlock];
 }) {
-  const { setDeliveryModalOpen, setReturnModalOpen } = useCheckoutContext();
+  const {
+    setDeliveryModalOpen,
+    setReturnModalOpen,
+    setTradeConditionsModalOpen,
+  } = useCheckoutContext();
 
   return (
     <div className={styles.footer}>
@@ -35,6 +41,7 @@ export default function CartFooter(props: {
         >
           Leveringsoplysninger
         </button>
+
         <button
           type="button"
           className={styles.link}
@@ -44,10 +51,21 @@ export default function CartFooter(props: {
         >
           Returoplysninger
         </button>
+
+        <button
+          type="button"
+          className={styles.link}
+          onClick={() => {
+            setTradeConditionsModalOpen(true);
+          }}
+        >
+          Handelsbetingelse
+        </button>
       </div>
 
       <DeliveryInfoModal bodyText={props.deliveryInfo} />
       <ReturnInfoModal bodyText={props.returnInfo} />
+      <TradeConditionsInfoModal bodyText={props.tradeConditionsInfo} />
     </div>
   );
 }

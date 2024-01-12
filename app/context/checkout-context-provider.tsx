@@ -14,6 +14,8 @@ type checkoutContextType = {
   setDeliveryModalOpen: Dispatch<SetStateAction<boolean>>;
   returnModalOpen: boolean;
   setReturnModalOpen: Dispatch<SetStateAction<boolean>>;
+  tradeConditionsModalOpen: boolean;
+  setTradeConditionsModalOpen: Dispatch<SetStateAction<boolean>>;
   deliveryMethod: DeliveryMethod | null;
   setDeliveryMethod:
     | Dispatch<SetStateAction<DeliveryMethod>>
@@ -30,6 +32,8 @@ export function CheckoutContextProvider({
   const [deliveryModalOpen, setDeliveryModalOpen] = useState(false);
   const [returnModalOpen, setReturnModalOpen] = useState(false);
   const [deliveryMethod, setDeliveryMethod] = useState(null);
+  const [tradeConditionsModalOpen, setTradeConditionsModalOpen] =
+    useState(false);
 
   return (
     <CheckoutContext.Provider
@@ -40,6 +44,8 @@ export function CheckoutContextProvider({
         setReturnModalOpen,
         deliveryMethod,
         setDeliveryMethod,
+        tradeConditionsModalOpen,
+        setTradeConditionsModalOpen,
       }}
     >
       {children}
