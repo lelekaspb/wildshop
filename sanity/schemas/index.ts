@@ -6,6 +6,10 @@ import productType from "./product-type-schema";
 import companyInfo from "./company-info-schema";
 import notification from "./notification-schema";
 import deliveryMethod from "./delivery-method-schema";
+import paymentMethod from "./payment-method-schema";
+import orderStatus from "./order-status-schema";
+import invoiceInfo from "./invoice-info-schema";
+import order from "./order-schema";
 
 const schemas = [
   productType,
@@ -16,6 +20,10 @@ const schemas = [
   companyInfo,
   notification,
   deliveryMethod,
+  paymentMethod,
+  orderStatus,
+  invoiceInfo,
+  order,
 ];
 
 export default schemas;
