@@ -1,0 +1,36 @@
+.cart_overview_item {
+  display: grid;
+  grid-template-columns: 0.4fr 1fr 0.3fr;
+}
+
+.image_wrapper {
+  grid-column: 1 / span 1;
+}
+
+.details_wrapper {
+  grid-column: 2 / span 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.subtotal_wrapper {
+  grid-column: 3 / span 1;
+}
+
+.title {
+  font-weight: var(--font-light);
+  font-size: var(--body-font-size);
+}
+
+.amount {
+  font-size: var(--footer-font-size);
+  font-weight: var(--font-light);
+}
+
+.subtotal_wrapper {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
