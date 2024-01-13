@@ -10,6 +10,7 @@ import paymentMethod from "./payment-method-schema";
 import orderStatus from "./order-status-schema";
 import invoiceInfo from "./invoice-info-schema";
 import order from "./order-schema";
+import orderProduct from "./order-product-schema";
 
 const schemas = [
   productType,
@@ -24,6 +25,7 @@ const schemas = [
   orderStatus,
   invoiceInfo,
   order,
+  orderProduct,
 ];
 
 export default schemas;

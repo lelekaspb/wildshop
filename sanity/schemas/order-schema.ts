@@ -25,18 +25,19 @@ const order = {
         "The comment that customer left while filling in the order form.",
     },
     {
-      title: "Related Products",
-      name: "products",
+      title: "Related 'Order - Product' entries",
+      name: "orderProducts",
       type: "array",
       of: [
         {
           type: "reference",
-          to: [{ type: "product" }],
+          to: [{ type: "orderProduct" }],
           options: { disableNew: true },
         },
       ],
 
-      description: "Products that the user ordered.",
+      description:
+        "Separated documents where pairs 'order - product' are stored along with the ordered product quantity.",
     },
     {
       title: "Invoice Information",
@@ -63,18 +64,30 @@ const order = {
       options: { disableNew: true },
       description: "The chosen payment method.",
     },
+    {
+      title: "Status",
+      name: "orderStatus",
+      type: "reference",
+      to: [{ type: "orderStatus" }],
+      options: { disableNew: true },
+      readonly: false,
+      description:
+        "Whether the order is waiting for action - Active, has been already sent to the buyer - Sent, or has been canceled for some reason - Canceled.",
+    },
   ],
   preview: {
     select: {
-      title: "customerEmail",
-      invoice: "invoice.customerName",
+      customerEmail: "customerEmail",
+      customer: "invoice.customerName",
       createdAt: "_createdAt",
+      status: "orderStatus.title",
     },
     prepare(selection: any) {
-      const { invoice, createdAt } = selection;
+      const { customer, createdAt, status, customerEmail } = selection;
       const createdDate = createdAt.split("T")[0];
       return Object.assign({}, selection, {
-        subtitle: `${invoice} | ${createdDate} `,
+        title: `${customer}`,
+        subtitle: `${customerEmail} | ${createdDate} | ${status} `,
       });
     },
   },

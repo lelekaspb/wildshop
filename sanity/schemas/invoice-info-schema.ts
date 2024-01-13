@@ -46,6 +46,14 @@ const invoiceInfo = {
       type: "string",
       description: "Customer's country",
     },
+    {
+      title: "Related Order",
+      name: "order",
+      type: "reference",
+      to: [{ type: "order" }],
+      options: { disableNew: true },
+      description: "The order document related to this invoice.",
+    },
   ],
   preview: {
     select: {
@@ -53,12 +61,13 @@ const invoiceInfo = {
       city: "city",
       zipcode: "zipcode",
       createdAt: "_createdAt",
+      status: "order.orderStatus.title",
     },
     prepare(selection: any) {
-      const { city, zipcode, createdAt } = selection;
+      const { city, zipcode, createdAt, status } = selection;
       const createdDate = createdAt.split("T")[0];
       return Object.assign({}, selection, {
-        subtitle: `${city}, ${zipcode} | ${createdDate} `,
+        subtitle: `${city}, ${zipcode} | ${createdDate} | ${status} `,
       });
     },
   },
