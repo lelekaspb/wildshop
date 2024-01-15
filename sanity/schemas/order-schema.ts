@@ -20,7 +20,7 @@ const order = {
     {
       name: "comment",
       title: "Customer's Comment to the order",
-      type: "string",
+      type: "text",
       description:
         "The comment that customer left while filling in the order form.",
     },

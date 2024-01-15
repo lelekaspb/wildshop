@@ -9,6 +9,22 @@ import {
   useState,
 } from "react";
 
+export type ContactInfo = {
+  email: string;
+  phone: string;
+  comment: string;
+};
+
+type InvoiceInfo = {
+  name: string;
+  company: string;
+  address: string;
+  address_line_2: string;
+  zipcode: string;
+  city: string;
+  country: string;
+};
+
 type checkoutContextType = {
   deliveryModalOpen: boolean;
   setDeliveryModalOpen: Dispatch<SetStateAction<boolean>>;
@@ -20,6 +36,12 @@ type checkoutContextType = {
   setDeliveryMethod:
     | Dispatch<SetStateAction<DeliveryMethod>>
     | Dispatch<SetStateAction<null>>;
+  paymentMethod: DeliveryMethod | null;
+  setPaymentMethod: Dispatch<SetStateAction<any>>;
+  contactInfo: ContactInfo;
+  setContactInfo: Dispatch<SetStateAction<any>>;
+  invoiceInfo: InvoiceInfo;
+  setInvoiceInfo: Dispatch<SetStateAction<any>>;
 };
 
 export const CheckoutContext = createContext<checkoutContextType | null>(null);
@@ -32,8 +54,25 @@ export function CheckoutContextProvider({
   const [deliveryModalOpen, setDeliveryModalOpen] = useState(false);
   const [returnModalOpen, setReturnModalOpen] = useState(false);
   const [deliveryMethod, setDeliveryMethod] = useState(null);
+  const [paymentMethod, setPaymentMethod] = useState(null);
   const [tradeConditionsModalOpen, setTradeConditionsModalOpen] =
     useState(false);
+  const contactInfoInit: ContactInfo = {
+    email: "",
+    phone: "",
+    comment: "",
+  };
+  const [contactInfo, setContactInfo] = useState<ContactInfo>(contactInfoInit);
+  const invoiceInfoInit: InvoiceInfo = {
+    name: "",
+    company: "",
+    address: "",
+    address_line_2: "",
+    zipcode: "",
+    city: "",
+    country: "",
+  };
+  const [invoiceInfo, setInvoiceInfo] = useState<InvoiceInfo>(invoiceInfoInit);
 
   return (
     <CheckoutContext.Provider
@@ -46,6 +85,12 @@ export function CheckoutContextProvider({
         setDeliveryMethod,
         tradeConditionsModalOpen,
         setTradeConditionsModalOpen,
+        contactInfo,
+        setContactInfo,
+        invoiceInfo,
+        setInvoiceInfo,
+        paymentMethod,
+        setPaymentMethod,
       }}
     >
       {children}

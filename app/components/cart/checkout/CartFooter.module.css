@@ -1,13 +1,8 @@
 .footer {
   display: flex;
   flex-direction: column;
-}
-
-.buttons_wrapper {
-  display: flex;
-  justify-content: space-between;
-  padding: 2rem 0;
-  border-bottom: 1px solid var(--pinkish-border-color);
+  margin-top: 5vh;
+  max-width: 500px;
 }
 
 .links_wrapper {

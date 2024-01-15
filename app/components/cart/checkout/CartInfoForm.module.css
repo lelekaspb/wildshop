@@ -1,0 +1,23 @@
+.form {
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+}
+
+.form_legend {
+  font-size: var(--sub-title-font-size);
+  margin-bottom: 1rem;
+}
+
+.warning {
+  font-weight: var(--font-light);
+  font-size: var(--footer-font-size);
+}
+
+.buttons_wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--pinkish-border-color);
+}

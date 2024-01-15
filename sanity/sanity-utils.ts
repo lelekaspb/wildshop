@@ -10,6 +10,7 @@ import { ProductCollection } from "./types/ProductCollection";
 import { Product } from "./types/Product";
 import { CompanyInfo } from "./types/CompanyInfo";
 import { CreateNotification } from "./types/CreateNotification";
+import { DeliveryMethod } from "./types/DeliveryMethod";
 
 export const client = createClient(clientConfig);
 
@@ -32,6 +33,10 @@ export async function sanityFetch<QueryResponse>({
       tags, // for tag-based revalidation
     },
   });
+}
+
+export async function getDeliveryMethods(): Promise<DeliveryMethod[]> {
+  return client.fetch(groq`*[_type == "deliveryMethod"]`);
 }
 
 export async function getNewProductsCount(): Promise<number> {

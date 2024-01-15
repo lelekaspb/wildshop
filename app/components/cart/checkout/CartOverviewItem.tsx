@@ -8,8 +8,7 @@ import placeholder from "@/public/placeholder/photo-on-the-way.svg";
 
 export default function CartOverviewItem(props: { cartItem: CartItem }) {
   const { deliveryMethod } = useCheckoutContext();
-  console.log(deliveryMethod);
-  console.log(props.cartItem);
+
   return (
     <article className={styles.cart_overview_item}>
       <div className={styles.image_wrapper}>

@@ -5,6 +5,16 @@ export function validateEmail(string: string) {
   return string.match(emailRegex);
 }
 
+export function validateOnlyDigits(string: string) {
+  const regex = new RegExp(/^\d+$/);
+  return string.match(regex);
+}
+
+export function validateOnlyLetters(string: string) {
+  const regex = new RegExp(/^[A-Za-z]+$/);
+  return string.match(regex);
+}
+
 export type CartItem = {
   title: string;
   image: string | null;

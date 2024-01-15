@@ -166,9 +166,18 @@ a {
   color: var(--primary-font-color);
 }
 
+.readonly {
+  color: var(--modal-overlay-color);
+}
+
 .form_input:focus,
 .form_input:active {
   outline: 1px solid var(--primary-font-color);
+}
+
+.form_input::placeholder {
+  color: var(--placeholder-color);
+  font-size: var(--footer-font-size);
 }
 
 .required_star {
@@ -191,6 +200,10 @@ a {
   opacity: 0;
   visibility: hidden;
   transition: all 0.15s;
+}
+
+fieldset {
+  border: none;
 }
 
 /* --- buttons --- */
