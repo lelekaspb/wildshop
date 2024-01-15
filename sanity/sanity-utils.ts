@@ -11,6 +11,7 @@ import { Product } from "./types/Product";
 import { CompanyInfo } from "./types/CompanyInfo";
 import { CreateNotification } from "./types/CreateNotification";
 import { DeliveryMethod } from "./types/DeliveryMethod";
+import { PaymentMethod } from "./types/PaymentMethod";
 
 export const client = createClient(clientConfig);
 
@@ -33,6 +34,14 @@ export async function sanityFetch<QueryResponse>({
       tags, // for tag-based revalidation
     },
   });
+}
+
+export async function getPaymentMethods(): Promise<PaymentMethod[]> {
+  return client.fetch(groq`*[_type == "paymentMethod"]{
+  _id,
+  "slug": slug.current,
+  title
+}`);
 }
 
 export async function getDeliveryMethods(): Promise<DeliveryMethod[]> {

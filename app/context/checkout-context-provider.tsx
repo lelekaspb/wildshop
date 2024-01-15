@@ -40,6 +40,8 @@ type checkoutContextType = {
   setContactInfo: Dispatch<SetStateAction<any>>;
   invoiceInfo: InvoiceInfo;
   setInvoiceInfo: Dispatch<SetStateAction<any>>;
+  agreeToTradeConditions: boolean;
+  setAgreeToTradeConditions: Dispatch<SetStateAction<boolean>>;
 };
 
 export const CheckoutContext = createContext<checkoutContextType | null>(null);
@@ -71,6 +73,8 @@ export function CheckoutContextProvider({
     country: "",
   };
   const [invoiceInfo, setInvoiceInfo] = useState<InvoiceInfo>(invoiceInfoInit);
+  const [agreeToTradeConditions, setAgreeToTradeConditions] =
+    useState<boolean>(false);
 
   return (
     <CheckoutContext.Provider
@@ -89,6 +93,8 @@ export function CheckoutContextProvider({
         setInvoiceInfo,
         paymentMethod,
         setPaymentMethod,
+        agreeToTradeConditions,
+        setAgreeToTradeConditions,
       }}
     >
       {children}
