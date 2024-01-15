@@ -36,8 +36,6 @@ export default async function CartInfo() {
 
         <section className={styles.footer}>
           <CartFooter
-            backPath="/cart"
-            forwardPath="/cart/delivery"
             deliveryInfo={companyInfo.deliveryInfo}
             returnInfo={companyInfo.returnInfo}
             tradeConditionsInfo={companyInfo.tradeConditions}
