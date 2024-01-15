@@ -170,7 +170,7 @@ export default function CartInfoForm() {
     ) {
       router.push("/cart/delivery");
     } else {
-      console.log("form is not valid or country field is empty");
+      console.error("form is not valid or country field is empty");
       // show errors
       setEmailError(!validateEmail(email));
       setPhoneError(!validateOnlyDigits(phone));

@@ -36,7 +36,12 @@ export async function sanityFetch<QueryResponse>({
 }
 
 export async function getDeliveryMethods(): Promise<DeliveryMethod[]> {
-  return client.fetch(groq`*[_type == "deliveryMethod"]`);
+  return client.fetch(groq`*[_type == "deliveryMethod"]{
+    _id,
+    "slug": slug.current,
+    title,
+    price
+  }`);
 }
 
 export async function getNewProductsCount(): Promise<number> {

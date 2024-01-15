@@ -33,9 +33,7 @@ type checkoutContextType = {
   tradeConditionsModalOpen: boolean;
   setTradeConditionsModalOpen: Dispatch<SetStateAction<boolean>>;
   deliveryMethod: DeliveryMethod | null;
-  setDeliveryMethod:
-    | Dispatch<SetStateAction<DeliveryMethod>>
-    | Dispatch<SetStateAction<null>>;
+  setDeliveryMethod: Dispatch<SetStateAction<any>>;
   paymentMethod: DeliveryMethod | null;
   setPaymentMethod: Dispatch<SetStateAction<any>>;
   contactInfo: ContactInfo;
