@@ -73,7 +73,7 @@ export default function CartInfoForm() {
   };
 
   const handleNameBlur = (e: React.FormEvent<HTMLInputElement>) => {
-    setNameError(!validateOnlyLetters(e.currentTarget.value));
+    setNameError(e.currentTarget.value.length == 0);
   };
 
   const handleCompanyChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -162,7 +162,7 @@ export default function CartInfoForm() {
     if (
       validateEmail(email) &&
       validateOnlyDigits(phone) &&
-      validateOnlyLetters(name) &&
+      name.length > 0 &&
       address.length > 0 &&
       validateOnlyDigits(zipcode) &&
       validateOnlyLetters(city) &&
@@ -174,7 +174,7 @@ export default function CartInfoForm() {
       // show errors
       setEmailError(!validateEmail(email));
       setPhoneError(!validateOnlyDigits(phone));
-      setNameError(!validateOnlyLetters(name));
+      setNameError(name.length == 0);
       setAddressError(address.length == 0);
       setZipcodeError(!validateOnlyDigits(zipcode));
       setCityError(!validateOnlyLetters(city));
