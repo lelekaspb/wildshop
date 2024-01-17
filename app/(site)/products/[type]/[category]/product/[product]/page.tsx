@@ -18,9 +18,15 @@ export async function generateMetadata({
   };
 }) {
   const product = await getProductBySlug(params.product);
-  return {
-    title: `Wild Orchid Professional | ${product.title}`,
-  };
+  if (product) {
+    return {
+      title: `Wild Orchid Professional | ${product.title}`,
+    };
+  } else {
+    return {
+      title: `Wild Orchid Professional`,
+    };
+  }
 }
 
 export default async function CategoryProduct({

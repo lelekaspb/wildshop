@@ -1,5 +1,6 @@
 .cart_overview {
   background-color: var(--pinkish-bg-color);
+  max-width: 600px;
   width: 100%;
   padding: 2rem;
 }
@@ -21,4 +22,11 @@
 .delivery_method {
   display: flex;
   justify-content: space-between;
+  font-weight: var(--font-light);
+}
+
+@media screen and (max-width: 1300px) {
+  .cart_overview {
+    max-width: 600px;
+  }
 }

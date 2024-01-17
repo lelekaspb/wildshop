@@ -43,7 +43,7 @@ export default function CartFooter(props: {
 
         <button
           type="button"
-          className={styles.link}
+          className={`${styles.link} ${styles.trade_conditions_link}`}
           onClick={() => {
             setTradeConditionsModalOpen(true);
           }}

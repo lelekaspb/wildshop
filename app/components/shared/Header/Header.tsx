@@ -29,8 +29,9 @@ export default async function Header() {
             height={76}
             style={{
               maxWidth: "100%",
-              height: "auto",
+              maxHeight: "auto",
             }}
+            priority={true}
           />
         </Link>
       </div>
@@ -48,7 +49,7 @@ export default async function Header() {
             height={18}
             style={{
               maxHeight: "100%",
-              width: "auto",
+              maxWidth: "auto",
             }}
           />
         </button>

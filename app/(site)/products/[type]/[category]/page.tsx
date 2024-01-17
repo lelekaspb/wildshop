@@ -21,9 +21,15 @@ export async function generateMetadata({
   params: { type: string; category: string };
 }) {
   const category = await getCategoryBySlug(params.category);
-  return {
-    title: `Wild Orchid Professional | ${category.title}`,
-  };
+  if (category) {
+    return {
+      title: `Wild Orchid Professional | ${category.title}`,
+    };
+  } else {
+    return {
+      title: `Wild Orchid Professional`,
+    };
+  }
 }
 
 // export async function generateStaticParams() {

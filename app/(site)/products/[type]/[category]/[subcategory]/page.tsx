@@ -21,9 +21,15 @@ export async function generateMetadata({
   params: { type: string; category: string; subcategory: string };
 }) {
   const subcategory = await getSubcategoryBySlug(params.subcategory);
-  return {
-    title: `Wild Orchid Professional | ${subcategory.title}`,
-  };
+  if (subcategory) {
+    return {
+      title: `Wild Orchid Professional | ${subcategory.title}`,
+    };
+  } else {
+    return {
+      title: `Wild Orchid Professional}`,
+    };
+  }
 }
 
 export default async function Subcategory({

@@ -21,9 +21,15 @@ export async function generateMetadata({
   };
 }) {
   const collection = await getCollectionBySlug(params.collection);
-  return {
-    title: `Wild Orchid Professional | ${collection.title}`,
-  };
+  if (collection) {
+    return {
+      title: `Wild Orchid Professional | ${collection.title}`,
+    };
+  } else {
+    return {
+      title: `Wild Orchid Professional`,
+    };
+  }
 }
 
 export default async function Collection({

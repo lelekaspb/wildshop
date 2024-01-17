@@ -30,3 +30,9 @@
   opacity: 0.8;
   transition: all 0.1s;
 }
+
+@media screen and (max-width: 530px) {
+  .trade_conditions_link {
+    display: none;
+  }
+}

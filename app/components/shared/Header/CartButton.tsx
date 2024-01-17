@@ -22,7 +22,7 @@ export default function CartButton() {
           height={20}
           style={{
             maxHeight: "100%",
-            width: "auto",
+            maxWidth: "auto",
           }}
         />
       </Link>

@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import styles from "./page.module.css";
 
 export const metadata: Metadata = {
   title: "Wild Orchid Professional | Kurv - Succes",
@@ -6,8 +7,11 @@ export const metadata: Metadata = {
 
 export default async function CartSuccess() {
   return (
-    <main>
-      <h2>CartSuccess</h2>
-    </main>
+    <div className={styles.cart_success_page}>
+      <section className={styles.cart_success_content}>
+        <p>Tak for ordren! </p>
+        <p>Du modtager faktura via e-mail i løbet af kort tid.</p>
+      </section>
+    </div>
   );
 }

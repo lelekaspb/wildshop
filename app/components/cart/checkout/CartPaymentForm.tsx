@@ -39,7 +39,7 @@ export default function CartPaymentForm(props: {
       // get response
       // based on the response
       // either
-      // router.push("/cart/success");
+      router.push("/cart/success");
       // or
       // router.push("/cart/error");
       setMethodError(false);

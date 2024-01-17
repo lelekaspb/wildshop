@@ -20,3 +20,25 @@
   grid-column: 1 / span 1;
   grid-row: 2 / span 1;
 }
+
+@media screen and (max-width: 1300px) {
+  .cart_payment_content {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr min-content min-content;
+  }
+
+  .form {
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 1;
+  }
+
+  .overview {
+    grid-column: 1 / span 1;
+    grid-row: 2 / span 1;
+  }
+
+  .footer {
+    grid-column: 1 / span 1;
+    grid-row: 3 / span 1;
+  }
+}

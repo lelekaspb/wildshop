@@ -18,9 +18,15 @@ export async function generateMetadata({
   params: { type: string };
 }) {
   const type = await getTypeBySlug(params.type);
-  return {
-    title: `Wild Orchid Professional | ${type.title} produkter`,
-  };
+  if (type) {
+    return {
+      title: `Wild Orchid Professional | ${type.title} produkter`,
+    };
+  } else {
+    return {
+      title: `Wild Orchid Professional`,
+    };
+  }
 }
 
 export async function generateStaticParams() {
