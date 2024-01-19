@@ -78,7 +78,7 @@ export default function ProductPage(props: { product: Product }) {
           )}
         </div>
 
-        <div className={styles.description_section}>
+        <div className="rich_text">
           <PortableText value={product.description} />
         </div>
       </section>

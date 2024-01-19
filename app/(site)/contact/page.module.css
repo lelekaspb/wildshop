@@ -22,4 +22,5 @@
 .section_text {
   font-weight: var(--font-light);
   font-size: var(--body-font-size);
+  font-family: var(--primary-font);
 }
