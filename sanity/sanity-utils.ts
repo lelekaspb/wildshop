@@ -37,7 +37,7 @@ export async function sanityFetch<QueryResponse>({
 }
 
 export async function getPaymentMethods(): Promise<PaymentMethod[]> {
-  return client.fetch(groq`*[_type == "paymentMethod"]{
+  return client.fetch(groq`*[_type == "paymentMethod" && !(_id in path('drafts.**'))]{
   _id,
   "slug": slug.current,
   title
@@ -45,7 +45,7 @@ export async function getPaymentMethods(): Promise<PaymentMethod[]> {
 }
 
 export async function getDeliveryMethods(): Promise<DeliveryMethod[]> {
-  return client.fetch(groq`*[_type == "deliveryMethod"]{
+  return client.fetch(groq`*[_type == "deliveryMethod" && !(_id in path('drafts.**'))]{
     _id,
     "slug": slug.current,
     title,
