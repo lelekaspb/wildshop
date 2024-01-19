@@ -112,6 +112,31 @@ const product = {
         "Choose the product's collection. Optional field, so leave empty if the product is not related to any collection.",
     },
   ],
+  preview: {
+    select: {
+      title: "title",
+      type: "productType.title",
+      category: "productCategory.title",
+      subcategory: "productSubcategory.title",
+      collection: "productCollection.title",
+    },
+    prepare(selection: any) {
+      const { type, category, subcategory, collection } = selection;
+      if (subcategory && collection) {
+        return Object.assign({}, selection, {
+          subtitle: `${type} - ${category} - ${subcategory} - ${collection}`,
+        });
+      } else if (subcategory) {
+        return Object.assign({}, selection, {
+          subtitle: `${type} - ${category} - ${subcategory}`,
+        });
+      } else {
+        return Object.assign({}, selection, {
+          subtitle: `${type} - ${category}`,
+        });
+      }
+    },
+  },
 };
 
 export default product;

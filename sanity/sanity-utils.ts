@@ -316,13 +316,7 @@ export async function getNavigationItems(): Promise<ProductType[]> {
             _id,
             name,
             "slug": slug.current,
-            title,
-            productCollections[]->{
-              _id,
-              name,
-              "slug": slug.current,
-              title,
-            }
+            title
           }
         }
       }`

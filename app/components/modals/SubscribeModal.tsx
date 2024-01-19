@@ -22,6 +22,7 @@ export default function SubscribeModal(props: {
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
   const [success, setSuccess] = useState(false);
+  const [errorResponse, setSrrorResponse] = useState(false);
 
   const handleClick = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -32,6 +33,7 @@ export default function SubscribeModal(props: {
         productId: subscribeProduct.id,
       });
       setSuccess(result.success);
+      setSrrorResponse(!result.success);
       setError(false);
       setEmail("");
     } else {
@@ -117,7 +119,7 @@ export default function SubscribeModal(props: {
               type="button"
               className={`${"primary_button"} ${styles.button}`}
               onClick={handleClick}
-              disabled={error || success || email.length == 0}
+              disabled={error || success}
             >
               Sende
             </button>
@@ -138,6 +140,14 @@ export default function SubscribeModal(props: {
           }`}
         >
           Du er nu skrevet op
+        </div>
+
+        <div
+          className={`${styles.error_message} ${
+            errorResponse ? styles.message_shown : styles.message_hidden
+          }`}
+        >
+          Der er nogen galt, prov igen senere
         </div>
       </div>
     </div>

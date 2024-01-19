@@ -130,6 +130,13 @@
   font-size: var(--sub-title-font-size);
 }
 
+.error_message {
+  margin-top: 2rem;
+  font-weight: var(--font-regular);
+  font-size: var(--sub-title-font-size);
+  color: var(--error-color);
+}
+
 .message_shown {
   transform: translateX(0);
   opacity: 1;

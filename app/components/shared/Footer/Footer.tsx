@@ -7,7 +7,7 @@ export default async function Footer() {
   return (
     <footer className={styles.footer}>
       <section className={styles.copyringt}>
-        © 2023 WILD ORCHID PROFESSIONAL
+        © 2024 WILD ORCHID PROFESSIONAL
       </section>
       <section className={styles.details}>
         <div className={styles.address}>
