@@ -2,7 +2,6 @@
 
 import { Product } from "@/sanity/types/Product";
 import { useProductsContext } from "@/app/context/context-provider";
-import AddToCartModal from "./../../modals/AddToCartModal";
 import { addItem } from "@/app/client-utils/cart-utils";
 
 export default function AddToCartButton(props: {
@@ -33,7 +32,6 @@ export default function AddToCartButton(props: {
       >
         Tiføj til kurven
       </button>
-      <AddToCartModal />
     </>
   );
 }

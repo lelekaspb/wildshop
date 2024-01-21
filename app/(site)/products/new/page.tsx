@@ -4,6 +4,7 @@ import styles from "./page.module.css";
 import ProductMug from "@/app/components/product/mugs/ProductMug";
 import { Metadata } from "next";
 import SubscribeModal from "@/app/components/modals/SubscribeModal";
+import AddToCartModal from "@/app/components/modals/AddToCartModal";
 
 export const metadata: Metadata = {
   title: "Wild Orchid Professional | Ny Kollektion",
@@ -31,6 +32,7 @@ export default async function NewCollection() {
               />
             ))}
           </section>
+          <AddToCartModal />
           <SubscribeModal gibberer={createNotification} />
         </div>
       )}

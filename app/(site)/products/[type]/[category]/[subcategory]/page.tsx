@@ -16,6 +16,7 @@ import Breadcrumbs from "./Breadcrumbs";
 import ProductMug from "@/app/components/product/mugs/ProductMug";
 import { notFound } from "next/navigation";
 import SubscribeModal from "@/app/components/modals/SubscribeModal";
+import AddToCartModal from "@/app/components/modals/AddToCartModal";
 
 export async function generateMetadata({
   params,
@@ -114,7 +115,10 @@ export default async function Subcategory({
           </section>
 
           {collections.length == 0 && products.length > 0 && (
-            <SubscribeModal gibberer={createNotification} />
+            <>
+              <AddToCartModal />
+              <SubscribeModal gibberer={createNotification} />{" "}
+            </>
           )}
 
           {collections.length == 0 && products.length == 0 && (

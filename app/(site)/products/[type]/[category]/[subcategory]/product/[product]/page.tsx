@@ -10,6 +10,7 @@ import Breadcrumbs from "./Breadcrumbs";
 import ProductPage from "@/app/components/product/pages/ProductPage";
 import { notFound } from "next/navigation";
 import SubscribeModal from "@/app/components/modals/SubscribeModal";
+import AddToCartModal from "@/app/components/modals/AddToCartModal";
 
 export async function generateMetadata({
   params,
@@ -64,6 +65,7 @@ export default async function SubcategoryProduct({
         />
       </section>
       <ProductPage product={product} />
+      <AddToCartModal />
       <SubscribeModal gibberer={createNotification} />
     </div>
   );

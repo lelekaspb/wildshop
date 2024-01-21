@@ -6,6 +6,7 @@ import ProductMug from "@/app/components/product/mugs/ProductMug";
 
 import { Metadata } from "next";
 import SubscribeModal from "@/app/components/modals/SubscribeModal";
+import AddToCartModal from "@/app/components/modals/AddToCartModal";
 
 export const metadata: Metadata = {
   title: "Wild Orchid Professional | Tilbud",
@@ -35,6 +36,7 @@ export default async function Sale() {
             ))}
           </section>
 
+          <AddToCartModal />
           <SubscribeModal gibberer={createNotification} />
         </div>
       )}
