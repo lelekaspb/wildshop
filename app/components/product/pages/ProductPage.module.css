@@ -7,6 +7,7 @@
 }
 
 .image_section {
+  max-width: 400px;
 }
 
 .product_details {
@@ -14,6 +15,7 @@
   flex-direction: column;
   gap: 30px;
   width: 60%;
+  max-width: 600px;
 }
 
 .title_section {
