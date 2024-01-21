@@ -6,6 +6,7 @@ import { addItem } from "@/app/client-utils/cart-utils";
 
 export default function AddToCartButton(props: {
   product: Product;
+  quantityAvailable: number;
   imageUrl: string | null;
 }) {
   const { setAddToCartModalOpen, shoppingCart, setShoppingCart } =
@@ -16,6 +17,7 @@ export default function AddToCartButton(props: {
       quantity,
       shoppingCart,
       props.product,
+      props.quantityAvailable,
       props.imageUrl
     );
     setShoppingCart(updatedShoppingCart);

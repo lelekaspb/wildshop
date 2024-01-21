@@ -1,13 +1,13 @@
 import ImageCarousel from "@/app/components/product/carousel/ImageCarousel";
 import { Product } from "@/sanity/types/Product";
 import { PortableText } from "@portabletext/react";
-import { client, createNotification } from "@/sanity/sanity-utils";
+import { client, getProductAmountInOrders } from "@/sanity/sanity-utils";
 import imageUrlBuilder from "@sanity/image-url";
 import styles from "./ProductPage.module.css";
 import AddToCartButton from "@/app/components/product/buttons/AddToCartButton";
 import SubscribeButton from "@/app/components/product/buttons/SubscribeButton";
 
-export default function ProductPage(props: { product: Product }) {
+export default async function ProductPage(props: { product: Product }) {
   const product = props.product;
   const builder = imageUrlBuilder(client);
   const urlFor = (source: string) => {
@@ -22,7 +22,10 @@ export default function ProductPage(props: { product: Product }) {
   }
 
   // TODO: adjust with orders table/collection
-  const product_amount = product.amount;
+  const quantityInOrders = await getProductAmountInOrders(product._id);
+  console.log("quantity in orders " + quantityInOrders);
+  const product_amount: number = product.amount - quantityInOrders;
+  console.log("product amount " + product_amount);
   return (
     <section className={styles.product_page_content}>
       <section className={styles.image_section}>
@@ -70,6 +73,7 @@ export default function ProductPage(props: { product: Product }) {
           {product_amount > 0 && (
             <AddToCartButton
               product={product}
+              quantityAvailable={product_amount}
               imageUrl={images && images.length > 0 ? images[0] : null}
             />
           )}
