@@ -11,9 +11,9 @@ import { useProductsContext } from "@/app/context/context-provider";
 import { validateEmail } from "@/app/client-utils/utils";
 
 export default function SubscribeModal(props: {
-  product: Product;
-  isOpen: boolean;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
+  // product: Product;
+  // isOpen: boolean;
+  // setIsOpen: Dispatch<SetStateAction<boolean>>;
   gibberer: (data: SanityDocumentStub<CreateNotification>) => Promise<any>;
 }) {
   const { subscribeModalOpen, setSubscribeModalOpen, subscribeProduct } =
@@ -68,7 +68,7 @@ export default function SubscribeModal(props: {
           <div
             className={styles.modal_close_button}
             onClick={() => {
-              props.setIsOpen(false);
+              setSubscribeModalOpen(false);
             }}
           >
             <Image

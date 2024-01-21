@@ -81,9 +81,7 @@ export default function ProductMug(props: { product: Product; path: string }) {
         {product_amount > 0 && (
           <AddToCartButton product={product} imageUrl={image} />
         )}
-        {product_amount == 0 && (
-          <SubscribeButton product={product} gibberer={createNotification} />
-        )}
+        {product_amount == 0 && <SubscribeButton product={product} />}
       </div>
     </article>
   );

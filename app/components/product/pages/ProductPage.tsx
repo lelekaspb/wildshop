@@ -73,9 +73,7 @@ export default function ProductPage(props: { product: Product }) {
               imageUrl={images && images.length > 0 ? images[0] : null}
             />
           )}
-          {product_amount == 0 && (
-            <SubscribeButton product={product} gibberer={createNotification} />
-          )}
+          {product_amount == 0 && <SubscribeButton product={product} />}
         </div>
 
         <div className="rich_text">

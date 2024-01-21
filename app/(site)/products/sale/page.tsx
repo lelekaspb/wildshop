@@ -1,9 +1,11 @@
-import { getSaleProducts } from "@/sanity/sanity-utils";
+import { getSaleProducts, createNotification } from "@/sanity/sanity-utils";
+
 import styles from "./page.module.css";
 import Breadcrumbs from "./Breadcrumbs";
 import ProductMug from "@/app/components/product/mugs/ProductMug";
 
 import { Metadata } from "next";
+import SubscribeModal from "@/app/components/modals/SubscribeModal";
 
 export const metadata: Metadata = {
   title: "Wild Orchid Professional | Tilbud",
@@ -32,6 +34,8 @@ export default async function Sale() {
               />
             ))}
           </section>
+
+          <SubscribeModal gibberer={createNotification} />
         </div>
       )}
 

@@ -1,8 +1,9 @@
-import { getNewProducts } from "@/sanity/sanity-utils";
+import { getNewProducts, createNotification } from "@/sanity/sanity-utils";
 import Breadcrumbs from "./Breadcrumbs";
 import styles from "./page.module.css";
 import ProductMug from "@/app/components/product/mugs/ProductMug";
 import { Metadata } from "next";
+import SubscribeModal from "@/app/components/modals/SubscribeModal";
 
 export const metadata: Metadata = {
   title: "Wild Orchid Professional | Ny Kollektion",
@@ -30,6 +31,7 @@ export default async function NewCollection() {
               />
             ))}
           </section>
+          <SubscribeModal gibberer={createNotification} />
         </div>
       )}
 
