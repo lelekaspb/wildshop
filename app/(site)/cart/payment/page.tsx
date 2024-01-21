@@ -1,4 +1,5 @@
 import {
+  createOrder,
   getCompanyGeneralInformation,
   getPaymentMethods,
 } from "@/sanity/sanity-utils";
@@ -31,7 +32,10 @@ export default async function CartPayment() {
 
       <div className={styles.cart_payment_content}>
         <section className={styles.form}>
-          <CartPaymentForm paymentMethods={paymentMethods} />
+          <CartPaymentForm
+            paymentMethods={paymentMethods}
+            postOrder={createOrder}
+          />
         </section>
 
         <section className={styles.overview}>

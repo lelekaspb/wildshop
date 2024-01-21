@@ -1,6 +1,6 @@
 import "server-only";
 
-import type { QueryParams } from "@sanity/client";
+import { QueryParams, Transaction, Patch } from "@sanity/client";
 import { SanityDocumentStub, createClient, groq } from "next-sanity";
 import { ProductCategory } from "./types/ProductCategory";
 import { ProductType } from "./types/ProductType";
@@ -12,6 +12,10 @@ import { CompanyInfo } from "./types/CompanyInfo";
 import { CreateNotification } from "./types/CreateNotification";
 import { DeliveryMethod } from "./types/DeliveryMethod";
 import { PaymentMethod } from "./types/PaymentMethod";
+import { CreateInvoiceInfo } from "./types/CreateInvoiceInfo";
+import { CreateOrder } from "./types/CreateOrder";
+import { OrderStatus } from "./types/OrderStatus";
+import { CartItem } from "@/app/client-utils/utils";
 
 export const client = createClient(clientConfig);
 
@@ -350,6 +354,77 @@ export async function createNotification(
       ...createResponse,
       success: true,
     };
+  } catch (err: any) {
+    return {
+      success: false,
+      error: err.message,
+    };
+  }
+}
+
+// async function getOrderStatuses(): Promise<OrderStatus[]> {
+//   return client.fetch(
+//     groq`*[_type == "orderStatus" && !(_id in path('drafts.**'))][0]`
+//   );
+// }
+
+export async function createOrder(
+  invoiceInfo: CreateInvoiceInfo,
+  orderInfo: CreateOrder,
+  shoppingCart: CartItem[]
+): Promise<any> {
+  "use server";
+  console.log("createOrder");
+  const statusId = "134c0f05-ed8f-405f-ac77-16539b937914";
+  const orderDoc: SanityDocumentStub = {
+    _type: "order",
+    customerEmail: orderInfo.customerEmail,
+    customerPhone: orderInfo.customerPhone,
+    comment: orderInfo.comment,
+    orderStatus: {
+      _type: "reference",
+      _ref: statusId,
+    },
+  };
+
+  const invoiceDoc: SanityDocumentStub = {
+    _type: "invoiceInfo",
+    customerName: invoiceInfo.customerName,
+    company: invoiceInfo.company,
+    address: invoiceInfo.address,
+    addressLineTwo: invoiceInfo.addressLineTwo,
+    zipcode: invoiceInfo.zipcode,
+    city: invoiceInfo.city,
+    country: invoiceInfo.country,
+  };
+
+  const orderProdutcDocs = shoppingCart.map((item) => {
+    return {
+      _type: "orderProduct",
+      product: {
+        _type: "reference",
+        _ref: item.id,
+      },
+      quantity: item.amountInCart,
+    };
+  });
+  console.log(orderProdutcDocs);
+
+  try {
+    // // create order, save its id for setting reference later
+    // const order = await client.create(orderDoc);
+    // console.log(order);
+
+    // // create invoice info, save its id
+    // const invoice = await client.create(invoiceDoc);
+    // console.log(invoice);
+    const transaction = new Transaction()
+      .create(invoiceDoc)
+      .create(orderDoc)
+      .create([...orderProdutcDocs]);
+    console.log(transaction);
+
+    // create as many as needed order-product documents, save ids
   } catch (err: any) {
     return {
       success: false,

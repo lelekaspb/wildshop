@@ -6,9 +6,11 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import styles from "./CartPaymentForm.module.css";
 import Link from "next/link";
+import { validateInfoForm } from "@/app/client-utils/cart-utils";
 
 export default function CartPaymentForm(props: {
   paymentMethods: PaymentMethod[];
+  postOrder: () => void;
 }) {
   const [methodError, setMethodError] = useState(false);
   const [tradeConditionsError, setTradeConditionsError] = useState(false);
@@ -18,6 +20,9 @@ export default function CartPaymentForm(props: {
     agreeToTradeConditions,
     setAgreeToTradeConditions,
     setTradeConditionsModalOpen,
+    deliveryMethod,
+    invoiceInfo,
+    contactInfo,
   } = useCheckoutContext();
 
   const router = useRouter();
@@ -34,14 +39,33 @@ export default function CartPaymentForm(props: {
 
     const agreementCheckbox = target.trade_conditions as HTMLInputElement;
 
+    const infoFormValidated = validateInfoForm(
+      contactInfo.email,
+      contactInfo.phone,
+      invoiceInfo.name,
+      invoiceInfo.address,
+      invoiceInfo.zipcode,
+      invoiceInfo.city,
+      invoiceInfo.country
+    );
+
     if (paymentRadio.checked && agreementCheckbox.checked) {
-      // send post request via server action
-      // get response
-      // based on the response
-      // either
-      router.push("/cart/success");
-      // or
-      // router.push("/cart/error");
+      if (infoFormValidated && deliveryMethod && paymentMethod) {
+        // send post request via server action
+        const response = props.postOrder();
+        // get response
+        // based on the response
+        // either
+        router.push("/cart/success");
+        // or
+        // router.push("/cart/error");
+      } else {
+        // show error saying that on previous steps info missing
+        console.error(
+          "some fields from information or delivery steps are missing."
+        );
+      }
+
       setMethodError(false);
       setTradeConditionsError(false);
     } else {

@@ -86,7 +86,7 @@ export default function CartItemComponentForModal(props: {
                   className={styles.amount_in_cart_input}
                   type="number"
                   min={0}
-                  max={10}
+                  max={15}
                   name="amount"
                   value={cartItem.amountInCart}
                   onChange={(e) => {

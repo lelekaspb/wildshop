@@ -1,5 +1,30 @@
 import { Product } from "@/sanity/types/Product";
-import { CartItem } from "./utils";
+import {
+  CartItem,
+  validateEmail,
+  validateOnlyDigits,
+  validateOnlyLetters,
+} from "./utils";
+
+export const validateInfoForm = (
+  email: string,
+  phone: string,
+  name: string,
+  address: string,
+  zipcode: string,
+  city: string,
+  country: string
+) => {
+  return (
+    validateEmail(email) &&
+    validateOnlyDigits(phone) &&
+    name.length > 0 &&
+    address.length > 0 &&
+    validateOnlyDigits(zipcode) &&
+    validateOnlyLetters(city) &&
+    country.length > 0
+  );
+};
 
 export const removeItem = (id: string, cart: CartItem[]) => {
   const indexOfItemToDelete = cart.findIndex(
