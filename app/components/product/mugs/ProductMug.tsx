@@ -23,11 +23,13 @@ export default async function ProductMug(props: {
     image = urlFor(product.images[0]).width(300).height(300).url();
   }
 
-  // TODO: adjust with orders table/collection
   const quantityInOrders = await getProductAmountInOrders(product._id);
+  console.log("product slug " + product.slug);
   console.log("quantity in orders " + quantityInOrders);
+  console.log("amount in storage " + product.amount);
   const product_amount: number = product.amount - quantityInOrders;
-  console.log("product amount " + product_amount);
+  console.log("amout available for sale " + product_amount);
+  console.log("price " + product.regularPrice + " kr");
 
   return (
     <article
