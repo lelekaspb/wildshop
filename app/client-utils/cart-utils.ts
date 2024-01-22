@@ -24,13 +24,18 @@ export const changeAmountOfItem = (
   const lastPart = cart.slice(indexOfItemToUpdate + 1, cart.length);
   const updatedItem: CartItem = cart[indexOfItemToUpdate];
   const showWarning = amount > updatedItem.amountInStorage;
-  if (amount >= 0 && !showWarning) {
+
+  let updatedShoppingCart = cart;
+  if (amount > 0 && !showWarning) {
     updatedItem.amountInCart = amount;
-    const updatedShoppingCart: CartItem[] = [
-      ...firstPart,
-      updatedItem,
-      ...lastPart,
-    ];
+    updatedShoppingCart = [...firstPart, updatedItem, ...lastPart];
+    return {
+      updated: true,
+      cart: updatedShoppingCart,
+      showWarning: showWarning,
+    };
+  } else if (amount == 0) {
+    updatedShoppingCart = removeItem(id, cart);
     return {
       updated: true,
       cart: updatedShoppingCart,

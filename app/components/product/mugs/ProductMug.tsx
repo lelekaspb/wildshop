@@ -91,7 +91,7 @@ export default async function ProductMug(props: {
             imageUrl={image}
           />
         )}
-        {product_amount == 0 && <SubscribeButton product={product} />}
+        {product_amount <= 0 && <SubscribeButton product={product} />}
       </div>
     </article>
   );

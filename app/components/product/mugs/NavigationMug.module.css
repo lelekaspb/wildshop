@@ -4,7 +4,9 @@
 .mug {
 }
 .title_wrapper {
+  max-width: 300px;
 }
+
 .title {
   text-transform: uppercase;
   font-weight: var(--font-light);
