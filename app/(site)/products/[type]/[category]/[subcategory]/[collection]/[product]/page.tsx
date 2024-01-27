@@ -4,11 +4,14 @@ import {
   getProductBySlug,
   getSubcategoryBySlug,
   getTypeBySlug,
+  createNotification,
 } from "@/sanity/sanity-utils";
 import styles from "./page.module.css";
 import ProductPage from "@/app/components/product/pages/ProductPage";
 import Breadcrumbs from "./Breadcrumbs";
 import { notFound } from "next/navigation";
+import SubscribeModal from "@/app/components/modals/SubscribeModal";
+import AddToCartModal from "@/app/components/modals/AddToCartModal";
 
 export async function generateMetadata({
   params,
@@ -68,6 +71,8 @@ export default async function CollectionProduct({
         />
       </section>
       <ProductPage product={product} />
+      <AddToCartModal />
+      <SubscribeModal gibberer={createNotification} />
     </div>
   );
 }

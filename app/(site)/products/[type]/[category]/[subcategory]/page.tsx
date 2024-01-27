@@ -5,6 +5,7 @@ import {
   client,
   getCategoryBySlug,
   getTypeBySlug,
+  createNotification,
 } from "@/sanity/sanity-utils";
 import { Product } from "@/sanity/types/Product";
 import Link from "next/link";
@@ -14,6 +15,8 @@ import imageUrlBuilder from "@sanity/image-url";
 import Breadcrumbs from "./Breadcrumbs";
 import ProductMug from "@/app/components/product/mugs/ProductMug";
 import { notFound } from "next/navigation";
+import SubscribeModal from "@/app/components/modals/SubscribeModal";
+import AddToCartModal from "@/app/components/modals/AddToCartModal";
 
 export async function generateMetadata({
   params,
@@ -110,6 +113,13 @@ export default async function Subcategory({
               </>
             )}
           </section>
+
+          {collections.length == 0 && products.length > 0 && (
+            <>
+              <AddToCartModal />
+              <SubscribeModal gibberer={createNotification} />{" "}
+            </>
+          )}
 
           {collections.length == 0 && products.length == 0 && (
             <p>Ingen produkter her</p>

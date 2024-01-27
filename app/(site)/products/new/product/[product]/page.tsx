@@ -1,8 +1,10 @@
-import { getProductBySlug } from "@/sanity/sanity-utils";
+import { getProductBySlug, createNotification } from "@/sanity/sanity-utils";
 import Breadcrumbs from "./Breadcrumbs";
 import styles from "./page.module.css";
 import ProductPage from "@/app/components/product/pages/ProductPage";
 import { notFound } from "next/navigation";
+import SubscribeModal from "@/app/components/modals/SubscribeModal";
+import AddToCartModal from "@/app/components/modals/AddToCartModal";
 
 export async function generateMetadata({
   params,
@@ -37,6 +39,8 @@ export default async function NewProduct({
         <Breadcrumbs productSlug={product.slug} productTitle={product.title} />
       </section>
       <ProductPage product={product} />
+      <AddToCartModal />
+      <SubscribeModal gibberer={createNotification} />
     </div>
   );
 }

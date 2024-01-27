@@ -63,7 +63,7 @@
 }
 
 .modal_open .modal_overlay {
-  opacity: 0.2;
+  opacity: 0.4;
   visibility: visible;
   transition: all 0.25s;
 }

@@ -40,6 +40,26 @@ export async function sanityFetch<QueryResponse>({
   });
 }
 
+export async function getProductAmountInOrders(
+  productId: string
+): Promise<number> {
+  // math::sum(*[_type == "orderProduct"]{quantity, product->{_id}, order->{orderStatus->{_id}}}[product._id == "69e18963-bbf4-41b0-b13d-7f4a005ef82a"][order.orderStatus._id == "134c0f05-ed8f-405f-ac77-16539b937914"].quantity)
+  const activeStatusId = "134c0f05-ed8f-405f-ac77-16539b937914";
+
+  return sanityFetch({
+    query: `math::sum(
+      *[_type == "orderProduct"]{
+        quantity, 
+        product->{_id}, 
+        order->{orderStatus->{_id}}
+      }[product._id == "${productId}"]
+      [order.orderStatus._id == "${activeStatusId}"]
+      .quantity
+      )`,
+    tags: ["orderProduct"],
+  });
+}
+
 export async function getPaymentMethods(): Promise<PaymentMethod[]> {
   return client.fetch(groq`*[_type == "paymentMethod" && !(_id in path('drafts.**'))]{
   _id,
@@ -57,15 +77,9 @@ export async function getDeliveryMethods(): Promise<DeliveryMethod[]> {
   }`);
 }
 
-export async function getNewProductsCount(): Promise<number> {
-  return client.fetch(
-    groq`count(*[_type == "product" && new == true && !(_id in path('drafts.**'))])`
-  );
-}
-
 export async function getNewProducts(): Promise<Product[]> {
-  return client.fetch(
-    groq`*[_type == "product" && new == true && !(_id in path('drafts.**'))]{
+  return sanityFetch({
+    query: `*[_type == "product" && new == true && !(_id in path('drafts.**'))]{
       _id,
       _createdAt,
       name,
@@ -82,19 +96,14 @@ export async function getNewProducts(): Promise<Product[]> {
       productCategory->{"slug": slug.current, title, _id},
       productSubcategory->{"slug": slug.current, title, _id},
       productCollection->{"slug": slug.current, title, _id},
-    }`
-  );
-}
-
-export async function getSaleProductsCount(): Promise<number> {
-  return client.fetch(
-    groq`count(*[_type == "product" && sale == true && !(_id in path('drafts.**'))])`
-  );
+    }`,
+    tags: ["product"],
+  });
 }
 
 export async function getSaleProducts(): Promise<Product[]> {
-  return client.fetch(
-    groq`*[_type == "product" && sale == true && !(_id in path('drafts.**'))]{
+  return sanityFetch({
+    query: `*[_type == "product" && sale == true && !(_id in path('drafts.**'))]{
       _id,
       _createdAt,
       name,
@@ -111,8 +120,9 @@ export async function getSaleProducts(): Promise<Product[]> {
       productCategory->{"slug": slug.current, title, _id},
       productSubcategory->{"slug": slug.current, title, _id},
       productCollection->{"slug": slug.current, title, _id},
-    }`
-  );
+    }`,
+    tags: ["product"],
+  });
 }
 
 export async function getProductBySlug(slug: string): Promise<Product> {
@@ -164,29 +174,6 @@ export async function getProductsByReference(
       }`,
     tags: ["product"],
   });
-}
-
-export async function getProducts(): Promise<Product[]> {
-  return client.fetch(
-    groq`*[_type == "product" && !(_id in path('drafts.**'))]{
-          _id,
-          _createdAt,
-          name,
-          "slug": slug.current,
-          title,
-          description,
-          "images": images[],
-          regularPrice,
-          sale,
-          salePrice,
-          new,
-          amount,
-          productType->{"slug": slug.current, title, _id},
-          productCategory->{"slug": slug.current, title, _id},
-          productSubcategory->{"slug": slug.current, title, _id},
-          productCollection->{"slug": slug.current, title, _id},
-        }`
-  );
 }
 
 export async function getCollectionBySlug(

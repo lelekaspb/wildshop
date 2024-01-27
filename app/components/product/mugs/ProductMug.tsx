@@ -1,5 +1,5 @@
 import { Product } from "@/sanity/types/Product";
-import { client, createNotification } from "@/sanity/sanity-utils";
+import { client, getProductAmountInOrders } from "@/sanity/sanity-utils";
 import imageUrlBuilder from "@sanity/image-url";
 import Link from "next/link";
 import Image from "next/image";
@@ -8,7 +8,10 @@ import SubscribeButton from "../buttons/SubscribeButton";
 import placeholder from "@/public/placeholder/photo-on-the-way.svg";
 import AddToCartButton from "../buttons/AddToCartButton";
 
-export default function ProductMug(props: { product: Product; path: string }) {
+export default async function ProductMug(props: {
+  product: Product;
+  path: string;
+}) {
   const builder = imageUrlBuilder(client);
   const urlFor = (source: string) => {
     return builder.image(source);
@@ -20,8 +23,13 @@ export default function ProductMug(props: { product: Product; path: string }) {
     image = urlFor(product.images[0]).width(300).height(300).url();
   }
 
-  // TODO: adjust with orders table/collection
-  const product_amount = product.amount;
+  const quantityInOrders = await getProductAmountInOrders(product._id);
+  console.log("product slug " + product.slug);
+  console.log("quantity in orders " + quantityInOrders);
+  console.log("amount in storage " + product.amount);
+  const product_amount: number = product.amount - quantityInOrders;
+  console.log("amout available for sale " + product_amount);
+  console.log("price " + product.regularPrice + " kr");
 
   return (
     <article
@@ -79,11 +87,13 @@ export default function ProductMug(props: { product: Product; path: string }) {
       </div>
       <div className={styles.product_cta_wrapper}>
         {product_amount > 0 && (
-          <AddToCartButton product={product} imageUrl={image} />
+          <AddToCartButton
+            product={product}
+            quantityAvailable={product_amount}
+            imageUrl={image}
+          />
         )}
-        {product_amount == 0 && (
-          <SubscribeButton product={product} gibberer={createNotification} />
-        )}
+        {product_amount <= 0 && <SubscribeButton product={product} />}
       </div>
     </article>
   );

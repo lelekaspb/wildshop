@@ -2,11 +2,11 @@
 
 import { Product } from "@/sanity/types/Product";
 import { useProductsContext } from "@/app/context/context-provider";
-import AddToCartModal from "./../../modals/AddToCartModal";
 import { addItem } from "@/app/client-utils/cart-utils";
 
 export default function AddToCartButton(props: {
   product: Product;
+  quantityAvailable: number;
   imageUrl: string | null;
 }) {
   const { setAddToCartModalOpen, shoppingCart, setShoppingCart } =
@@ -17,6 +17,7 @@ export default function AddToCartButton(props: {
       quantity,
       shoppingCart,
       props.product,
+      props.quantityAvailable,
       props.imageUrl
     );
     setShoppingCart(updatedShoppingCart);
@@ -33,7 +34,6 @@ export default function AddToCartButton(props: {
       >
         Tiføj til kurven
       </button>
-      <AddToCartModal />
     </>
   );
 }

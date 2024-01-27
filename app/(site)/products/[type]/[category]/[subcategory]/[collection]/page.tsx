@@ -4,11 +4,14 @@ import {
   getSubcategoryBySlug,
   getCategoryBySlug,
   getTypeBySlug,
+  createNotification,
 } from "@/sanity/sanity-utils";
 import styles from "./page.module.css";
 import Breadcrumbs from "./Breadcrumbs";
 import ProductMug from "@/app/components/product/mugs/ProductMug";
 import { notFound } from "next/navigation";
+import SubscribeModal from "@/app/components/modals/SubscribeModal";
+import AddToCartModal from "@/app/components/modals/AddToCartModal";
 
 export async function generateMetadata({
   params,
@@ -69,15 +72,20 @@ export default async function Collection({
       </section>
 
       {products.length > 0 && (
-        <section className={styles.list}>
-          {products.map((product, index) => (
-            <ProductMug
-              key={`${index}-${product._id}`}
-              product={product}
-              path={`/products/${params.type}/${params.category}/${params.subcategory}/${params.collection}`}
-            />
-          ))}
-        </section>
+        <>
+          {" "}
+          <section className={styles.list}>
+            {products.map((product, index) => (
+              <ProductMug
+                key={`${index}-${product._id}`}
+                product={product}
+                path={`/products/${params.type}/${params.category}/${params.subcategory}/${params.collection}`}
+              />
+            ))}
+          </section>
+          <AddToCartModal />
+          <SubscribeModal gibberer={createNotification} />
+        </>
       )}
 
       {products.length == 0 && <p>Ingen produkter her</p>}

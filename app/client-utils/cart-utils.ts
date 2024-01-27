@@ -49,13 +49,18 @@ export const changeAmountOfItem = (
   const lastPart = cart.slice(indexOfItemToUpdate + 1, cart.length);
   const updatedItem: CartItem = cart[indexOfItemToUpdate];
   const showWarning = amount > updatedItem.amountInStorage;
-  if (amount >= 0 && !showWarning) {
+
+  let updatedShoppingCart = cart;
+  if (amount > 0 && !showWarning) {
     updatedItem.amountInCart = amount;
-    const updatedShoppingCart: CartItem[] = [
-      ...firstPart,
-      updatedItem,
-      ...lastPart,
-    ];
+    updatedShoppingCart = [...firstPart, updatedItem, ...lastPart];
+    return {
+      updated: true,
+      cart: updatedShoppingCart,
+      showWarning: showWarning,
+    };
+  } else if (amount == 0) {
+    updatedShoppingCart = removeItem(id, cart);
     return {
       updated: true,
       cart: updatedShoppingCart,
@@ -127,6 +132,7 @@ export const addItem = (
   quantity: number,
   cart: CartItem[],
   product: Product,
+  quantityAvailable: number,
   imageUrl: string | null
 ) => {
   // see if the item is already in the cart
@@ -153,7 +159,7 @@ export const addItem = (
     const cartItem: CartItem = {
       title: product.title,
       image: imageUrl,
-      amountInStorage: product.amount,
+      amountInStorage: quantityAvailable,
       amountInCart: quantity,
       price: product.sale ? product.salePrice : product.regularPrice,
       id: product._id,
