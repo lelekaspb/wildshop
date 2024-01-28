@@ -371,7 +371,7 @@ export default function CartInfoForm() {
             id="invoice_country"
             className="form_input readonly"
             readOnly={true}
-            value="Danmark"
+            value={invoiceInfo.country}
           />
           <span className="error_placeholder hidden">
             Angiv venligst din land

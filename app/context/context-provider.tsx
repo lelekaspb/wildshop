@@ -24,6 +24,7 @@ type contextType = {
   setAddToCartModalOpen: Dispatch<SetStateAction<boolean>>;
   shoppingCart: CartItem[];
   setShoppingCart: Dispatch<SetStateAction<CartItem[]>>;
+  clearShoppingCart: () => void;
 };
 
 const Context = createContext<contextType | null>(null);
@@ -51,6 +52,10 @@ export function ContextProvider({ children }: { children: React.ReactNode }) {
     }
   }, [shoppingCart]);
 
+  const clearShoppingCart = () => {
+    setShoppingCart([]);
+  };
+
   return (
     <Context.Provider
       value={{
@@ -62,6 +67,7 @@ export function ContextProvider({ children }: { children: React.ReactNode }) {
         setAddToCartModalOpen,
         shoppingCart,
         setShoppingCart,
+        clearShoppingCart,
       }}
     >
       {children}

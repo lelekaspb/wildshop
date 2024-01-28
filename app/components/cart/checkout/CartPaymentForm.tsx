@@ -6,11 +6,21 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import styles from "./CartPaymentForm.module.css";
 import Link from "next/link";
-import { validateInfoForm } from "@/app/client-utils/cart-utils";
+import { CreateOrder } from "@/sanity/types/CreateOrder";
+import { CreateInvoiceInfo } from "@/sanity/types/CreateInvoiceInfo";
+import { useProductsContext } from "@/app/context/context-provider";
+import { DeliveryMethod } from "@/sanity/types/DeliveryMethod";
+import { CartItem } from "@/app/client-utils/utils";
 
 export default function CartPaymentForm(props: {
   paymentMethods: PaymentMethod[];
-  postOrder: () => void;
+  postOrder: (
+    createInvoiceInfo: CreateInvoiceInfo,
+    createOrderInfo: CreateOrder,
+    deliveryMethod: DeliveryMethod,
+    paymentMethod: PaymentMethod,
+    shoppingCart: CartItem[]
+  ) => { success: boolean; message: string };
 }) {
   const [methodError, setMethodError] = useState(false);
   const [tradeConditionsError, setTradeConditionsError] = useState(false);
@@ -20,15 +30,23 @@ export default function CartPaymentForm(props: {
     agreeToTradeConditions,
     setAgreeToTradeConditions,
     setTradeConditionsModalOpen,
-    deliveryMethod,
-    invoiceInfo,
+    canSubmit,
     contactInfo,
+    invoiceInfo,
+    deliveryMethod,
+    clearCheckoutContext,
   } = useCheckoutContext();
+
+  const { shoppingCart, clearShoppingCart } = useProductsContext();
 
   const router = useRouter();
 
-  const handleProceedFurtherClick = (e: React.FormEvent) => {
+  const handleProceedFurtherClick = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // TODO: run query for every shopping cart item to make sure that we have enough to sell
+    // in case information in local storage is outdated
+    // if not, show which item cannot be ordered
 
     const target = e.currentTarget as typeof e.currentTarget & {
       payment_method: { value: string };
@@ -39,26 +57,42 @@ export default function CartPaymentForm(props: {
 
     const agreementCheckbox = target.trade_conditions as HTMLInputElement;
 
-    const infoFormValidated = validateInfoForm(
-      contactInfo.email,
-      contactInfo.phone,
-      invoiceInfo.name,
-      invoiceInfo.address,
-      invoiceInfo.zipcode,
-      invoiceInfo.city,
-      invoiceInfo.country
-    );
-
     if (paymentRadio.checked && agreementCheckbox.checked) {
-      //if (infoFormValidated && deliveryMethod && paymentMethod) {
-      if (true) {
+      console.log(canSubmit);
+      const createOrderInfo: CreateOrder = {
+        _type: "order",
+        customerEmail: contactInfo.email,
+        customerPhone: contactInfo.phone,
+        comment: contactInfo.comment,
+      };
+      const createInvoiceInfo: CreateInvoiceInfo = {
+        _type: "invoiceInfo",
+        customerName: invoiceInfo.name,
+        company: invoiceInfo.company,
+        address: invoiceInfo.address,
+        addressLineTwo: invoiceInfo.address_line_2,
+        zipcode: invoiceInfo.zipcode,
+        city: invoiceInfo.city,
+        country: invoiceInfo.country,
+      };
+
+      if (canSubmit && deliveryMethod && paymentMethod) {
         // send post request via server action
-        const response: any = props.postOrder();
+        const response: any = await props.postOrder(
+          createInvoiceInfo,
+          createOrderInfo,
+          deliveryMethod,
+          paymentMethod,
+          shoppingCart
+        );
         console.log(response);
-        // get response
-        // based on the response
-        // either
+
         if (response.success) {
+          if (typeof window !== "undefined" && window.localStorage) {
+            localStorage.removeItem("wopcart");
+          }
+          clearShoppingCart();
+          clearCheckoutContext();
           router.push("/cart/success");
         } else {
           router.push("/cart/error");
