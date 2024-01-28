@@ -50,15 +50,19 @@ export default function CartPaymentForm(props: {
     );
 
     if (paymentRadio.checked && agreementCheckbox.checked) {
-      if (infoFormValidated && deliveryMethod && paymentMethod) {
+      //if (infoFormValidated && deliveryMethod && paymentMethod) {
+      if (true) {
         // send post request via server action
-        const response = props.postOrder();
+        const response: any = props.postOrder();
+        console.log(response);
         // get response
         // based on the response
         // either
-        router.push("/cart/success");
-        // or
-        // router.push("/cart/error");
+        if (response.success) {
+          router.push("/cart/success");
+        } else {
+          router.push("/cart/error");
+        }
       } else {
         // show error saying that on previous steps info missing
         console.error(

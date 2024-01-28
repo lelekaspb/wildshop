@@ -7,9 +7,12 @@ import close from "@/public/icons/close.svg";
 
 import dynamic from "next/dynamic";
 
-const CartForModal = dynamic(() => import("./../cart/CartForModal"), {
-  ssr: false,
-});
+const CartForModal = dynamic(
+  () => import("@/app/components/cart/CartForModal"),
+  {
+    ssr: false,
+  }
+);
 
 export default function AddToCartModal() {
   const { addToCartModalOpen, setAddToCartModalOpen } = useProductsContext();

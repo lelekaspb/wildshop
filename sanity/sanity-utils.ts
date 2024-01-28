@@ -355,14 +355,54 @@ export async function createNotification(
 //   );
 // }
 
-export async function createOrder(
-  invoiceInfo: CreateInvoiceInfo,
-  orderInfo: CreateOrder,
-  shoppingCart: CartItem[]
-): Promise<any> {
+export async function createOrder(): Promise<any> {
+  // invoiceInfo: CreateInvoiceInfo,
+  // orderInfo: CreateOrder,
+  // shoppingCart: CartItem[]
   "use server";
   console.log("createOrder");
   const statusId = "134c0f05-ed8f-405f-ac77-16539b937914";
+
+  // to substitute with data from checkout flow
+  const invoiceInfo: CreateInvoiceInfo = {
+    _type: "invoiceInfo",
+    customerName: "Tina Turner",
+    company: "",
+    address: "Main Road 3",
+    addressLineTwo: null,
+    zipcode: "1000",
+    city: "Gibber",
+    country: "USA",
+  };
+
+  const orderInfo: CreateOrder = {
+    _type: "order",
+    customerEmail: "tine@turner.usa",
+    customerPhone: "555-222-333",
+    comment: "no comment",
+  };
+
+  const shoppingCart: CartItem[] = [
+    {
+      title: "Top Toptop # 3",
+      image: null,
+      amountInStorage: 5,
+      amountInCart: 1,
+      price: 44,
+      id: "806ba2cf-2139-4c8a-ba68-bdad6ea42114",
+    },
+    {
+      title: "Acrylgel #1 / 50 GR",
+      image: null,
+      amountInStorage: 6,
+      amountInCart: 1,
+      price: 44,
+      id: "5972938d-bb18-4707-bee2-33dd981a00b9",
+    },
+  ];
+
+  // to substitute with data from checkout flow ----- end
+
   const orderDoc: SanityDocumentStub = {
     _type: "order",
     customerEmail: orderInfo.customerEmail,
@@ -385,7 +425,7 @@ export async function createOrder(
     country: invoiceInfo.country,
   };
 
-  const orderProdutcDocs = shoppingCart.map((item) => {
+  const orderProdutcDocs: SanityDocumentStub[] = shoppingCart.map((item) => {
     return {
       _type: "orderProduct",
       product: {
@@ -395,24 +435,102 @@ export async function createOrder(
       quantity: item.amountInCart,
     };
   });
-  console.log(orderProdutcDocs);
 
   try {
-    // // create order, save its id for setting reference later
-    // const order = await client.create(orderDoc);
-    // console.log(order);
+    const transaction: any = new Transaction();
+    transaction.create(invoiceDoc);
+    transaction.create(orderDoc);
 
-    // // create invoice info, save its id
-    // const invoice = await client.create(invoiceDoc);
-    // console.log(invoice);
-    const transaction = new Transaction()
-      .create(invoiceDoc)
-      .create(orderDoc)
-      .create([...orderProdutcDocs]);
-    console.log(transaction);
+    orderProdutcDocs.forEach((element) => {
+      transaction.create(element);
+    });
 
-    // create as many as needed order-product documents, save ids
+    // @ts-ignore
+    const result = await client.mutate(transaction);
+
+    console.log("results of mutations in one transaction");
+    // console.log(result);
+
+    let invoice: any = {};
+    let order: any = {};
+    const orderProducts: any = [];
+
+    result.results.forEach((doc: any) => {
+      console.log(doc.document);
+      if (doc.document._type == "invoiceInfo") {
+        invoice = doc.document;
+      }
+      if (doc.document._type == "order") {
+        order = doc.document;
+      }
+      if (doc.document._type == "orderProduct") {
+        orderProducts.push(doc.document);
+      }
+    });
+
+    console.log("invoice");
+    console.log(invoice);
+    console.log("order");
+    console.log(order);
+    console.log("orderProducts array");
+    console.log(orderProducts);
+
+    // set reference from invoice to order
+    const invoicePatch = new Patch(invoice._id);
+    invoicePatch.set({
+      order: {
+        _type: "reference",
+        _ref: order._id,
+      },
+    });
+    // @ts-ignore
+    const invoicePatchResult = await client.mutate(invoicePatch);
+    console.log("invoicePatchResult");
+    console.log(invoicePatchResult);
+
+    // set reference from order to invoice and orderProduct documents
+    const orderPatch = new Patch(order._id);
+    orderPatch.set({
+      invoice: {
+        _type: "reference",
+        _ref: invoice._id,
+      },
+    });
+    orderProducts.forEach(async (document: { _id: string }) => {
+      orderPatch
+        .setIfMissing({ orderProducts: [] })
+        .append("orderProducts", [{ _type: "reference", _ref: document._id }]);
+
+      // @ts-ignore
+      const orderPatchResult = await client.mutate(orderPatch, {
+        autoGenerateArrayKeys: true,
+      });
+      console.log("orderPatchResult");
+      console.log(orderPatchResult);
+    });
+
+    // set reference from orderProduct documents to order
+    orderProducts.forEach(async (document: { _id: string }) => {
+      const orderProductPatch = new Patch(document._id);
+      orderProductPatch.set({
+        order: {
+          _type: "reference",
+          _ref: order._id,
+        },
+      });
+
+      // @ts-ignore
+      const orderProductPatchResult = await client.mutate(orderProductPatch);
+      console.log("orderProductPatchResult");
+      console.log(orderProductPatchResult);
+    });
+
+    // return success
+    return {
+      success: true,
+    };
   } catch (err: any) {
+    console.log(err);
     return {
       success: false,
       error: err.message,
