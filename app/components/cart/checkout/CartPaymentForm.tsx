@@ -10,7 +10,7 @@ import { CreateOrder } from "@/sanity/types/CreateOrder";
 import { CreateInvoiceInfo } from "@/sanity/types/CreateInvoiceInfo";
 import { useProductsContext } from "@/app/context/context-provider";
 import { DeliveryMethod } from "@/sanity/types/DeliveryMethod";
-import { CartItem } from "@/app/client-utils/utils";
+import { CartItem, PostOrderResponse } from "@/app/client-utils/utils";
 
 export default function CartPaymentForm(props: {
   paymentMethods: PaymentMethod[];
@@ -20,7 +20,7 @@ export default function CartPaymentForm(props: {
     deliveryMethod: DeliveryMethod,
     paymentMethod: PaymentMethod,
     shoppingCart: CartItem[]
-  ) => { success: boolean; message: string };
+  ) => Promise<PostOrderResponse>;
 }) {
   const [methodError, setMethodError] = useState(false);
   const [tradeConditionsError, setTradeConditionsError] = useState(false);

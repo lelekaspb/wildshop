@@ -15,7 +15,7 @@ import { PaymentMethod } from "./types/PaymentMethod";
 import { CreateInvoiceInfo } from "./types/CreateInvoiceInfo";
 import { CreateOrder } from "./types/CreateOrder";
 import { OrderStatus } from "./types/OrderStatus";
-import { CartItem } from "@/app/client-utils/utils";
+import { CartItem, PostOrderResponse } from "@/app/client-utils/utils";
 
 export const client = createClient(clientConfig);
 
@@ -355,7 +355,7 @@ export async function createOrder(
   deliveryMethod: DeliveryMethod,
   paymentMethod: PaymentMethod,
   shoppingCart: CartItem[]
-): Promise<any> {
+): Promise<PostOrderResponse> {
   "use server";
 
   const statusId = "134c0f05-ed8f-405f-ac77-16539b937914";

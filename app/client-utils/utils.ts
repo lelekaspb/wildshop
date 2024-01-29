@@ -23,3 +23,8 @@ export type CartItem = {
   price: number;
   id: string;
 };
+
+export type PostOrderResponse = {
+  success: boolean;
+  message: string;
+};
