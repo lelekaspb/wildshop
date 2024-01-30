@@ -401,6 +401,11 @@ export async function createOrder(
     };
   });
 
+  const response: PostOrderResponse = {
+    success: false,
+    message: "",
+  };
+
   try {
     const transaction: any = new Transaction();
     transaction.create(invoiceDoc);
@@ -410,13 +415,14 @@ export async function createOrder(
       transaction.create(element);
     });
     // @ts-ignore
-    const result = await client.mutate(transaction);
+    const createMutationResult = await client.mutate(transaction);
+    console.log(createMutationResult);
 
     let invoice: any = {};
     let order: any = {};
     const orderProducts: any = [];
 
-    result.results.forEach((doc: any) => {
+    createMutationResult.results.forEach((doc: any) => {
       if (doc.document._type == "invoiceInfo") {
         invoice = doc.document;
       }
@@ -437,7 +443,7 @@ export async function createOrder(
       },
     });
     // @ts-ignore
-    const invoicePatchResult = await client.mutate(invoicePatch);
+    const invoicePatchResult = client.mutate(invoicePatch);
 
     // set reference from order to invoice and orderProduct documents
     let orderPatchResult: any = {};
@@ -452,15 +458,14 @@ export async function createOrder(
       orderPatch
         .setIfMissing({ orderProducts: [] })
         .append("orderProducts", [{ _type: "reference", _ref: document._id }]);
-
-      // @ts-ignore
-      orderPatchResult = await client.mutate(orderPatch, {
-        autoGenerateArrayKeys: true,
-      });
+    });
+    // @ts-ignore
+    orderPatchResult = client.mutate(orderPatch, {
+      autoGenerateArrayKeys: true,
     });
 
     // set reference from orderProduct documents to order
-    let orderProductPatchResult: any = {};
+    let orderProductPatchResult: any[] = [];
     orderProducts.forEach(async (document: { _id: string }) => {
       const orderProductPatch = new Patch(document._id);
       orderProductPatch.set({
@@ -471,18 +476,27 @@ export async function createOrder(
       });
 
       // @ts-ignore
-      orderProductPatchResult = await client.mutate(orderProductPatch);
+      orderProductPatchResult.push(client.mutate(orderProductPatch));
     });
 
-    return {
-      success: true,
-      message: "Order is posted",
-    };
+    const patchAllResult = await Promise.all([
+      ...orderProductPatchResult,
+      orderPatchResult,
+      invoicePatchResult,
+    ])
+      .then((values) => {
+        console.log(values);
+        response.success = true;
+        response.message = "Order is posted";
+      })
+      .catch((err) => {
+        console.log(err);
+        response.success = false;
+        response.message = err.message;
+      });
   } catch (err: any) {
     console.log(err);
-    return {
-      success: false,
-      message: err.message,
-    };
+    response.success = false;
+    response.message = err.message;
   }
 }
