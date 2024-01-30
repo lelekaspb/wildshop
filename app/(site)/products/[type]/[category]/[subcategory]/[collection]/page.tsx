@@ -12,6 +12,7 @@ import ProductMug from "@/app/components/product/mugs/ProductMug";
 import { notFound } from "next/navigation";
 import SubscribeModal from "@/app/components/modals/SubscribeModal";
 import AddToCartModal from "@/app/components/modals/AddToCartModal";
+import { Product } from "@/sanity/types/Product";
 
 export async function generateMetadata({
   params,
@@ -23,6 +24,12 @@ export async function generateMetadata({
     collection: string;
   };
 }) {
+  if (params.collection == "all") {
+    const subcategory = await getSubcategoryBySlug(params.subcategory);
+    return {
+      title: `Wild Orchid Professional | ${subcategory.title} - Alle`,
+    };
+  }
   const collection = await getCollectionBySlug(params.collection);
   if (collection) {
     return {
@@ -49,9 +56,20 @@ export default async function Collection({
   const subcategory = await getSubcategoryBySlug(params.subcategory);
   const category = await getCategoryBySlug(params.category);
   const type = await getTypeBySlug(params.type);
-  if (!type || !category || !subcategory || !collection) notFound();
+  if (
+    !type ||
+    !category ||
+    !subcategory ||
+    (!collection && params.collection != "all")
+  )
+    notFound();
 
-  const products = await getProductsByReference(collection._id);
+  let products: Product[] = [];
+  if (params.collection == "all") {
+    products = await getProductsByReference(subcategory._id);
+  } else {
+    products = await getProductsByReference(collection._id);
+  }
 
   return (
     <div>
@@ -64,11 +82,13 @@ export default async function Collection({
           subcategorySlug={params.subcategory}
           subcategoryTitle={subcategory.title}
           collectionSlug={params.collection}
-          collectionTitle={collection.title}
+          collectionTitle={collection ? collection.title : "Alle"}
         />
       </section>
       <section className={styles.heading}>
-        <h1 className={styles.heading_text}>{collection.title}</h1>
+        <h1 className={styles.heading_text}>
+          {collection ? collection.title : `${subcategory.title} Produkter`}
+        </h1>
       </section>
 
       {products.length > 0 && (
