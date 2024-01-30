@@ -52,7 +52,14 @@ export default async function CollectionProduct({
   const category = await getCategoryBySlug(params.category);
   const type = await getTypeBySlug(params.type);
   const product = await getProductBySlug(params.product);
-  if (!type || !category || !subcategory || !collection || !product) notFound();
+  if (
+    !type ||
+    !category ||
+    !subcategory ||
+    (!collection && params.collection != "all") ||
+    !product
+  )
+    notFound();
 
   return (
     <div className={styles.collection_product_page}>
@@ -65,7 +72,7 @@ export default async function CollectionProduct({
           subcategorySlug={params.subcategory}
           subcategoryTitle={subcategory.title}
           collectionSlug={params.collection}
-          collectionTitle={collection.title}
+          collectionTitle={collection ? collection.title : "Alle"}
           productSlug={product.slug}
           productTitle={product.title}
         />

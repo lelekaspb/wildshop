@@ -76,6 +76,26 @@ export default async function Subcategory({
           <section className={styles.list}>
             {collections.length > 0 && (
               <>
+                <article
+                  key={`${subcategory.title}-all`}
+                  className={styles.product_collection}
+                >
+                  <Link
+                    href={`/products/${params.type}/${params.category}/${params.subcategory}/all`}
+                  >
+                    <NavigationMug
+                      image={
+                        subcategory.image
+                          ? urlFor(subcategory.image)
+                              .width(300)
+                              .height(300)
+                              .url()
+                          : null
+                      }
+                      title="Alle"
+                    />
+                  </Link>
+                </article>
                 {collections.map((collection, index) => (
                   <article
                     key={`${index}-${collection._id}`}
