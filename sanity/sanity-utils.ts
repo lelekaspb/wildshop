@@ -355,7 +355,7 @@ export async function createOrder(
   deliveryMethod: DeliveryMethod,
   paymentMethod: PaymentMethod,
   shoppingCart: CartItem[]
-): Promise<PostOrderResponse> {
+): Promise<any> {
   "use server";
 
   const statusId = "134c0f05-ed8f-405f-ac77-16539b937914";
@@ -401,102 +401,110 @@ export async function createOrder(
     };
   });
 
-  const response: PostOrderResponse = {
-    success: false,
-    message: "",
-  };
+  // return client
+  // .transaction()
+  // .createIfNotExists(customerData)
+  // .patch(customer.id.toString(), patch => patch.set(customerObject))
+  // .patch(customer.id.toString(), patch =>
+  //   patch
+  //   .setIfMissing({"content.main.totalSpent": 0})
+  //   .inc(customerSpent)
+  //   .setIfMissing({"content.main.tickets": 0})
+  //   .inc(customerTickets))
+  // .commit()
 
   try {
-    const transaction: any = new Transaction();
-    transaction.create(invoiceDoc);
-    transaction.create(orderDoc);
+    const createDocuments = async () => {
+      const transaction: any = new Transaction();
+      transaction.create(invoiceDoc);
+      transaction.create(orderDoc);
 
-    orderProdutcDocs.forEach((element) => {
-      transaction.create(element);
-    });
-    // @ts-ignore
-    const createMutationResult = await client.mutate(transaction);
-    console.log(createMutationResult);
+      orderProdutcDocs.forEach((element) => {
+        transaction.create(element);
+      });
+      // @ts-ignore
+      return client.mutate(transaction);
+    };
 
-    let invoice: any = {};
-    let order: any = {};
-    const orderProducts: any = [];
+    const setReferences = async (createMutationResult: any) => {
+      let invoice: any = {};
+      let order: any = {};
+      const orderProducts: any = [];
 
-    createMutationResult.results.forEach((doc: any) => {
-      if (doc.document._type == "invoiceInfo") {
-        invoice = doc.document;
-      }
-      if (doc.document._type == "order") {
-        order = doc.document;
-      }
-      if (doc.document._type == "orderProduct") {
-        orderProducts.push(doc.document);
-      }
-    });
+      createMutationResult.results.forEach((doc: any) => {
+        if (doc.document._type == "invoiceInfo") {
+          invoice = doc.document;
+        }
+        if (doc.document._type == "order") {
+          order = doc.document;
+        }
+        if (doc.document._type == "orderProduct") {
+          orderProducts.push(doc.document);
+        }
+      });
 
-    // set reference from invoice to order
-    const invoicePatch = new Patch(invoice._id);
-    invoicePatch.set({
-      order: {
-        _type: "reference",
-        _ref: order._id,
-      },
-    });
-    // @ts-ignore
-    const invoicePatchResult = client.mutate(invoicePatch);
-
-    // set reference from order to invoice and orderProduct documents
-    let orderPatchResult: any = {};
-    const orderPatch = new Patch(order._id);
-    orderPatch.set({
-      invoice: {
-        _type: "reference",
-        _ref: invoice._id,
-      },
-    });
-    orderProducts.forEach(async (document: { _id: string }) => {
-      orderPatch
-        .setIfMissing({ orderProducts: [] })
-        .append("orderProducts", [{ _type: "reference", _ref: document._id }]);
-    });
-    // @ts-ignore
-    orderPatchResult = client.mutate(orderPatch, {
-      autoGenerateArrayKeys: true,
-    });
-
-    // set reference from orderProduct documents to order
-    let orderProductPatchResult: any[] = [];
-    orderProducts.forEach(async (document: { _id: string }) => {
-      const orderProductPatch = new Patch(document._id);
-      orderProductPatch.set({
+      // set reference from invoice to order
+      const invoicePatch = new Patch(invoice._id);
+      invoicePatch.set({
         order: {
           _type: "reference",
           _ref: order._id,
         },
       });
 
-      // @ts-ignore
-      orderProductPatchResult.push(client.mutate(orderProductPatch));
-    });
+      // set reference from order to invoice and orderProduct documents
 
-    const patchAllResult = await Promise.all([
-      ...orderProductPatchResult,
-      orderPatchResult,
-      invoicePatchResult,
-    ])
-      .then((values) => {
-        console.log(values);
-        response.success = true;
-        response.message = "Order is posted";
-      })
-      .catch((err) => {
-        console.log(err);
-        response.success = false;
-        response.message = err.message;
+      const orderPatch = new Patch(order._id);
+      orderPatch.set({
+        invoice: {
+          _type: "reference",
+          _ref: invoice._id,
+        },
       });
+      orderPatch.setIfMissing({ orderProducts: [] }).append("orderProducts", [
+        ...orderProducts.map((elem: any) => {
+          return { _type: "reference", _ref: elem._id };
+        }),
+      ]);
+
+      // set reference from orderProduct documents to order
+      let orderProductPatches: any[] = [];
+      orderProducts.forEach((document: { _id: string }) => {
+        const orderProductPatch = new Patch(document._id);
+        orderProductPatch.set({
+          order: {
+            _type: "reference",
+            _ref: order._id,
+          },
+        });
+
+        orderProductPatches.push(orderProductPatch);
+      });
+
+      const transaction: any = new Transaction();
+      transaction.patch(invoicePatch).patch(orderPatch);
+      orderProductPatches.forEach((elem) => {
+        transaction.patch(elem);
+      });
+
+      // @ts-ignore
+      return client.mutate(transaction, { autoGenerateArrayKeys: true });
+    };
+
+    const createMutationResult = await createDocuments();
+    const setReferencesResult = await setReferences(createMutationResult);
+
+    if (setReferencesResult) {
+      return {
+        success: true,
+        message: "Posted",
+      };
+    }
   } catch (err: any) {
     console.log(err);
-    response.success = false;
-    response.message = err.message;
+    return {
+      success: false,
+      message: err.message,
+    };
   }
 }
