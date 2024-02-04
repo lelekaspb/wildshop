@@ -5,11 +5,11 @@ import schemas from "./sanity/schemas";
 
 export default defineConfig({
   name: "default",
-  title: "Wild Orchid Professional",
+  title: "Wild Shop",
 
-  projectId: "xudcmokc",
-  dataset: "production",
-  apiVersion: "2023-12-04",
+  projectId: process.env.SANITY_STUDIO_PROJECT_ID || "",
+  dataset: process.env.SANITY_STUDIO_DATASET || "",
+  apiVersion: process.env.SANITY_STUDIO_API_VERSION,
   basePath: "/admin",
 
   plugins: [deskTool(), visionTool()],
