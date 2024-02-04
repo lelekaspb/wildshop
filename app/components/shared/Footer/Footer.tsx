@@ -6,8 +6,12 @@ export default async function Footer() {
   const info = await getCompanyGeneralInformation();
   return (
     <footer className={styles.footer}>
-      <section className={styles.copyringt}>
-        © 2024 WILD ORCHID PROFESSIONAL
+      <section className={styles.general}>
+        <div className={styles.copyringt}> © 2024 {process.env.SHOP_NAME}</div>
+        <div className={styles.explain}>
+          Denne webshop er lavet som et studieprojekt. Oplysningerne og
+          produkterne her er ikke ægte.
+        </div>
       </section>
       <section className={styles.details}>
         <div className={styles.address}>

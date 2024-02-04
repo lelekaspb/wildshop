@@ -26,22 +26,14 @@ export async function generateMetadata({
   const category = await getCategoryBySlug(params.category);
   if (category) {
     return {
-      title: `Wild Orchid Professional | ${category.title}`,
+      title: `${process.env.SHOP_NAME} | ${category.title}`,
     };
   } else {
     return {
-      title: `Wild Orchid Professional`,
+      title: `${process.env.SHOP_NAME}`,
     };
   }
 }
-
-// export async function generateStaticParams() {
-//   const productCategories = await getCategoriesForOneType("nails");
-
-//   return productCategories.map((category) => ({
-//     category: category.slug,
-//   }));
-// }
 
 export default async function Category({
   params,

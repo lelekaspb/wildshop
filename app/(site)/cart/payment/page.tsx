@@ -18,7 +18,7 @@ const CartOverview = dynamic(
 );
 
 export const metadata: Metadata = {
-  title: "Wild Orchid Professional | Kurv - Betaling",
+  title: `${process.env.SHOP_NAME} | Kurv - Betaling`,
 };
 
 export default async function CartPayment() {

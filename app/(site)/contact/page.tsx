@@ -4,7 +4,7 @@ import styles from "./page.module.css";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Wild Orchid Professional | Kontakt",
+  title: `${process.env.SHOP_NAME} | Kontakt`,
 };
 
 export default async function Contact() {

@@ -20,11 +20,11 @@ export async function generateMetadata({
   const type = await getTypeBySlug(params.type);
   if (type) {
     return {
-      title: `Wild Orchid Professional | ${type.title} produkter`,
+      title: `${process.env.SHOP_NAME} | ${type.title} produkter`,
     };
   } else {
     return {
-      title: `Wild Orchid Professional`,
+      title: `${process.env.SHOP_NAME}`,
     };
   }
 }

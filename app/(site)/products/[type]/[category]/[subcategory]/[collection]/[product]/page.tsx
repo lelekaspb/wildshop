@@ -27,11 +27,11 @@ export async function generateMetadata({
   const product = await getProductBySlug(params.product);
   if (product) {
     return {
-      title: `Wild Orchid Professional | ${product.title}`,
+      title: `${process.env.SHOP_NAME} | ${product.title}`,
     };
   } else {
     return {
-      title: `Wild Orchid Professional`,
+      title: `${process.env.SHOP_NAME}`,
     };
   }
 }

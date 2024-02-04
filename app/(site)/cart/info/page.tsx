@@ -14,7 +14,7 @@ const CartOverview = dynamic(
 );
 
 export const metadata: Metadata = {
-  title: "Wild Orchid Professional | Kurv - Oplysninger",
+  title: `${process.env.SHOP_NAME} | Kurv - Oplysninger`,
 };
 
 export default async function CartInfo() {

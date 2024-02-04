@@ -8,7 +8,7 @@ const Cart = dynamic(() => import("@/app/components/cart/Cart"), {
 });
 
 export const metadata: Metadata = {
-  title: "Wild Orchid Professional | Kurv",
+  title: `${process.env.SHOP_NAME} | Kurv`,
 };
 
 export default async function CartPage() {

@@ -14,8 +14,8 @@ import { DeliveryMethod } from "./types/DeliveryMethod";
 import { PaymentMethod } from "./types/PaymentMethod";
 import { CreateInvoiceInfo } from "./types/CreateInvoiceInfo";
 import { CreateOrder } from "./types/CreateOrder";
-import { OrderStatus } from "./types/OrderStatus";
-import { CartItem, PostOrderResponse } from "@/app/client-utils/utils";
+
+import { CartItem } from "@/app/client-utils/utils";
 
 export const client = createClient(clientConfig);
 

@@ -9,7 +9,7 @@ import SubscribeModal from "@/app/components/modals/SubscribeModal";
 import AddToCartModal from "@/app/components/modals/AddToCartModal";
 
 export const metadata: Metadata = {
-  title: "Wild Orchid Professional | Tilbud",
+  title: `${process.env.SHOP_NAME} | Tilbud`,
 };
 
 export default async function Sale() {

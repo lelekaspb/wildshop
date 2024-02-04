@@ -27,17 +27,17 @@ export async function generateMetadata({
   if (params.collection == "all") {
     const subcategory = await getSubcategoryBySlug(params.subcategory);
     return {
-      title: `Wild Orchid Professional | ${subcategory.title} - Alle`,
+      title: `${process.env.SHOP_NAME} | ${subcategory.title} - Alle`,
     };
   }
   const collection = await getCollectionBySlug(params.collection);
   if (collection) {
     return {
-      title: `Wild Orchid Professional | ${collection.title}`,
+      title: `${process.env.SHOP_NAME} | ${collection.title}`,
     };
   } else {
     return {
-      title: `Wild Orchid Professional`,
+      title: `${process.env.SHOP_NAME}`,
     };
   }
 }

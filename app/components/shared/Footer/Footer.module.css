@@ -9,6 +9,14 @@
   font-size: var(--footer-font-size);
 }
 
+.copyringt {
+  text-transform: uppercase;
+}
+
+.explain {
+  font-weight: var(--font-light);
+}
+
 .details {
   display: flex;
   gap: 100px;

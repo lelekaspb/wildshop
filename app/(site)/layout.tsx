@@ -8,8 +8,8 @@ import { ContextProvider } from "@/app/context/context-provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Wild Orchid Professional",
-  description: "Beauty supplies online shop",
+  title: `${process.env.SHOP_NAME}`,
+  description: "Skønhedsartikler online butik - studieprojekt",
 };
 
 export default async function RootLayout({

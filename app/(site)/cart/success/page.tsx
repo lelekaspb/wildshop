@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
-  title: "Wild Orchid Professional | Kurv - Succes",
+  title: `${process.env.SHOP_NAME} | Kurv - Succes`,
 };
 
 export default async function CartSuccess() {

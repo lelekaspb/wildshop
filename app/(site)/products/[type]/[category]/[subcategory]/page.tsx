@@ -26,11 +26,11 @@ export async function generateMetadata({
   const subcategory = await getSubcategoryBySlug(params.subcategory);
   if (subcategory) {
     return {
-      title: `Wild Orchid Professional | ${subcategory.title}`,
+      title: `${process.env.SHOP_NAME} | ${subcategory.title}`,
     };
   } else {
     return {
-      title: `Wild Orchid Professional}`,
+      title: `${process.env.SHOP_NAME}`,
     };
   }
 }
