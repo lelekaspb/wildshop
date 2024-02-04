@@ -5,7 +5,7 @@ import schemas from "./sanity/schemas";
 
 export default defineConfig({
   name: "default",
-  title: "Wild Shop",
+  title: process.env.SHOP_NAME,
 
   projectId: process.env.SANITY_STUDIO_PROJECT_ID!,
   dataset: process.env.SANITY_STUDIO_DATASET!,
