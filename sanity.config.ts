@@ -5,11 +5,11 @@ import schemas from "./sanity/schemas";
 
 export default defineConfig({
   name: "default",
-  title: process.env.SHOP_NAME,
+  title: "Wild Shop",
 
-  projectId: process.env.SANITY_STUDIO_PROJECT_ID!,
-  dataset: process.env.SANITY_STUDIO_DATASET!,
-  apiVersion: process.env.SANITY_STUDIO_API_VERSION,
+  projectId: "xudcmokc",
+  dataset: "production",
+  apiVersion: "2023-12-04",
   basePath: "/admin",
 
   plugins: [deskTool(), visionTool()],
