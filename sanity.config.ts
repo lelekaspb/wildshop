@@ -7,8 +7,8 @@ export default defineConfig({
   name: "default",
   title: "Wild Shop",
 
-  projectId: process.env.SANITY_STUDIO_PROJECT_ID || "",
-  dataset: process.env.SANITY_STUDIO_DATASET || "",
+  projectId: process.env.SANITY_STUDIO_PROJECT_ID!,
+  dataset: process.env.SANITY_STUDIO_DATASET!,
   apiVersion: process.env.SANITY_STUDIO_API_VERSION,
   basePath: "/admin",
 
